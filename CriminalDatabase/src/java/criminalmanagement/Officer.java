@@ -42,6 +42,84 @@ public class Officer {
         }
     }
     
+    public int checkExists(){
+        Connection conn = connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return -1;
+        }
+        
+        try {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM officers WHERE badge_number = ?");
+            pstmt.setInt(1, badge_number);
+            ResultSet rst = pstmt.executeQuery();
+            
+            // dne
+            if (!rst.isBeforeFirst()) {
+                rst.close();
+                pstmt.close();
+                conn.close();
+                return 0;
+            } 
+             
+            rst.close();
+            pstmt.close();
+            conn.close();
+            
+            System.out.println("Success");
+            return 1;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+    
+    public String[] retrieveOfficer(){
+        Connection conn = connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return null;
+        }
+        
+        try {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM officers WHERE badge_number = ?");
+            pstmt.setInt(1, badge_number);
+            ResultSet rst = pstmt.executeQuery();
+            
+            
+            if (!rst.isBeforeFirst()){
+                return null;
+            }
+
+            
+            String[] arr = null;
+            if (rst.next()) {
+                String badgeNumber = rst.getString("badge_number");
+                String firstName = rst.getString("first_name");
+                String lastName = rst.getString("last_name");
+                String yearsActive = rst.getString("years_of_service");
+                String active = rst.getString("active");
+                String jailCode = rst.getString("jail_code");
+                
+                arr = new String[] { badgeNumber, firstName, lastName, yearsActive,
+                                        active, jailCode};
+            }
+            
+            rst.close();
+            pstmt.close();
+            conn.close();
+            
+            System.out.println("Success");
+   
+            return arr;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
     public int registerNewOfficer(){
         Connection conn = connect();
         
@@ -92,6 +170,48 @@ public class Officer {
         try {
             PreparedStatement pstmt = conn.prepareStatement("UPDATE officers SET jail_code = ? WHERE badge_number = ?");
             pstmt.setInt(1,jail_code);
+            pstmt.setInt(2, badge_number);
+            pstmt.executeUpdate();
+            
+            pstmt.close();
+            conn.close();
+            
+            System.out.println("Success");
+            return 1;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+    
+    public int changeOfficerActive(){
+        Connection conn = connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return -1;
+        }
+        
+        try {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT active FROM officers WHERE badge_number = ?");
+            pstmt.setInt(1, badge_number);
+            ResultSet rst = pstmt.executeQuery();
+            
+            if (rst.next()) { 
+               String active = rst.getString("active"); 
+            }
+
+            if (active == "T"){
+                active = "F";
+            } else {
+                active = "T";
+            }
+
+            pstmt.close();
+            rst.close();
+             
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE officers SET active = ? WHERE badge_number = ?");
+            pstmt.setString(1, active);
             pstmt.setInt(2, badge_number);
             pstmt.executeUpdate();
             
