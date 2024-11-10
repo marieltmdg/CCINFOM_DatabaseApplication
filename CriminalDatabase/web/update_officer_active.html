@@ -5,19 +5,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 -->
 <html>
     <head>
-        <title>Assignment/Reassignment of Officers to Jails</title>
+        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h2>Assign Officer to Jail</h2>
-        <form action="assign_officer.jsp" method="POST">
-            <label for="officer_badgeNumber">Officer Badge Number:</label>
+        <h2>Update Officer Activity</h2>
+        <form action="update_officer_active.jsp" method="POST">
+            <label for="badge_number">Officer Badge Number:</label>
             <input type="text" id="officer_badgeNumber" name="officer_badgeNumber" required><br>
-
-            <label for="jail_code">Jail Code:</label>
-            <input type="text" id="jail_code" name="jail_code" required><br>
-
             <input type="submit" value="Submit">
         </form>
     </body>

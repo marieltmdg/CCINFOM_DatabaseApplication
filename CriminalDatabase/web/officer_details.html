@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body> 
+        <h2>Retrieve Officer</h2>
+        <%
+            String officerBadgeNumber = request.getParameter("officer_badgeNumber");
+
+            if (officerBadgeNumber != null) {
+                try {
+                    int badgeNumber = Integer.parseInt(officerBadgeNumber);
+                    Officer officer = new Officer();
+                    officer.badge_number = badgeNumber;
+                    String[] result = officer.retrieveOfficer();
+
+                    if (result != null) {
+                        out.println("<p>Officer Record Exists.</p>");
+                        out.println("<p>Details</p>");
+                        out.println("<p>Badge Number: " + badgeNumber +"</p>");
+                        out.println("<p>First Name: " + result[1] +"</p>");
+                        out.println("<p>Last Name: " + result[2] +"</p>");
+                        out.println("<p>Years Of Service: " + result[3] +"</p>");
+                        out.println("<p>Active: " + result[4] +"</p>");
+                        out.println("<p>Jail Code: " + result[5] +"</p>");
+                        out.println("<p>Update Active or Update Jail Code?</p>");
+                        out.println("<form action ='update_officer_jailCode.html' method='post'>");
+                        out.println("<input type='submit' value='Update Jail Code'>");
+                        out.println("</form>");
+                        out.println("<form action ='update_officer_active.html' method='post'>");
+                        out.println("<input type='submit' value='Update Active'>");
+                        out.println("</form>");
+                    } else {
+                        out.println("<p>Officer Record Does Not Exist.</p>");
+                        out.println("<p>Would you like to add a new officer?</p>");
+                        out.println("<form action='add_officer.jsp' method='post'>");
+                        out.println("<label for='first_name'>First Name:</label>");
+                        out.println("<input type='text' id='first_name' name='first_name' required><br>");
+                        out.println("<label for='last_name'>Last Name:</label>");
+                        out.println("<input type='text' id='last_name' name='last_name' required><br>");
+                        out.println("<label for='jail_code'>Rank:</label>");
+                        out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
+                        out.println("<input type='submit' value='Add Officer'>");
+                        out.println("</form>");
+                    }
+
+                } catch (NumberFormatException e) {
+                    out.println("<p>Invalid input format. Please enter valid numbers.</p>");
+                }
+            } else {
+                out.println("<p>All fields are required.</p>");
+            }
+        %>
+    </body>
+</html>
