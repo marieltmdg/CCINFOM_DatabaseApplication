@@ -152,11 +152,11 @@ public class Officer {
             conn.close();
             
             System.out.println("Success");
-            return 1;
+            return badge_number;
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return 0;
+        return -1;
     }
     
     public int assignExistingOfficer(){
@@ -201,16 +201,15 @@ public class Officer {
                String active = rst.getString("active"); 
             }
 
-            if (active == "T"){
+            if (active.equals("T")) {
                 active = "F";
             } else {
                 active = "T";
             }
 
-            pstmt.close();
             rst.close();
              
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE officers SET active = ? WHERE badge_number = ?");
+            pstmt = conn.prepareStatement("UPDATE officers SET active = ? WHERE badge_number = ?");
             pstmt.setString(1, active);
             pstmt.setInt(2, badge_number);
             pstmt.executeUpdate();

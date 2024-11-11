@@ -4,10 +4,8 @@
  */
 package criminalmanagement;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.*;
+import java.sql.*;
 
 /**
  *
@@ -44,18 +42,27 @@ public class OfficerHistory {
             return -1;
         }
         
+        PreparedStatement pstmt = null;
         try {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE officer_station_history SET end_Date = Convert(date, getdate()) WHERE badge_number = ? and end_date is null");
+            pstmt = conn.prepareStatement(
+                "UPDATE officer_station_history " +
+                "SET end_date = CURDATE() " +
+                "WHERE badge_number = ? AND end_date IS NULL"
+            );
             pstmt.setInt(1, badge_number);
             pstmt.executeUpdate();
-            
-            pstmt.close();
-            conn.close();
             
             System.out.println("Success");
             return 1;
         } catch(Exception e){
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return -1;
     }
@@ -65,24 +72,30 @@ public class OfficerHistory {
         
         if(conn == null){
             System.out.println("Failed to connect to server");
-            return -1;
+            return -2;
         }
         
+        PreparedStatement pstmt = null;
         try {
-            
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO officer_station_history (badge_number, jail_code, start_date,end_date) VALUES (?, ?, Convert(date, getdate()))");
+            pstmt = conn.prepareStatement(
+                "INSERT INTO officer_station_history (badge_number, jail_code, start_date, end_date) " +
+                "VALUES (?, ?, CURDATE(), null)"
+            );
             pstmt.setInt(1, badge_number);
             pstmt.setInt(2, jail_code);
-            pstmt.setString(3, start_date);
             pstmt.executeUpdate();
-            
-            pstmt.close();
-            conn.close();
             
             System.out.println("Success");
             return 1;
         } catch(Exception e){
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return -1;
     }
