@@ -229,7 +229,11 @@ public class Officer {
                 + "WHERE badge_number = ?"
             );
             pstmt.setString(1, active);
-            pstmt.setInt(2, jail_code);
+            if (jail_code == -1) {
+                pstmt.setNull(2, java.sql.Types.INTEGER);
+            } else {
+                pstmt.setInt(2, jail_code);
+            }
             pstmt.setInt(3, badge_number);
             pstmt.executeUpdate();
             
