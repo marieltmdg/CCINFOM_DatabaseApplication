@@ -34,7 +34,7 @@ public class OfficerHistory {
         }
     }
     
-    public int toggleInactive(){
+    public int removeCurrentAssignment(){
         Connection conn = connect();
         
         if(conn == null){
@@ -77,6 +77,9 @@ public class OfficerHistory {
         
         PreparedStatement pstmt = null;
         try {
+            // remove any current assignment
+            removeCurrentAssignment();
+            
             pstmt = conn.prepareStatement(
                 "INSERT INTO officer_station_history (badge_number, jail_code, start_date, end_date) " +
                 "VALUES (?, ?, CURDATE(), null)"

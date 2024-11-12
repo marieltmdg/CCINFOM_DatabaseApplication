@@ -4,11 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/src/java/criminalmanagement/Officer.java</file>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/retrieve_officer.html</file>
             <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/update_officer_active.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/update_officer_jailCode.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/index.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/add_officer.jsp</file>
             <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/add_officer.html</file>
             <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/src/java/criminalmanagement/OfficerHistory.java</file>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/officer_details.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/update_officer_active.html</file>
             <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/retrieve_officer.jsp</file>
         </group>
     </open-files>

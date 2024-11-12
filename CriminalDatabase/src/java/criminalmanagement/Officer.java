@@ -50,8 +50,11 @@ public class Officer {
             return -1;
         }
         
+        PreparedStatement pstmt = null;
         try {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM officers WHERE badge_number = ?");
+            pstmt = conn.prepareStatement(
+                    "SELECT * FROM officers "
+                            + "WHERE badge_number = ?");
             pstmt.setInt(1, badge_number);
             ResultSet rst = pstmt.executeQuery();
             
@@ -64,13 +67,18 @@ public class Officer {
             } 
              
             rst.close();
-            pstmt.close();
-            conn.close();
             
             System.out.println("Success");
             return 1;
         } catch(Exception e){
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return -1;
     }
@@ -83,8 +91,9 @@ public class Officer {
             return null;
         }
         
+        PreparedStatement pstmt = null;
         try {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM officers WHERE badge_number = ?");
+            pstmt = conn.prepareStatement("SELECT * FROM officers WHERE badge_number = ?");
             pstmt.setInt(1, badge_number);
             ResultSet rst = pstmt.executeQuery();
             
@@ -108,14 +117,19 @@ public class Officer {
             }
             
             rst.close();
-            pstmt.close();
-            conn.close();
             
             System.out.println("Success");
    
             return arr;
         } catch(Exception e){
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -128,16 +142,19 @@ public class Officer {
             return -1;
         }
         
+        PreparedStatement pstmt = null;
         try {
              
             // create new in db
-            PreparedStatement pstmt = conn.prepareStatement("SELECT MAX(badge_number) + 1 as newID FROM officers");
+            pstmt = conn.prepareStatement("SELECT MAX(badge_number) + 1 as newID FROM officers");
             ResultSet rst = pstmt.executeQuery();
             while (rst.next()){
                 badge_number = rst.getInt("newId");
             }
             
-            pstmt = conn.prepareStatement("INSERT INTO officers (badge_number, first_name, last_name, years_of_service, active, jail_code) VALUES (?, ?, ?, ?, ?, ?)");
+            pstmt = conn.prepareStatement(
+                "INSERT INTO officers (badge_number, first_name, last_name, years_of_service, active, jail_code) "
+                + "VALUES (?, ?, ?, ?, ?, ?)");
             pstmt.setInt(1,badge_number);
             pstmt.setString(2, first_name);
             pstmt.setString(3, last_name);
@@ -148,13 +165,18 @@ public class Officer {
             pstmt.setInt(6, jail_code);
             pstmt.executeUpdate();
             
-            pstmt.close();
-            conn.close();
             
             System.out.println("Success");
             return badge_number;
         } catch(Exception e){
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return -1;
     }
@@ -167,19 +189,27 @@ public class Officer {
             return -1;
         }
         
+        PreparedStatement pstmt = null;
         try {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE officers SET jail_code = ? WHERE badge_number = ?");
+            pstmt = conn.prepareStatement(
+                "UPDATE officers SET jail_code = ? "
+                + "WHERE badge_number = ?"
+            );
             pstmt.setInt(1,jail_code);
             pstmt.setInt(2, badge_number);
             pstmt.executeUpdate();
-            
-            pstmt.close();
-            conn.close();
             
             System.out.println("Success");
             return 1;
         } catch(Exception e){
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return 0;
     }
@@ -192,35 +222,61 @@ public class Officer {
             return -1;
         }
         
+        PreparedStatement pstmt = null;
         try {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT active FROM officers WHERE badge_number = ?");
-            pstmt.setInt(1, badge_number);
-            ResultSet rst = pstmt.executeQuery();
-            
-            if (rst.next()) { 
-               String active = rst.getString("active"); 
-            }
-
-            if (active.equals("T")) {
-                active = "F";
-            } else {
-                active = "T";
-            }
-
-            rst.close();
-             
-            pstmt = conn.prepareStatement("UPDATE officers SET active = ? WHERE badge_number = ?");
+            pstmt = conn.prepareStatement(
+                "UPDATE officers SET active = ?, jail_code = ? "
+                + "WHERE badge_number = ?"
+            );
             pstmt.setString(1, active);
-            pstmt.setInt(2, badge_number);
+            pstmt.setInt(2, jail_code);
+            pstmt.setInt(3, badge_number);
             pstmt.executeUpdate();
-            
-            pstmt.close();
-            conn.close();
             
             System.out.println("Success");
             return 1;
         } catch(Exception e){
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
+    
+    public int changeOfficerJailCode(){
+        Connection conn = connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return -1;
+        }
+        
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(
+                "UPDATE officers SET jail_code = ? "
+                + "WHERE badge_number = ?"
+            );
+            pstmt.setInt(1, jail_code);
+            pstmt.setInt(2, badge_number);
+            pstmt.executeUpdate();
+            
+            System.out.println("Success");
+            return 1;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return 0;
     }

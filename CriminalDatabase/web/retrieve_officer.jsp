@@ -40,13 +40,18 @@
                         out.println("<form action='update_officer_jailCode.jsp' method='post'>");
                         out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
                         out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
+                        out.println("<label for='jail_code'>New Jail Code:</label>");
+                        out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
                         out.println("<input type='submit' value='Update Jail Code'>");
                         out.println("</form>");
 
-                        // Form for updating Active status, including badge number as a hidden field
                         out.println("<form action='update_officer_active.jsp' method='post'>");
                         out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
                         out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
+                        if (result[4].equals("F")){
+                            out.println("<label for='jail_code'>New Jail Code:</label>");
+                            out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
+                        }
                         out.println("<input type='submit' value='Update Active'>");
                         out.println("</form>");
                     } else {

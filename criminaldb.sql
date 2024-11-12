@@ -2158,7 +2158,7 @@ INSERT INTO `Officers` VALUES
 
 DROP TABLE IF EXISTS officer_station_history;
 CREATE TABLE officer_station_history(
-   badge_number INTEGER  NOT NULL PRIMARY KEY 
+   badge_number INTEGER  NOT NULL
   ,jail_code    INTEGER  NOT NULL
   ,start_date   DATE  NOT NULL
   ,end_date     DATE 
