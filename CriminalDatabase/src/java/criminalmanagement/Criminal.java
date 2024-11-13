@@ -118,14 +118,6 @@ public class Criminal {
         
         PreparedStatement pstmt = null;
         try {
-//            pstmt = conn.prepareStatement(
-//                    "SELECT crim.criminal_code, crim.first_name, crim.last_name, crim.total_sentence, crim.jail_code, c.date_committed"
-//                    + "FROM criminals crim"
-//                    + "JOIN crimes c ON crim.criminal_code = c.criminal_code"
-//                    + "WHERE c.criminal_code = ?"
-//                    + "ORDER BY c.date_committed DESC"
-//                    + "LIMIT 1"
-//                    );
             pstmt = conn.prepareStatement("SELECT * FROM criminals WHERE criminal_code = ?");
             pstmt.setInt(1, criminal_code);
             ResultSet rst = pstmt.executeQuery();
