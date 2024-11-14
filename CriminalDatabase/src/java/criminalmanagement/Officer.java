@@ -18,13 +18,6 @@ public class Officer {
     public String active;
     public int jail_code;
     
-    public ArrayList<Integer> officer_badgeNumber = new ArrayList<>();
-    public ArrayList<String> officer_fNameList = new ArrayList<>();
-    public ArrayList<String> officer_lNameList = new ArrayList<>();
-    public ArrayList<Integer> officer_yearsOfServiceList = new ArrayList<>();
-    public ArrayList<String> officer_activeList = new ArrayList<>();
-    public ArrayList<Integer> officer_jailCode = new ArrayList<>();
-    
     public Connection connect(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -230,7 +223,7 @@ public class Officer {
             );
             pstmt.setString(1, active);
             if (jail_code == -1) {
-                pstmt.setNull(2, java.sql.Types.INTEGER);
+                pstmt.setNull(2, java.sql.Types.VARCHAR);
             } else {
                 pstmt.setInt(2, jail_code);
             }
