@@ -37,13 +37,19 @@
                         out.println("<p>Active: " + result[4] +"</p>");
                         out.println("<p>Jail Code: " + result[5] +"</p>");
                         out.println("<p>Update Active or Update Jail Code?</p>");
-                        out.println("<form action='update_officer_jailCode.jsp' method='post'>");
-                        out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
-                        out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
-                        out.println("<label for='jail_code'>New Jail Code:</label>");
-                        out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
-                        out.println("<input type='submit' value='Update Jail Code'>");
-                        out.println("</form>");
+                        
+                        // active
+                        if (result[4].equals("T")) {
+                            out.println("<form action='update_officer_jailCode.jsp' method='post'>");
+                            out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
+                            out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
+                            out.println("<label for='jail_code'>New Jail Code:</label>");
+                            out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
+                            out.println("<input type='submit' value='Update Jail Code'>");
+                            out.println("</form>");
+                        } else {
+                            out.println("<p>Officer currently inactive. Cannot change jail code.</p>");
+                        }
 
                         out.println("<form action='update_officer_active.jsp' method='post'>");
                         out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");

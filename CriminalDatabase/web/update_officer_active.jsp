@@ -79,6 +79,8 @@
                                 out.println("<p>Years Of Service: " + result[3] +"</p>");
                                 out.println("<p>Active: " + result[4] +"</p>");
                                 out.println("<p>Jail Code: " + result[5] +"</p>");
+                            } else if (activateRes == -2){
+                                out.println("<p>Jail does not exist.</p>");
                             } else {
                                 out.println("<p>Update Unsuccessful.</p>");
                             }

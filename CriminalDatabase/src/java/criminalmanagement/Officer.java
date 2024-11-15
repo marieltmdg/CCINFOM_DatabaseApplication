@@ -255,6 +255,15 @@ public class Officer {
         
         PreparedStatement pstmt = null;
         try {
+            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ?");
+            pstmt.setInt(1, jail_code); 
+
+            ResultSet rst = pstmt.executeQuery();
+
+            if (!rst.next()) {
+                return -2; 
+            }
+            
             pstmt = conn.prepareStatement(
                 "UPDATE officers SET jail_code = ? "
                 + "WHERE badge_number = ?"
