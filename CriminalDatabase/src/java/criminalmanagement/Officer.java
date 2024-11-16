@@ -224,27 +224,19 @@ public class Officer {
         
         PreparedStatement pstmt = null;
         try {
-            //inactive
-            if (jail_code == -1) {
-                pstmt = conn.prepareStatement(
-                "UPDATE officers SET active = ?, jail_code = ?, start_date_current = CURDATE() "
-                + "WHERE badge_number = ?"
+            pstmt = conn.prepareStatement(
+            "UPDATE officers SET active = ?, jail_code = ?, start_date_current = CURDATE() "
+            + "WHERE badge_number = ?"
             );
-                pstmt.setString(1, active);
+            pstmt.setString(1, active);
+
+            if (jail_code == -1){ 
                 pstmt.setNull(2, java.sql.Types.VARCHAR);
-                pstmt.setInt(3, badge_number);
-               
             } else {
-                //active
-                pstmt = conn.prepareStatement(
-                "UPDATE officers SET active = ?, jail_code = ?, start_date_current = CURDATE() "
-                + "WHERE badge_number = ?"
-                );
-                
-                pstmt.setString(1, active);
                 pstmt.setInt(2, jail_code);
-                pstmt.setInt(3, badge_number);
             }
+            pstmt.setInt(3, badge_number);
+               
             pstmt.executeUpdate();
             
             System.out.println("Success");
