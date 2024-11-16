@@ -33,16 +33,16 @@
                         out.println("<p>Badge Number: " + badgeNumber +"</p>");
                         out.println("<p>First Name: " + result[1] +"</p>");
                         out.println("<p>Last Name: " + result[2] +"</p>");
-                        out.println("<p>Years Of Service: " + result[3] +"</p>");
-                        out.println("<p>Active: " + result[4] +"</p>");
-                        out.println("<p>Jail Code: " + result[5] +"</p>");
+                        out.println("<p>Active: " + result[3] +"</p>");
+                        out.println("<p>Jail Code: " + result[4] +"</p>");
+                        out.println("<p>Start Date of Assignment: " + result[5] +"</p>");
                         out.println("<p>Update Active or Update Jail Code?</p>");
                         
                         // active
-                        if (result[4].equals("T")) {
+                        if (result[3].equals("T")) {
                             out.println("<form action='update_officer_jailCode.jsp' method='post'>");
                             out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
-                            out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
+                            out.println("<input type='hidden' name='active_status' value='" + result[3] + "'>");
                             out.println("<label for='jail_code'>New Jail Code:</label>");
                             out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
                             out.println("<input type='submit' value='Update Jail Code'>");
@@ -53,8 +53,8 @@
 
                         out.println("<form action='update_officer_active.jsp' method='post'>");
                         out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
-                        out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
-                        if (result[4].equals("F")){
+                        out.println("<input type='hidden' name='active_status' value='" + result[3] + "'>");
+                        if (result[3].equals("F")){
                             out.println("<label for='jail_code'>New Jail Code:</label>");
                             out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
                         }

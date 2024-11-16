@@ -14,7 +14,7 @@ public class Officer {
     public int badge_number;
     public String first_name;  
     public String last_name;
-    public int years_of_service;
+    public java.sql.Date start_date_current;
     public String active;
     public int jail_code;
     
@@ -44,12 +44,13 @@ public class Officer {
         }
         
         PreparedStatement pstmt = null;
+        ResultSet rst = null;
         try {
             pstmt = conn.prepareStatement(
                     "SELECT * FROM officers "
                             + "WHERE badge_number = ?");
             pstmt.setInt(1, badge_number);
-            ResultSet rst = pstmt.executeQuery();
+            rst = pstmt.executeQuery();
             
             // dne
             if (!rst.isBeforeFirst()) {
@@ -68,6 +69,7 @@ public class Officer {
         } finally {
             try {
                 if (pstmt != null) pstmt.close();
+                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -85,11 +87,11 @@ public class Officer {
         }
         
         PreparedStatement pstmt = null;
+        ResultSet rst = null;
         try {
             pstmt = conn.prepareStatement("SELECT * FROM officers WHERE badge_number = ?");
             pstmt.setInt(1, badge_number);
-            ResultSet rst = pstmt.executeQuery();
-            
+            rst = pstmt.executeQuery();
             
             if (!rst.isBeforeFirst()){
                 return null;
@@ -101,16 +103,15 @@ public class Officer {
                 String badgeNumber = rst.getString("badge_number");
                 String firstName = rst.getString("first_name");
                 String lastName = rst.getString("last_name");
-                String yearsActive = rst.getString("years_of_service");
                 String active = rst.getString("active");
                 String jailCode = rst.getString("jail_code");
+                String startDate = rst.getString("start_date_current");
                 
-                arr = new String[] { badgeNumber, firstName, lastName, yearsActive,
-                                        active, jailCode};
+                arr = new String[] { badgeNumber, firstName, lastName, active,
+                                        jailCode, startDate};
             }
             
-            rst.close();
-            
+     
             System.out.println("Success");
    
             return arr;
@@ -119,6 +120,7 @@ public class Officer {
         } finally {
             try {
                 if (pstmt != null) pstmt.close();
+                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -136,26 +138,30 @@ public class Officer {
         }
         
         PreparedStatement pstmt = null;
+        ResultSet rst = null;
         try {
-             
+            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ?");
+            pstmt.setInt(1, jail_code); 
+
+            rst = pstmt.executeQuery();
+
+            if (!rst.next()) {
+                return -2; 
+            }
             // create new in db
             pstmt = conn.prepareStatement("SELECT MAX(badge_number) + 1 as newID FROM officers");
-            ResultSet rst = pstmt.executeQuery();
+            rst = pstmt.executeQuery();
             while (rst.next()){
                 badge_number = rst.getInt("newId");
             }
             
             pstmt = conn.prepareStatement(
-                "INSERT INTO officers (badge_number, first_name, last_name, years_of_service, active, jail_code) "
-                + "VALUES (?, ?, ?, ?, ?, ?)");
+                "INSERT INTO officers (badge_number, first_name, last_name, start_date_current, active, jail_code) "
+                + "VALUES (?, ?, ?, CURDATE(), \"T\", ?)");
             pstmt.setInt(1,badge_number);
             pstmt.setString(2, first_name);
             pstmt.setString(3, last_name);
-            years_of_service = 0;
-            pstmt.setInt(4, years_of_service);
-            active = "T";
-            pstmt.setString(5, active);
-            pstmt.setInt(6, jail_code);
+            pstmt.setInt(4, jail_code);
             pstmt.executeUpdate();
             
             
@@ -166,6 +172,7 @@ public class Officer {
         } finally {
             try {
                 if (pstmt != null) pstmt.close();
+                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -185,7 +192,7 @@ public class Officer {
         PreparedStatement pstmt = null;
         try {
             pstmt = conn.prepareStatement(
-                "UPDATE officers SET jail_code = ? "
+                "UPDATE officers SET jail_code = ?, start_date_current = CURDATE() "
                 + "WHERE badge_number = ?"
             );
             pstmt.setInt(1,jail_code);
@@ -217,17 +224,27 @@ public class Officer {
         
         PreparedStatement pstmt = null;
         try {
-            pstmt = conn.prepareStatement(
-                "UPDATE officers SET active = ?, jail_code = ? "
+            //inactive
+            if (jail_code == -1) {
+                pstmt = conn.prepareStatement(
+                "UPDATE officers SET active = ?, jail_code = ?, start_date_current = CURDATE() "
                 + "WHERE badge_number = ?"
             );
-            pstmt.setString(1, active);
-            if (jail_code == -1) {
+                pstmt.setString(1, active);
                 pstmt.setNull(2, java.sql.Types.VARCHAR);
+                pstmt.setInt(3, badge_number);
+               
             } else {
+                //active
+                pstmt = conn.prepareStatement(
+                "UPDATE officers SET active = ?, jail_code = ?, start_date_current = CURDATE() "
+                + "WHERE badge_number = ?"
+                );
+                
+                pstmt.setString(1, active);
                 pstmt.setInt(2, jail_code);
+                pstmt.setInt(3, badge_number);
             }
-            pstmt.setInt(3, badge_number);
             pstmt.executeUpdate();
             
             System.out.println("Success");
@@ -254,18 +271,19 @@ public class Officer {
         }
         
         PreparedStatement pstmt = null;
+        ResultSet rst = null;
         try {
             pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ?");
             pstmt.setInt(1, jail_code); 
 
-            ResultSet rst = pstmt.executeQuery();
+            rst = pstmt.executeQuery();
 
             if (!rst.next()) {
                 return -2; 
             }
             
             pstmt = conn.prepareStatement(
-                "UPDATE officers SET jail_code = ? "
+                "UPDATE officers SET jail_code = ?, start_date_current = CURDATE()"
                 + "WHERE badge_number = ?"
             );
             pstmt.setInt(1, jail_code);
@@ -279,6 +297,7 @@ public class Officer {
         } finally {
             try {
                 if (pstmt != null) pstmt.close();
+                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();

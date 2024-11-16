@@ -26,8 +26,8 @@ CREATE TABLE officers(
     `First_Name`        char(100) NOT NULL DEFAULT '',
     `Last_Name`         char(100)  NOT NULL DEFAULT '',
     `Jail_Code`         INTEGER DEFAULT '0',
-    `Years_of_Service`  INTEGER  NOT NULL DEFAULT '0',
-    `Active`            char(100) NOT NULL DEFAULT '', 
+    `Start_Date_Current`  DATE,
+    `Active`            char(1) NOT NULL DEFAULT '', 
     FOREIGN KEY(`Jail_Code`) REFERENCES Jails(`Jail_Code`)
 );
 
@@ -46,9 +46,9 @@ CREATE TABLE Crimes(
 DROP TABLE IF EXISTS officer_station_history;
 CREATE TABLE officer_station_history(
    Badge_Number INTEGER  NOT NULL,
-   Jail_Code    INTEGER , 
+   Jail_Code    INTEGER NOT NULL, 
    start_date   DATE  NOT NULL, 
-   end_date     DATE,
+   end_date     DATE NOT NULL,
    FOREIGN KEY(Badge_Number) REFERENCES officers(Badge_Number),
    FOREIGN KEY(Jail_Code) REFERENCES jails(Jail_Code)
 );
@@ -878,306 +878,306 @@ INSERT INTO `Criminals` VALUES
 ,(799,'Venus','Villeneuve',249,4);
 
 INSERT INTO `Officers` VALUES
- (0,'Vivian','Murray',1,24,'T')
-,(1,'Vanessa','Moore',3,5,'T')
-,(2,'Leonardo','Foster',2,20,'T')
-,(3,'Violet','Crawford',0,3,'T')
-,(4,'Reid','Perkins',2,17,'T')
-,(5,'Maya','Thompson',NULL,21,'F')
-,(6,'Heather','Smith',3,22,'T')
-,(7,'Tara','Cooper',0,12,'T')
-,(8,'John','Roberts',7,28,'T')
-,(9,'Tyler','Scott',2,7,'T')
-,(10,'Abigail','Howard',1,11,'T')
-,(11,'Ted','Warren',5,27,'T')
-,(12,'Darcy','Harris',NULL,10,'F')
-,(13,'Adelaide','Cunningham',4,7,'T')
-,(14,'Bruce','Murray',7,6,'T')
-,(15,'Freddie','Johnson',0,23,'T')
-,(16,'Jacob','Payne',4,12,'T')
-,(17,'Jenna','Holmes',0,16,'T')
-,(18,'Isabella','Hawkins',4,2,'T')
-,(19,'Adrian','Tucker',1,8,'T')
-,(20,'Daniel','Evans',3,7,'T')
-,(21,'Paige','Parker',5,16,'T')
-,(22,'Darcy','Turner',9,12,'T')
-,(23,'Kelsey','Stewart',NULL,10,'F')
-,(24,'Julian','Davis',5,2,'T')
-,(25,'Kimberly','Holmes',7,29,'T')
-,(26,'Lenny','Morris',9,24,'T')
-,(27,'John','Johnston',0,25,'T')
-,(28,'Maria','Harrison',2,7,'T')
-,(29,'Brooke','Smith',8,5,'T')
-,(30,'Caroline','Hunt',7,30,'T')
-,(31,'Lucy','Sullivan',4,21,'T')
-,(32,'Sophia','Miller',3,28,'T')
-,(33,'Aiden','Adams',4,12,'T')
-,(34,'Aiden','Holmes',9,23,'T')
-,(35,'James','Martin',3,6,'T')
-,(36,'Ryan','Tucker',7,27,'T')
-,(37,'Emily','Morgan',0,3,'T')
-,(38,'Gianna','Campbell',7,9,'T')
-,(39,'Dominik','Ryan',9,10,'T')
-,(40,'Alexander','Morrison',3,11,'T')
-,(41,'Richard','Montgomery',3,0,'T')
-,(42,'Violet','Murphy',6,19,'T')
-,(43,'Alina','Stewart',NULL,13,'F')
-,(44,'Adam','Stewart',1,21,'T')
-,(45,'Antony','Baker',7,10,'T')
-,(46,'Adelaide','Mitchell',7,16,'T')
-,(47,'Arnold','Gray',7,1,'T')
-,(48,'Rosie','Smith',0,0,'T')
-,(49,'Carina','Crawford',3,15,'T')
-,(50,'Lenny','Scott',3,18,'T')
-,(51,'Natalie','Watson',0,11,'T')
-,(52,'Alen','Casey',3,28,'T')
-,(53,'Kristian','Montgomery',8,24,'T')
-,(54,'Bruce','Murphy',8,22,'T')
-,(55,'Frederick','Cole',1,23,'T')
-,(56,'Charlie','Taylor',9,19,'T')
-,(57,'Daniel','Smith',3,29,'T')
-,(58,'Henry','Ellis',4,22,'T')
-,(59,'Olivia','Martin',9,25,'T')
-,(60,'Alina','Henderson',4,27,'T')
-,(61,'Sawyer','Harris',7,9,'T')
-,(62,'Vanessa','Thomas',7,15,'T')
-,(63,'Chester','Foster',5,6,'T')
-,(64,'Sabrina','Farrell',8,12,'T')
-,(65,'Cadie','Martin',8,0,'T')
-,(66,'Melanie','Kelly',0,11,'T')
-,(67,'Valeria','Elliott',8,7,'T')
-,(68,'Eleanor','Douglas',4,29,'T')
-,(69,'Arianna','Nelson',9,18,'T')
-,(70,'Rafael','Robinson',1,13,'T')
-,(71,'Sam','Campbell',9,20,'T')
-,(72,'Brooke','Taylor',7,12,'T')
-,(73,'Abigail','Perkins',1,11,'T')
-,(74,'Sam','Russell',5,28,'T')
-,(75,'Chester','Reed',1,12,'T')
-,(76,'Ashton','Craig',1,27,'T')
-,(77,'Catherine','Owens',3,1,'T')
-,(78,'Victoria','Elliott',0,25,'T')
-,(79,'Evelyn','Campbell',9,7,'T')
-,(80,'Lydia','Thompson',2,14,'T')
-,(81,'Aldus','Hunt',7,3,'T')
-,(82,'Ted','Turner',6,4,'T')
-,(83,'Vivian','Dixon',5,25,'T')
-,(84,'Lydia','Smith',4,13,'T')
-,(85,'Jordan','Davis',6,21,'T')
-,(86,'Brooke','Reed',7,0,'T')
-,(87,'Kristian','Scott',3,11,'T')
-,(88,'Gianna','Farrell',1,22,'T')
-,(89,'Spike','Kelley',7,16,'T')
-,(90,'Tiana','Turner',0,11,'T')
-,(91,'Derek','Turner',7,27,'T')
-,(92,'Dexter','Rogers',3,2,'T')
-,(93,'Amy','Cole',3,23,'T')
-,(94,'Edgar','Higgins',3,10,'T')
-,(95,'Alen','Williams',6,20,'T')
-,(96,'Daniel','Roberts',2,8,'T')
-,(97,'Isabella','Higgins',3,26,'T')
-,(98,'Stella','Morgan',0,4,'T')
-,(99,'Robert','Morris',6,2,'T')
-,(100,'Oliver','Grant',6,5,'T')
-,(101,'Sydney','Morris',1,29,'T')
-,(102,'Joyce','Andrews',5,15,'T')
-,(103,'Alina','Johnston',0,5,'T')
-,(104,'Rafael','Sullivan',8,20,'T')
-,(105,'Ryan','Cameron',8,3,'T')
-,(106,'Camila','Stewart',4,15,'T')
-,(107,'Carlos','Fowler',0,29,'T')
-,(108,'Daryl','Kelley',9,28,'T')
-,(109,'Gianna','Casey',1,3,'T')
-,(110,'Jordan','Stevens',4,10,'T')
-,(111,'Frederick','Alexander',5,9,'T')
-,(112,'William','Montgomery',7,9,'T')
-,(113,'Catherine','Cooper',4,26,'T')
-,(114,'Emily','Lloyd',7,23,'T')
-,(115,'Leonardo','Grant',8,30,'T')
-,(116,'Jack','Sullivan',3,18,'T')
-,(117,'Valeria','Kelley',5,22,'T')
-,(118,'Ashton','Wells',4,11,'T')
-,(119,'Rafael','Gray',7,21,'T')
-,(120,'Daryl','Davis',9,9,'T')
-,(121,'Amber','Smith',6,4,'T')
-,(122,'Ashton','Williams',4,26,'T')
-,(123,'Maddie','Crawford',2,4,'T')
-,(124,'Oliver','Alexander',7,13,'T')
-,(125,'Robert','Douglas',5,15,'T')
-,(126,'Dale','Grant',9,12,'T')
-,(127,'Eric','Rogers',8,16,'T')
-,(128,'Adison','Johnson',5,20,'T')
-,(129,'Lily','Mason',9,14,'T')
-,(130,'Daryl','Smith',6,8,'T')
-,(131,'Miller','Stewart',2,2,'T')
-,(132,'Ned','Taylor',7,22,'T')
-,(133,'Kellan','Payne',2,14,'T')
-,(134,'Dainton','Davis',8,20,'T')
-,(135,'Maria','Crawford',3,16,'T')
-,(136,'Marcus','Holmes',1,6,'T')
-,(137,'Catherine','Watson',0,29,'T')
-,(138,'Melanie','Cameron',8,18,'T')
-,(139,'Richard','Henderson',7,19,'T')
-,(140,'William','Scott',1,22,'T')
-,(141,'Ted','Riley',5,7,'T')
-,(142,'Valeria','Davis',5,1,'T')
-,(143,'Harold','Ferguson',3,6,'T')
-,(144,'Clark','Smith',6,14,'T')
-,(145,'Lydia','Payne',6,10,'T')
-,(146,'Eddy','Ryan',5,9,'T')
-,(147,'Chelsea','Harris',2,12,'T')
-,(148,'Anna','Richards',7,14,'T')
-,(149,'Maddie','Elliott',9,30,'T')
-,(150,'Paul','Allen',9,18,'T')
-,(151,'Andrew','Hawkins',8,14,'T')
-,(152,'Dominik','Douglas',4,11,'T')
-,(153,'Rosie','Davis',7,10,'T')
-,(154,'Ashton','Richardson',7,16,'T')
-,(155,'Lyndon','Owens',9,11,'T')
-,(156,'Maddie','Chapman',6,17,'T')
-,(157,'Maya','Payne',4,27,'T')
-,(158,'Savana','Reed',4,5,'T')
-,(159,'Aldus','Allen',6,12,'T')
-,(160,'Ryan','Hawkins',2,17,'T')
-,(161,'Elian','Taylor',1,27,'T')
-,(162,'Deanna','Craig',6,26,'T')
-,(163,'Connie','Walker',9,19,'T')
-,(164,'Lucia','Scott',9,7,'T')
-,(165,'Tiana','Wells',3,27,'T')
-,(166,'Gianna','Murphy',4,9,'T')
-,(167,'Lydia','Brooks',8,29,'T')
-,(168,'Ellia','Williams',4,11,'T')
-,(169,'Vincent','Allen',3,2,'T')
-,(170,'Miley','Perry',0,21,'T')
-,(171,'Victor','Wells',6,21,'T')
-,(172,'William','Howard',5,16,'T')
-,(173,'Jack','Hall',7,17,'T')
-,(174,'Nicole','Johnson',3,17,'T')
-,(175,'Alissa','Cunningham',2,5,'T')
-,(176,'Edwin','Cameron',2,17,'T')
-,(177,'Max','Ryan',9,11,'T')
-,(178,'Marcus','Richardson',6,10,'T')
-,(179,'Roland','Murphy',5,24,'T')
-,(180,'Samantha','Thompson',5,23,'T')
-,(181,'Lucas','Brooks',6,0,'T')
-,(182,'Kimberly','Howard',1,7,'T')
-,(183,'Garry','Taylor',1,21,'T')
-,(184,'Adrianna','Jones',1,29,'T')
-,(185,'Roman','Murray',0,24,'T')
-,(186,'Roman','Thompson',5,24,'T')
-,(187,'Reid','Morris',7,3,'T')
-,(188,'Alexia','Hamilton',0,5,'T')
-,(189,'Sofia','Carter',9,14,'T')
-,(190,'Alina','Myers',2,23,'T')
-,(191,'Connie','Spencer',9,10,'T')
-,(192,'Olivia','Parker',1,24,'T')
-,(193,'Eddy','Miller',3,10,'T')
-,(194,'Edgar','Hunt',7,15,'T')
-,(195,'Arthur','Evans',4,8,'T')
-,(196,'Violet','Morgan',7,10,'T')
-,(197,'Amber','Allen',6,3,'T')
-,(198,'Antony','Armstrong',2,7,'T')
-,(199,'Miley','Russell',8,26,'T')
-,(200,'Ryan','Warren',8,19,'T')
-,(201,'Reid','Morrison',9,10,'T')
-,(202,'James','Crawford',0,1,'T')
-,(203,'Audrey','Allen',8,0,'T')
-,(204,'Vincent','Craig',9,30,'T')
-,(205,'David','Mason',6,3,'T')
-,(206,'Audrey','Robinson',8,25,'T')
-,(207,'Amy','Brown',8,11,'T')
-,(208,'Belinda','Ellis',1,30,'T')
-,(209,'Annabella','Adams',6,20,'T')
-,(210,'Aida','Ferguson',1,3,'T')
-,(211,'Eric','Perry',6,19,'T')
-,(212,'Abigail','Adams',8,13,'T')
-,(213,'Kristian','Perry',6,30,'T')
-,(214,'Roland','Douglas',2,3,'T')
-,(215,'Edward','Tucker',8,27,'T')
-,(216,'Agata','Parker',0,23,'T')
-,(217,'Camila','Watson',8,1,'T')
-,(218,'Alan','Myers',0,5,'T')
-,(219,'Michelle','Gibson',6,21,'T')
-,(220,'Alfred','Hall',4,5,'T')
-,(221,'Alissa','Morris',0,4,'T')
-,(222,'Eleanor','Chapman',2,24,'T')
-,(223,'Jacob','Cunningham',2,0,'T')
-,(224,'Charlie','Gibson',2,2,'T')
-,(225,'Ashton','Wright',4,6,'T')
-,(226,'Melissa','Roberts',2,8,'T')
-,(227,'Marcus','Kelly',4,7,'T')
-,(228,'Adison','Mitchell',7,15,'T')
-,(229,'Oliver','Martin',0,15,'T')
-,(230,'Heather','Phillips',8,21,'T')
-,(231,'Max','Henderson',8,3,'T')
-,(232,'Tony','Lloyd',3,3,'T')
-,(233,'Darcy','Morgan',2,4,'T')
-,(234,'Joyce','Armstrong',1,1,'T')
-,(235,'Paul','West',3,26,'T')
-,(236,'Steven','Thomas',8,25,'T')
-,(237,'Henry','Evans',6,27,'T')
-,(238,'Tiana','Thomas',0,23,'T')
-,(239,'Jenna','Casey',2,23,'T')
-,(240,'Lucia','Brown',9,19,'T')
-,(241,'Carina','Campbell',5,4,'T')
-,(242,'Bruce','Morrison',5,17,'T')
-,(243,'Kevin','Brown',7,3,'T')
-,(244,'Stuart','Andrews',7,14,'T')
-,(245,'Mike','Stevens',5,22,'T')
-,(246,'Elian','Montgomery',6,9,'T')
-,(247,'Vivian','Gibson',8,17,'T')
-,(248,'Deanna','Holmes',2,18,'T')
-,(249,'Spike','Wright',5,1,'T')
-,(250,'Brianna','Crawford',8,3,'T')
-,(251,'Andrew','Reed',6,29,'T')
-,(252,'Aldus','Murray',5,1,'T')
-,(253,'Emily','Richards',8,3,'T')
-,(254,'Agata','Roberts',6,11,'T')
-,(255,'Jessica','Carter',6,20,'T')
-,(256,'Sabrina','Morrison',1,24,'T')
-,(257,'Victoria','Moore',5,13,'T')
-,(258,'Lana','Johnson',2,17,'T')
-,(259,'Walter','Scott',5,24,'T')
-,(260,'Albert','Johnson',3,1,'T')
-,(261,'Melissa','Craig',4,2,'T')
-,(262,'Annabella','Rogers',4,23,'T')
-,(263,'Kelvin','Cooper',0,12,'T')
-,(264,'Paul','Martin',7,17,'T')
-,(265,'Honey','Johnson',5,17,'T')
-,(266,'Annabella','Owens',6,4,'T')
-,(267,'Elise','Anderson',0,20,'T')
-,(268,'Adam','Hill',9,16,'T')
-,(269,'Owen','Nelson',9,9,'T')
-,(270,'Robert','Wells',4,13,'T')
-,(271,'Elise','Evans',8,20,'T')
-,(272,'Myra','Sullivan',5,27,'T')
-,(273,'Oscar','Henderson',9,7,'T')
-,(274,'Rebecca','Roberts',1,21,'T')
-,(275,'Melissa','Kelley',9,3,'T')
-,(276,'Gianna','Payne',3,1,'T')
-,(277,'Brooke','Ryan',5,9,'T')
-,(278,'Camila','Spencer',3,10,'T')
-,(279,'Aida','Hill',4,23,'T')
-,(280,'Alford','Dixon',7,12,'T')
-,(281,'Kevin','West',3,25,'T')
-,(282,'Daisy','Kelly',7,14,'T')
-,(283,'Alissa','Tucker',2,1,'T')
-,(284,'Kelsey','Alexander',2,29,'T')
-,(285,'Nicholas','Payne',3,11,'T')
-,(286,'Tony','Rogers',7,24,'T')
-,(287,'Edith','Cooper',0,6,'T')
-,(288,'Cherry','Johnston',7,30,'T')
-,(289,'Belinda','Barrett',6,3,'T')
-,(290,'Aston','Farrell',9,23,'T')
-,(291,'Daisy','Harris',1,11,'T')
-,(292,'Edith','Hamilton',0,8,'T')
-,(293,'Sofia','Henderson',4,14,'T')
-,(294,'Leonardo','Mitchell',1,11,'T')
-,(295,'Wilson','Roberts',3,7,'T')
-,(296,'Daisy','Casey',5,12,'T')
-,(297,'Vincent','Payne',2,12,'T')
-,(298,'Eleanor','Cole',8,27,'T')
-,(299,'Henry','West',6,24,'T');
+(0,'Vivian','Murray',1,'2020-03-15','T'),
+(1,'Vanessa','Moore',3,'2021-06-22','T'),
+(2,'Leonardo','Foster',2,'2022-11-07','T'),
+(3,'Violet','Crawford',0,'2023-01-19','T'),
+(4,'Reid','Perkins',2,'2024-05-30','T'),
+(5,'Maya','Thompson',NULL,'2020-09-12','F'),
+(6,'Heather','Smith',3,'2021-04-05','T'),
+(7,'Tara','Cooper',0,'2022-08-14','T'),
+(8,'John','Roberts',7,'2023-12-01','T'),
+(9,'Tyler','Scott',2,'2024-02-20','T'),
+(10,'Abigail','Howard',1,'2020-11-11','T'),
+(11,'Ted','Warren',5,'2021-07-25','T'),
+(12,'Darcy','Harris',NULL,'2022-03-30','F'),
+(13,'Adelaide','Cunningham',4,'2023-10-06','T'),
+(14,'Bruce','Murray',7,'2024-05-15','T'),
+(15,'Freddie','Johnson',0,'2020-06-18','T'),
+(16,'Jacob','Payne',4,'2021-12-09','T'),
+(17,'Jenna','Holmes',0,'2022-01-22','T'),
+(18,'Isabella','Hawkins',4,'2023-07-11','T'),
+(19,'Adrian','Tucker',1,'2024-04-04','T'),
+(20,'Daniel','Evans',3,'2020-08-28','T'),
+(21,'Paige','Parker',5,'2021-05-02','T'),
+(22,'Darcy','Turner',9,'2022-09-29','T'),
+(23,'Kelsey','Stewart',NULL,'2023-11-03','F'),
+(24,'Julian','Davis',5,'2024-02-11','T'),
+(25,'Kimberly','Holmes',7,'2020-03-21','T'),
+(26,'Lenny','Morris',9,'2021-06-30','T'),
+(27,'John','Johnston',0,'2022-10-17','T'),
+(28,'Maria','Harrison',2,'2023-04-23','T'),
+(29,'Brooke','Smith',8,'2024-12-05','T'),
+(30,'Caroline','Hunt',7,'2020-01-14','T'),
+(31,'Lucy','Sullivan',4,'2021-02-25','T'),
+(32,'Sophia','Miller',3,'2022-07-09','T'),
+(33,'Aiden','Adams',4,'2023-03-18','T'),
+(34,'Aiden','Holmes',9,'2024-08-12','T'),
+(35,'James','Martin',3,'2020-05-15','T'),
+(36,'Ryan','Tucker',7,'2021-09-04','T'),
+(37,'Emily','Morgan',0,'2022-11-29','T'),
+(38,'Gianna','Campbell',7,'2023-06-13','T'),
+(39,'Dominik','Ryan',9,'2024-10-22','T'),
+(40,'Alexander','Morrison',3,'2020-12-30','T'),
+(41,'Richard','Montgomery',3,'2021-01-08','T'),
+(42,'Violet','Murphy',6,'2022-04-26','T'),
+(43,'Alina','Stewart',NULL,'2023-08-11','F'),
+(44,'Adam','Stewart',1,'2024-02-14','T'),
+(45,'Antony','Baker',7,'2020-09-19','T'),
+(46,'Adelaide','Mitchell',7,'2021-03-24','T'),
+(47,'Arnold','Gray',7,'2022-06-07','T'),
+(48,'Rosie','Smith',0,'2020-01-15','T'),
+(49,'Carina','Crawford',3,'2021-03-22','T'),
+(50,'Lenny','Scott',3,'2022-06-18','T'),
+(51,'Natalie','Watson',0,'2023-09-11','T'),
+(52,'Alen','Casey',3,'2024-02-28','T'),
+(53,'Kristian','Montgomery',8,'2020-07-24','T'),
+(54,'Bruce','Murphy',8,'2021-11-22','T'),
+(55,'Frederick','Cole',1,'2022-10-23','T'),
+(56,'Charlie','Taylor',9,'2023-05-19','T'),
+(57,'Daniel','Smith',3,'2024-04-29','T'),
+(58,'Henry','Ellis',4,'2020-08-22','T'),
+(59,'Olivia','Martin',9,'2021-12-25','T'),
+(60,'Alina','Henderson',4,'2022-03-27','T'),
+(61,'Sawyer','Harris',7,'2023-01-09','T'),
+(62,'Vanessa','Thomas',7,'2024-06-15','T'),
+(63,'Chester','Foster',5,'2020-02-06','T'),
+(64,'Sabrina','Farrell',8,'2021-04-12','T'),
+(65,'Cadie','Martin',8,'2022-05-30','T'),
+(66,'Melanie','Kelly',0,'2023-07-11','T'),
+(67,'Valeria','Elliott',8,'2024-09-07','T'),
+(68,'Eleanor','Douglas',4,'2020-10-29','T'),
+(69,'Arianna','Nelson',9,'2021-11-18','T'),
+(70,'Rafael','Robinson',1,'2022-12-13','T'),
+(71,'Sam','Campbell',9,'2023-03-20','T'),
+(72,'Brooke','Taylor',7,'2024-08-12','T'),
+(73,'Abigail','Perkins',1,'2020-01-11','T'),
+(74,'Sam','Russell',5,'2021-02-28','T'),
+(75,'Chester','Reed',1,'2022-04-12','T'),
+(76,'Ashton','Craig',1,'2023-05-27','T'),
+(77,'Catherine','Owens',3,'2024-06-01','T'),
+(78,'Victoria','Elliott',0,'2020-07-25','T'),
+(79,'Evelyn','Campbell',9,'2021-08-07','T'),
+(80,'Lydia','Thompson',2,'2022-09-14','T'),
+(81,'Aldus','Hunt',7,'2023-10-03','T'),
+(82,'Ted','Turner',6,'2024-11-04','T'),
+(83,'Vivian','Dixon',5,'2020-12-25','T'),
+(84,'Lydia','Smith',4,'2021-01-13','T'),
+(85,'Jordan','Davis',6,'2022-02-21','T'),
+(86,'Brooke','Reed',7,'2023-03-30','T'),
+(87,'Kristian','Scott',3,'2024-04-11','T'),
+(88,'Gianna','Farrell',1,'2020-05-22','T'),
+(89,'Spike','Kelley',7,'2021-06-16','T'),
+(90,'Tiana','Turner',0,'2022-07-11','T'),
+(91,'Derek','Turner',7,'2023-08-27','T'),
+(92,'Dexter','Rogers',3,'2024-09-02','T'),
+(93,'Amy','Cole',3,'2020-10-23','T'),
+(94,'Edgar','Higgins',3,'2021-11-10','T'),
+(95,'Alen','Williams',6,'2022-12-20','T'),
+(96,'Daniel','Roberts',2,'2023-01-08','T'),
+(97,'Isabella','Higgins',3,'2020-01-26','T'),
+(98,'Stella','Morgan',0,'2021-02-04','T'),
+(99,'Robert','Morris',6,'2022-03-02','T'),
+(100,'Oliver','Grant',6,'2023-04-05','T'),
+(101,'Sydney','Morris',1,'2024-05-29','T'),
+(102,'Joyce','Andrews',5,'2020-06-15','T'),
+(103,'Alina','Johnston',0,'2021-07-05','T'),
+(104,'Rafael','Sullivan',8,'2022-08-20','T'),
+(105,'Ryan','Cameron',8,'2023-09-03','T'),
+(106,'Camila','Stewart',4,'2024-10-15','T'),
+(107,'Carlos','Fowler',0,'2020-11-29','T'),
+(108,'Daryl','Kelley',9,'2021-12-28','T'),
+(109,'Gianna','Casey',1,'2022-01-03','T'),
+(110,'Jordan','Stevens',4,'2023-02-10','T'),
+(111,'Frederick','Alexander',5,'2024-03-09','T'),
+(112,'William','Montgomery',7,'2020-04-19','T'),
+(113,'Catherine','Cooper',4,'2021-05-26','T'),
+(114,'Emily','Lloyd',7,'2022-06-23','T'),
+(115,'Leonardo','Grant',8,'2023-07-30','T'),
+(116,'Jack','Sullivan',3,'2024-08-18','T'),
+(117,'Valeria','Kelley',5,'2020-09-22','T'),
+(118,'Ashton','Wells',4,'2021-10-11','T'),
+(119,'Rafael','Gray',7,'2022-11-21','T'),
+(120,'Daryl','Davis',9,'2023-12-09','T'),
+(121,'Amber','Smith',6,'2024-01-04','T'),
+(122,'Ashton','Williams',4,'2020-02-26','T'),
+(123,'Maddie','Crawford',2,'2021-03-15','T'),
+(124,'Oliver','Alexander',7,'2022-04-13','T'),
+(125,'Robert','Douglas',5,'2023-05-30','T'),
+(126,'Dale','Grant',9,'2024-06-12','T'),
+(127,'Eric','Rogers',8,'2020-07-16','T'),
+(128,'Adison','Johnson',5,'2021-08-20','T'),
+(129,'Lily','Mason',9,'2022-09-14','T'),
+(130,'Daryl','Smith',6,'2023-10-08','T'),
+(131,'Miller','Stewart',2,'2024-11-02','T'),
+(132,'Ned','Taylor',7,'2020-12-22','T'),
+(133,'Kellan','Payne',2,'2021-01-14','T'),
+(134,'Dainton','Davis',8,'2022-02-20','T'),
+(135,'Maria','Crawford',3,'2023-03-16','T'),
+(136,'Marcus','Holmes',1,'2024-04-06','T'),
+(137,'Catherine','Watson',0,'2020-05-29','T'),
+(138,'Melanie','Cameron',8,'2021-06-18','T'),
+(139,'Richard','Henderson',7,'2022-07-19','T'),
+(140,'William','Scott',1,'2023-08-22','T'),
+(141,'Ted','Riley',5,'2024-09-17','T'),
+(142,'Valeria','Davis',5,'2020-10-01','T'),
+(143,'Harold','Ferguson',3,'2021-11-12','T'),
+(144,'Clark','Smith',6,'2022-12-14','T'),
+(145,'Lydia','Payne',6,'2023-01-10','T'),
+(146,'Eddy','Ryan',5,'2024-02-05','T'),
+(147,'Chelsea','Harris',2,'2020-01-12','T'),
+(148,'Anna','Richards',7,'2021-02-14','T'),
+(149,'Maddie','Elliott',9,'2022-03-30','T'),
+(150,'Paul','Allen',9,'2023-04-18','T'),
+(151,'Andrew','Hawkins',8,'2024-05-14','T'),
+(152,'Dominik','Douglas',4,'2020-06-11','T'),
+(153,'Rosie','Davis',7,'2021-07-10','T'),
+(154,'Ashton','Richardson',7,'2022-08-16','T'),
+(155,'Lyndon','Owens',9,'2023-09-11','T'),
+(156,'Maddie','Chapman',6,'2024-10-17','T'),
+(157,'Maya','Payne',4,'2020-11-27','T'),
+(158,'Savana','Reed',4,'2021-12-05','T'),
+(159,'Aldus','Allen',6,'2022-01-12','T'),
+(160,'Ryan','Hawkins',2,'2023-02-17','T'),
+(161,'Elian','Taylor',1,'2024-03-27','T'),
+(162,'Deanna','Craig',6,'2020-04-26','T'),
+(163,'Connie','Walker',9,'2021-05-19','T'),
+(164,'Lucia','Scott',9,'2022-06-07','T'),
+(165,'Tiana','Wells',3,'2023-07-27','T'),
+(166,'Gianna','Murphy',4,'2024-08-09','T'),
+(167,'Lydia','Brooks',8,'2020-09-29','T'),
+(168,'Ellia','Williams',4,'2021-10-11','T'),
+(169,'Vincent','Allen',3,'2022-11-02','T'),
+(170,'Miley','Perry',0,'2023-12-21','T'),
+(171,'Victor','Wells',6,'2024-01-21','T'),
+(172,'William','Howard',5,'2020-02-16','T'),
+(173,'Jack','Hall',7,'2021-03-17','T'),
+(174,'Nicole','Johnson',3,'2022-04-17','T'),
+(175,'Alissa','Cunningham',2,'2023-05-05','T'),
+(176,'Edwin','Cameron',2,'2024-06-17','T'),
+(177,'Max','Ryan',9,'2020-07-11','T'),
+(178,'Marcus','Richardson',6,'2021-08-10','T'),
+(179,'Roland','Murphy',5,'2022-09-24','T'),
+(180,'Samantha','Thompson',5,'2023-10-23','T'),
+(181,'Lucas','Brooks',6,'2024-11-30','T'),
+(182,'Kimberly','Howard',1,'2020-12-07','T'),
+(183,'Garry','Taylor',1,'2021-01-21','T'),
+(184,'Adrianna','Jones',1,'2022-02-27','T'),
+(185,'Roman','Murray',0,'2023-03-24','T'),
+(186,'Roman','Thompson',5,'2024-04-24','T'),
+(187,'Reid','Morris',7,'2020-05-03','T'),
+(188,'Alexia','Hamilton',0,'2021-06-05','T'),
+(189,'Sofia','Carter',9,'2022-07-14','T'),
+(190,'Alina','Myers',2,'2023-08-23','T'),
+(191,'Connie','Spencer',9,'2024-09-10','T'),
+(192,'Olivia','Parker',1,'2020-10-24','T'),
+(193,'Eddy','Miller',3,'2021-11-10','T'),
+(194,'Edgar','Hunt',7,'2022-12-15','T'),
+(195,'Arthur','Evans',4,'2023-01-08','T'),
+(196,'Violet','Morgan',7,'2024-02-10','T'),
+(197,'Amber','Allen',6,'2020-01-03','T'),
+(198,'Antony','Armstrong',2,'2021-02-07','T'),
+(199,'Miley','Russell',8,'2022-03-26','T'),
+(200,'Ryan','Warren',8,'2023-04-19','T'),
+(201,'Reid','Morrison',9,'2024-05-10','T'),
+(202,'James','Crawford',0,'2020-06-01','T'),
+(203,'Audrey','Allen',8,'2021-07-01','T'),
+(204,'Vincent','Craig',9,'2022-08-30','T'),
+(205,'David','Mason',6,'2023-09-03','T'),
+(206,'Audrey','Robinson',8,'2024-10-25','T'),
+(207,'Amy','Brown',8,'2020-11-11','T'),
+(208,'Belinda','Ellis',1,'2021-12-30','T'),
+(209,'Annabella','Adams',6,'2022-01-20','T'),
+(210,'Aida','Ferguson',1,'2023-02-03','T'),
+(211,'Eric','Perry',6,'2024-03-19','T'),
+(212,'Abigail','Adams',8,'2020-04-13','T'),
+(213,'Kristian','Perry',6,'2021-05-30','T'),
+(214,'Roland','Douglas',2,'2022-06-03','T'),
+(215,'Edward','Tucker',8,'2023-07-27','T'),
+(216,'Agata','Parker',0,'2024-08-23','T'),
+(217,'Camila','Watson',8,'2020-09-01','T'),
+(218,'Alan','Myers',0,'2021-10-05','T'),
+(219,'Michelle','Gibson',6,'2022-11-21','T'),
+(220,'Alfred','Hall',4,'2023-12-05','T'),
+(221,'Alissa','Morris',0,'2024-01-04','T'),
+(222,'Eleanor','Chapman',2,'2020-02-24','T'),
+(223,'Jacob','Cunningham',2,'2021-03-01','T'),
+(224,'Charlie','Gibson',2,'2022-04-02','T'),
+(225,'Ashton','Wright',4,'2023-05-06','T'),
+(226,'Melissa','Roberts',2,'2024-06-08','T'),
+(227,'Marcus','Kelly',4,'2020-07-07','T'),
+(228,'Adison','Mitchell',7,'2021-08-15','T'),
+(229,'Oliver','Martin',0,'2022-09-15','T'),
+(230,'Heather','Phillips',8,'2023-10-21','T'),
+(231,'Max','Henderson',8,'2024-11-03','T'),
+(232,'Tony','Lloyd',3,'2020-12-03','T'),
+(233,'Darcy','Morgan',2,'2021-01-04','T'),
+(234,'Joyce','Armstrong',1,'2022-02-01','T'),
+(235,'Paul','West',3,'2023-03-26','T'),
+(236,'Steven','Thomas',8,'2024-04-25','T'),
+(237,'Henry','Evans',6,'2020-05-27','T'),
+(238,'Tiana','Thomas',0,'2021-06-23','T'),
+(239,'Jenna','Casey',2,'2020-01-23','T'),
+(240,'Lucia','Brown',9,'2021-02-19','T'),
+(241,'Carina','Campbell',5,'2022-03-04','T'),
+(242,'Bruce','Morrison',5,'2023-04-17','T'),
+(243,'Kevin','Brown',7,'2024-05-03','T'),
+(244,'Stuart','Andrews',7,'2020-06-14','T'),
+(245,'Mike','Stevens',5,'2021-07-22','T'),
+(246,'Elian','Montgomery',6,'2022-08-09','T'),
+(247,'Vivian','Gibson',8,'2023-09-17','T'),
+(248,'Deanna','Holmes',2,'2024-10-18','T'),
+(249,'Spike','Wright',5,'2020-11-01','T'),
+(250,'Brianna','Crawford',8,'2021-12-03','T'),
+(251,'Andrew','Reed',6,'2022-01-29','T'),
+(252,'Aldus','Murray',5,'2023-02-01','T'),
+(253,'Emily','Richards',8,'2024-03-03','T'),
+(254,'Agata','Roberts',6,'2020-04-11','T'),
+(255,'Jessica','Carter',6,'2021-05-20','T'),
+(256,'Sabrina','Morrison',1,'2022-06-24','T'),
+(257,'Victoria','Moore',5,'2023-07-13','T'),
+(258,'Lana','Johnson',2,'2024-08-17','T'),
+(259,'Walter','Scott',5,'2020-09-24','T'),
+(260,'Albert','Johnson',3,'2021-10-01','T'),
+(261,'Melissa','Craig',4,'2022-11-02','T'),
+(262,'Annabella','Rogers',4,'2023-12-23','T'),
+(263,'Kelvin','Cooper',0,'2024-01-12','T'),
+(264,'Paul','Martin',7,'2020-02-17','T'),
+(265,'Honey','Johnson',5,'2021-03-17','T'),
+(266,'Annabella','Owens',6,'2022-04-04','T'),
+(267,'Elise','Anderson',0,'2023-05-20','T'),
+(268,'Adam','Hill',9,'2024-06-16','T'),
+(269,'Owen','Nelson',9,'2020-07-09','T'),
+(270,'Robert','Wells',4,'2021-08-13','T'),
+(271,'Elise','Evans',8,'2022-09-20','T'),
+(272,'Myra','Sullivan',5,'2023-10-27','T'),
+(273,'Oscar','Henderson',9,'2024-11-07','T'),
+(274,'Rebecca','Roberts',1,'2020-12-21','T'),
+(275,'Melissa','Kelley',9,'2021-01-03','T'),
+(276,'Gianna','Payne',3,'2022-02-01','T'),
+(277,'Brooke','Ryan',5,'2023-03-09','T'),
+(278,'Camila','Spencer',3,'2024-04-10','T'),
+(279,'Aida','Hill',4,'2020-05-23','T'),
+(280,'Alford','Dixon',7,'2021-06-12','T'),
+(281,'Kevin','West',3,'2022-07-25','T'),
+(282,'Daisy','Kelly',7,'2023-08-14','T'),
+(283,'Alissa','Tucker',2,'2024-09-01','T'),
+(284,'Kelsey','Alexander',2,'2020-10-29','T'),
+(285,'Nicholas','Payne',3,'2021-11-11','T'),
+(286,'Tony','Rogers',7,'2022-12-24','T'),
+(287,'Edith','Cooper',0,'2023-01-06','T'),
+(288,'Cherry','Johnston',7,'2024-02-27','T'),
+(289,'Belinda','Barrett',6,'2020-01-03','T'),
+(290,'Aston','Farrell',9,'2021-02-23','T'),
+(291,'Daisy','Harris',1,'2022-03-11','T'),
+(292,'Edith','Hamilton',0,'2023-04-08','T'),
+(293,'Sofia','Henderson',4,'2024-05-14','T'),
+(294,'Leonardo','Mitchell',1,'2020-06-11','T'),
+(295,'Wilson','Roberts',3,'2021-07-07','T'),
+(296,'Daisy','Casey',5,'2022-08-12','T'),
+(297,'Vincent','Payne',2,'2023-09-12','T'),
+(298,'Eleanor','Cole',8,'2024-10-27','T'),
+(299,'Henry','West',6,'2020-11-24','T');
 
 INSERT INTO `Crimes` VALUES
  (0,'VEHICLE - STOLEN',4,'03/01/2020 12:00:00 AM',24,198)
@@ -2180,399 +2180,81 @@ INSERT INTO `Crimes` VALUES
 ,(997,'LEWD/LASCIVIOUS ACTS WITH CHILD',115,'05/01/2020 12:00:00 AM',120,579)
 ,(998,'THEFT OF IDENTITY',199,'09/01/2020 12:00:00 AM',36,495);
 
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (0,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (1,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (2,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (3,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (4,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (5,NULL,'2024-11-10','2024-11-10');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (6,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (7,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (8,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (9,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (10,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (11,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (12,NULL,'2024-11-10','2024-11-10');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (13,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (14,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (15,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (16,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (17,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (18,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (19,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (20,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (21,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (22,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (23,NULL,'2024-11-10','2024-11-10');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (24,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (25,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (26,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (27,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (28,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (29,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (30,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (31,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (32,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (33,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (34,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (35,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (36,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (37,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (38,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (39,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (40,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (41,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (42,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (43,NULL,'2024-11-10','2024-11-10');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (44,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (45,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (46,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (47,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (48,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (49,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (50,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (51,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (52,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (53,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (54,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (55,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (56,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (57,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (58,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (59,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (60,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (61,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (62,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (63,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (64,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (65,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (66,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (67,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (68,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (69,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (70,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (71,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (72,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (73,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (74,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (75,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (76,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (77,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (78,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (79,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (80,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (81,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (82,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (83,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (84,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (85,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (86,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (87,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (88,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (89,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (90,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (91,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (92,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (93,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (94,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (95,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (96,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (97,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (98,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (99,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (100,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (101,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (102,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (103,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (104,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (105,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (106,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (107,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (108,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (109,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (110,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (111,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (112,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (113,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (114,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (115,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (116,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (117,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (118,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (119,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (120,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (121,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (122,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (123,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (124,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (125,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (126,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (127,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (128,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (129,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (130,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (131,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (132,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (133,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (134,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (135,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (136,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (137,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (138,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (139,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (140,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (141,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (142,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (143,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (144,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (145,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (146,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (147,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (148,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (149,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (150,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (151,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (152,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (153,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (154,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (155,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (156,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (157,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (158,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (159,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (160,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (161,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (162,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (163,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (164,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (165,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (166,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (167,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (168,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (169,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (170,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (171,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (172,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (173,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (174,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (175,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (176,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (177,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (178,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (179,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (180,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (181,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (182,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (183,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (184,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (185,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (186,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (187,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (188,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (189,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (190,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (191,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (192,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (193,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (194,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (195,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (196,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (197,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (198,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (199,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (200,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (201,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (202,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (203,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (204,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (205,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (206,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (207,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (208,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (209,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (210,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (211,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (212,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (213,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (214,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (215,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (216,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (217,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (218,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (219,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (220,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (221,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (222,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (223,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (224,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (225,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (226,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (227,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (228,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (229,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (230,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (231,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (232,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (233,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (234,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (235,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (236,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (237,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (238,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (239,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (240,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (241,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (242,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (243,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (244,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (245,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (246,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (247,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (248,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (249,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (250,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (251,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (252,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (253,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (254,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (255,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (256,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (257,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (258,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (259,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (260,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (261,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (262,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (263,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (264,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (265,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (266,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (267,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (268,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (269,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (270,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (271,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (272,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (273,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (274,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (275,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (276,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (277,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (278,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (279,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (280,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (281,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (282,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (283,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (284,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (285,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (286,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (287,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (288,7,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (289,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (290,9,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (291,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (292,0,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (293,4,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (294,1,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (295,3,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (296,5,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (297,2,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (298,8,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (299,6,'2024-11-10',NULL);
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (203,9,'2019-10-13','2020-07-23');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (203,2,'2017-06-23','2020-05-23');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (266,2,'2016-03-18','2018-04-17');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (152,0,'2018-09-20','2019-03-27');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (9,0,'2019-12-20','2020-05-01');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (9,5,'2016-07-25','2017-02-10');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (233,0,'2015-08-16','2016-11-24');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (226,6,'2019-03-06','2020-03-21');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (226,5,'2016-10-28','2018-11-28');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (196,6,'2019-03-23','2020-01-25');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (109,2,'2018-04-26','2021-10-27');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (5,5,'2015-01-14','2017-04-25');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (5,8,'2018-10-08','2020-06-10');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (175,3,'2018-09-03','2021-11-18');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (175,7,'2019-05-14','2021-01-06');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (237,7,'2018-11-28','2020-10-05');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (57,1,'2017-09-20','2020-11-13');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (57,1,'2019-04-21','2022-01-28');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (218,5,'2015-05-17','2018-01-16');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (45,0,'2015-08-25','2017-05-06');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (45,4,'2015-07-16','2018-04-10');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (182,3,'2018-05-25','2020-04-20');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (182,7,'2015-11-09','2016-06-19');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (221,3,'2015-05-02','2018-08-16');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (221,4,'2018-01-12','2019-07-03');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (289,8,'2018-06-04','2019-05-01');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (211,4,'2017-08-20','2018-01-06');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (148,2,'2019-09-11','2021-04-01');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (165,8,'2019-11-13','2022-10-24');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (78,1,'2015-01-09','2017-03-17');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (113,1,'2016-05-19','2018-01-22');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (249,6,'2017-07-12','2020-12-03');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (249,2,'2016-10-03','2019-01-04');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (250,6,'2018-12-17','2021-11-24');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (104,9,'2016-11-04','2018-06-23');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (104,0,'2018-04-03','2019-02-05');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (42,3,'2018-12-09','2020-08-02');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (281,8,'2017-12-01','2019-04-22');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (295,9,'2015-03-10','2017-10-12');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (295,1,'2016-08-17','2018-02-05');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (157,5,'2019-06-06','2021-01-04');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (238,8,'2017-05-06','2019-03-24');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (17,1,'2018-06-17','2019-01-05');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (164,5,'2018-05-18','2021-06-11');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (164,1,'2016-01-03','2019-07-06');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (33,3,'2015-12-06','2018-01-15');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (33,0,'2015-03-13','2017-07-11');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (24,9,'2017-09-13','2020-10-16');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (24,8,'2017-10-19','2019-01-10');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (215,0,'2018-02-10','2019-02-22');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (215,0,'2019-07-01','2022-08-03');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (119,8,'2017-12-16','2020-08-20');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (119,4,'2015-03-28','2016-08-28');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (7,6,'2015-10-15','2018-04-15');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (7,9,'2019-08-04','2020-12-17');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (90,2,'2017-02-24','2020-04-03');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (90,7,'2016-09-11','2017-10-27');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (46,1,'2016-08-04','2017-02-23');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (73,2,'2018-11-18','2020-09-21');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (93,8,'2016-03-05','2019-03-26');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (76,4,'2016-03-11','2017-09-26');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (76,2,'2015-12-26','2018-08-17');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (286,3,'2019-02-06','2020-11-17');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (286,9,'2019-04-12','2022-06-27');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (60,2,'2019-11-28','2021-03-17');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (60,9,'2019-05-12','2020-03-07');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (77,9,'2019-11-08','2020-01-09');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (77,0,'2019-07-06','2021-09-02');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (63,4,'2017-03-22','2018-10-21');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (234,5,'2015-11-17','2016-11-04');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (229,8,'2019-12-02','2022-05-23');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (229,6,'2015-12-22','2017-01-12');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (111,3,'2017-10-15','2020-12-25');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (111,0,'2016-12-01','2017-05-24');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (231,5,'2019-06-03','2021-12-25');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (231,5,'2015-09-07','2016-08-16');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (180,7,'2017-08-15','2018-02-10');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (180,3,'2015-03-26','2016-01-14');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (144,5,'2018-02-15','2019-07-12');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (239,5,'2019-10-14','2021-12-09');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (239,7,'2016-10-18','2019-12-06');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (75,6,'2018-01-23','2020-06-12');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (297,0,'2016-05-01','2019-09-07');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (297,9,'2015-08-05','2017-07-12');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (278,7,'2016-03-09','2019-03-09');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (278,6,'2019-01-14','2021-01-27');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (97,6,'2019-05-26','2021-11-23');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (97,0,'2015-12-18','2017-11-06');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (92,6,'2019-12-24','2022-02-25');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (192,8,'2015-08-16','2016-06-13');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (192,8,'2016-11-07','2017-02-22');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (25,0,'2018-05-06','2020-04-05');
-INSERT INTO officer_station_history(badge_number,jail_code,start_date,end_date) VALUES (25,9,'2016-02-14','2017-01-23');
+INSERT INTO officer_station_history (badge_number, jail_code, start_date, end_date) VALUES
+(0, 1, '2019-12-01', '2020-03-14'),
+(1, 3, '2020-01-01', '2021-06-21'),
+(2, 2, '2021-01-01', '2022-11-06'),
+(3, 0, '2022-01-01', '2023-01-18'),
+(4, 2, '2023-01-01', '2024-05-29'),
+(5, 0, '2020-01-01', '2020-09-11'),
+(6, 3, '2020-01-01', '2021-04-04'),
+(7, 0, '2021-01-01', '2022-08-13'),
+(8, 7, '2023-01-01', '2023-11-30'),
+(9, 2, '2023-01-01', '2024-02-19'),
+(10, 1, '2020-01-01', '2020-11-10'),
+(11, 5, '2020-01-01', '2021-07-24'),
+(12, 0, '2021-01-01', '2022-03-29'),
+(13, 4, '2023-01-01', '2023-10-05'),
+(14, 7, '2023-01-01', '2024-05-14'),
+(15, 0, '2020-01-01', '2020-06-17'),
+(16, 4, '2020-01-01', '2021-12-08'),
+(17, 0, '2021-01-01', '2022-01-21'),
+(18, 4, '2022-01-01', '2023-07-10'),
+(19, 1, '2023-01-01', '2024-04-03'),
+(20, 3, '2020-01-01', '2020-08-27'),
+(21, 5, '2020-01-01', '2021-05-01'),
+(22, 9, '2022-01-01', '2022-09-28'),
+(23, 0, '2023-01-01', '2023-11-02'),
+(24, 5, '2023-01-01', '2024-02-10'),
+(25, 7, '2020-01-01', '2020-03-20'),
+(26, 9, '2020-01-01', '2021-06-29'),
+(27, 0, '2020-01-01', '2022-10-16'),
+(28, 2, '2023-01-01', '2023-04-22'),
+(29, 8, '2023-01-01', '2024-12-04'),
+(30, 7, '2020-01-01', '2020-01-13'),
+(31, 4, '2020-01-01', '2021-02-24'),
+(32, 3, '2020-01-01', '2022-07-08'),
+(33, 4, '2022-01-01', '2023-03-17'),
+(34, 9, '2024-01-01', '2024-08-11'),
+(35, 3, '2020-01-01', '2020-05-14'),
+(36, 7, '2021-01-01', '2021-09-03'),
+(37, 0, '2020-01-01', '2022-11-28'),
+(38, 7, '2023-01-01', '2023-06-12'),
+(39, 9, '2024-01-01', '2024-10-21'),
+(40, 3, '2020-01-01', '2020-12-29'),
+(41, 3, '2020-01-01', '2021-01-07'),
+(42, 6, '2022-01-01', '2022-04-25'),
+(43, 0, '2023-01-01', '2023-08-10'),
+(44, 1, '2024-01-01', '2024-02-13'),
+(45, 7, '2020-01-01', '2020-09-18'),
+(46, 7, '2020-01-01', '2021-03-23'),
+(47, 7, '2020-01-01', '2022-06-06'),
+(48, 0, '2020-01-01', '2020-01-14'),
+(49, 3, '2020-01-01', '2021-03-21'),
+(50, 3, '2020-01-01', '2022-06-17'),
+(51, 0, '2023-01-01', '2023-09-10'),
+(52, 3, '2024-01-01', '2024-02-27'),
+(53, 8, '2020-01-01', '2020-07-23'),
+(54, 8, '2020-01-01', '2021-11-21'),
+(55, 1, '2022-01-01', '2022-10-22'),
+(56, 9, '2023-01-01', '2023-05-18'),
+(57, 3, '2024-01-01', '2024-04-28'),
+(58, 4, '2020-01-01', '2020-08-21'),
+(59, 9, '2021-01-01', '2021-12-24'),
+(60, 4, '2022-01-01', '2022-03-26'),
+(61, 7, '2023-01-01', '2023-01-08'),
+(62, 7, '2024-01-01', '2024-06-14'),
+(63, 5, '2020-01-01', '2020-02-05'),
+(64, 8, '2020-01-01', '2021-04-11'),
+(65, 8, '2020-01-01', '2022-05-29'),
+(96, 2, '2022-01-01', '2023-01-07'),
+(97, 3, '2019-01-01', '2020-01-25'),
+(98, 0, '2020-01-01', '2021-02-03'),
+(99, 6, '2021-01-01', '2022-03-01'),
+(100, 6, '2022-01-01', '2023-04-04'),
+(101, 1, '2023-01-01', '2024-05-28'),
+(102, 5, '2020-01-01', '2020-06-14'),
+(103, 0, '2020-01-01', '2021-07-04');
 
 
 INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date) VALUES (1,7,'2020-10-24','2022-03-09');

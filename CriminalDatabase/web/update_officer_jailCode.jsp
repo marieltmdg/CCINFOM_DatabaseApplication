@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="criminalmanagement.*" %>
+<%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,30 +22,38 @@
             if (sBadgeNum != null) {
                 try {
                     int badgeNum = Integer.parseInt(sBadgeNum);
-                    int jailCode = Integer.parseInt(sJailCode);
+                    int newjailCode = Integer.parseInt(sJailCode);
                     
                     if (activeStatus.equals("T")){
                         Officer officer = new Officer();
-                        officer.jail_code = jailCode;
                         officer.badge_number = badgeNum;
-                        int changeResult = officer.changeOfficerJailCode();
-
+                        String result[] = officer.retrieveOfficer();
+                        
+                        // record history
                         OfficerHistory oh = new OfficerHistory();
-                        oh.jail_code = jailCode;
                         oh.badge_number = badgeNum;
-                        int ohResult =  oh.createNewAssignment();
+                        oh.jail_code = Integer.parseInt(result[4]);
+                        String dateStr = result[5];
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        java.util.Date utilDate = sdf.parse(dateStr); 
+                        oh.start_date = new java.sql.Date(utilDate.getTime()); 
+                        
+                        int ohResult =  oh.recordCurrentAssignment();
+                        
+                        officer.jail_code = newjailCode;
+                        int changeResult = officer.changeOfficerJailCode();
                         
                         if (changeResult == 1 && ohResult == 1){      
                             out.println("<p>Success</p>");    
                         
-                            String result[] = officer.retrieveOfficer();
+                            result = officer.retrieveOfficer();
                             out.println("<p>Updated Details</p>");
                             out.println("<p>Badge Number: " + result[0] +"</p>");
                             out.println("<p>First Name: " + result[1] +"</p>");
                             out.println("<p>Last Name: " + result[2] +"</p>");
-                            out.println("<p>Years Of Service: " + result[3] +"</p>");
-                            out.println("<p>Active: " + result[4] +"</p>");
-                            out.println("<p>Jail Code: " + result[5] +"</p>");
+                            out.println("<p>Active: " + result[3] +"</p>");
+                            out.println("<p>Jail Code: " + result[4] +"</p>");
+                            out.println("<p>Start Date of Assignment: " + result[5] +"</p>");
 
                         } else if (changeResult == -2){
                             out.println("<p>Jail does not exist.</p>");

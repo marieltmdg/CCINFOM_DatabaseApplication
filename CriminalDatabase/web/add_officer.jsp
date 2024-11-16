@@ -30,22 +30,20 @@
                     officer.last_name = officerLastName;
                     officer.jail_code = jailCode;
                     int badgeNumber = officer.registerNewOfficer();
-                    OfficerHistory oh = new OfficerHistory();
-                    oh.badge_number = badgeNumber;
-                    oh.jail_code = jailCode;
-                    int historyResult = oh.createNewAssignment();
                     
-                    if (badgeNumber >= 0 && historyResult == 1) {
+                    if (badgeNumber >= 0) {
                         String[] result = officer.retrieveOfficer();
                         out.println("<p>Success.</p>");
                         out.println("<p>Details: </p>");
                         out.println("<p>Badge Number: " + badgeNumber +"</p>");
                         out.println("<p>First Name: " + result[1] +"</p>");
                         out.println("<p>Last Name: " + result[2] +"</p>");
-                        out.println("<p>Years Of Service: " + result[3] +"</p>");
+                        out.println("<p>Start Date of Assignment: " + result[3] +"</p>");
                         out.println("<p>Active: " + result[4] +"</p>");
                         out.println("<p>Jail Code: " + result[5] +"</p>");
-                    } else {
+                    } else if (badgeNumber == -2){
+                            out.println("<p>Jail does not exist.</p>"); 
+                    }else {
                         out.println("<p>Creation Unsuccessful.</p>");
                     }
 
