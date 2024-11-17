@@ -11,11 +11,12 @@ import java.sql.*;
  *
  * @author nathanaelian
  */
-public class CriminalJailHistory {
+public class IncarcerationHistory {
     public int criminal_code;
     public int jail_code;
     public java.sql.Date start_date;
     public java.sql.Date end_date;
+    public String status;
     
     public Connection connect(){
         try{
@@ -46,7 +47,7 @@ public class CriminalJailHistory {
             end_date = new java.sql.Date(System.currentTimeMillis());
             PreparedStatement pstmt = conn.prepareStatement(
             "SELECT end_date AS endDATE " +
-            "FROM criminal_jail_history " +
+            "FROM incarceration_history " +
             "WHERE criminal_code = ? " +
             "ORDER BY endDATE DESC " +
             "LIMIT 1;"
@@ -58,13 +59,14 @@ public class CriminalJailHistory {
             }
             
             pstmt = conn.prepareStatement(
-                    "INSERT INTO criminal_jail_history (criminal_code, jail_code, start_date, end_date)" +
-                    "VALUES (?, ?, ?, ?)"
+                    "INSERT INTO incarceration_history (criminal_code, jail_code, start_date, end_date, status)" +
+                    "VALUES (?, ?, ?, ?, ?)"
                     );
             pstmt.setInt(1, criminal_code);
             pstmt.setInt(2, jail_code);
             pstmt.setDate(3, start_date);
             pstmt.setDate(4, end_date);
+            pstmt.setString(5, status);
             pstmt.executeUpdate();
             
             System.out.println("Success");
@@ -90,13 +92,14 @@ public class CriminalJailHistory {
             end_date = new java.sql.Date(System.currentTimeMillis());
             
             PreparedStatement pstmt = conn.prepareStatement(
-                    "INSERT INTO criminal_jail_history (criminal_code, jail_code, start_date, end_date)" +
-                    "VALUES (?, ?, ?, ?)"
+                    "INSERT INTO incarceration_history (criminal_code, jail_code, start_date, end_date, status)" +
+                    "VALUES (?, ?, ?, ?, ?)"
                     );
             pstmt.setInt(1, criminal_code);
             pstmt.setInt(2, jail_code);
             pstmt.setDate(3, start_date);
             pstmt.setDate(4, end_date);
+            pstmt.setString(5, status);
             pstmt.executeUpdate();
             
             System.out.println("Success");
@@ -120,7 +123,7 @@ public class CriminalJailHistory {
         PreparedStatement pstmt = null;
         try {
             pstmt = conn.prepareStatement(
-                    "SELECT * FROM criminal_jail_history "
+                    "SELECT * FROM incarceration_history "
                             + "WHERE criminal_code = ?");
             pstmt.setInt(1, criminal_code);
             ResultSet rst = pstmt.executeQuery();

@@ -224,7 +224,13 @@ public class Criminal {
                 "UPDATE criminals SET jail_code = ? "
                 + "WHERE criminal_code = ?"
             );
-            pstmt.setInt(1, jail_code);
+            
+            if (jail_code == -1){
+                pstmt.setNull(1, java.sql.Types.VARCHAR);
+            } else {
+                pstmt.setInt(1, jail_code);
+            }
+            
             pstmt.setInt(2, criminal_code);
             pstmt.executeUpdate();
             
