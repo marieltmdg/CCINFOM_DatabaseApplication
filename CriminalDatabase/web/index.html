@@ -1,19 +1,171 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+
 <html>
     <head>
-        <title>Criminal Database Management</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>NYPD Database Manager</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        <a href="create.html" >         Create a Criminal Record</a><br>
-        <a href="change.html" >         Change of Criminal Sentence</a><br>
-        <a href="retrieve_officer.html" >     Assignment/Reassignment of Officers to Jails</a><br>
-        <a href="transfer.html" >       Transferring of Prisoners </a><br>
-        <a href="officer_report.html" > Officer Report</a><br>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <script>
+            function moreButtonsCriminal() {
+                document.getElementById("set1-criminal-top").style.display = "none";
+                document.getElementById("set1-criminal-bottom").style.display = "none";
+                document.getElementById("set2-criminal-top").style.display = "flex";
+                document.getElementById("set2-criminal-bottom").style.display = "flex";
+            }
+
+            function moreButtonsCrime() {
+                document.getElementById("set1-crime-top").style.display = "none";
+                document.getElementById("set1-crime-bottom").style.display = "none";
+                document.getElementById("set2-crime-top").style.display = "flex";
+                document.getElementById("set2-crime-bottom").style.display = "flex";
+            }
+
+            function moreButtonsOfficer() {
+                document.getElementById("set1-officer-top").style.display = "none";
+                document.getElementById("set1-officer-bottom").style.display = "none";
+                document.getElementById("set2-officer-top").style.display = "flex";
+                document.getElementById("set2-officer-bottom").style.display = "flex";
+            }
+
+            function moreButtonsJail() {
+                document.getElementById("set1-jail-top").style.display = "none";
+                document.getElementById("set1-jail-bottom").style.display = "none";
+                document.getElementById("set2-jail-top").style.display = "flex";
+                document.getElementById("set2-jail-bottom").style.display = "flex";
+            }
+
+            function reset() {
+                document.getElementById("set1-criminal-top").style.display = "flex";
+                document.getElementById("set1-criminal-bottom").style.display = "flex";
+                document.getElementById("set2-criminal-top").style.display = "none";
+                document.getElementById("set2-criminal-bottom").style.display = "none";
+                document.getElementById("set1-crime-top").style.display = "flex";
+                document.getElementById("set1-crime-bottom").style.display = "flex";
+                document.getElementById("set2-crime-top").style.display = "none";
+                document.getElementById("set2-crime-bottom").style.display = "none";
+                document.getElementById("set1-officer-top").style.display = "flex";
+                document.getElementById("set1-officer-bottom").style.display = "flex";
+                document.getElementById("set2-officer-top").style.display = "none";
+                document.getElementById("set2-officer-bottom").style.display = "none";
+                document.getElementById("set1-jail-top").style.display = "flex";
+                document.getElementById("set1-jail-bottom").style.display = "flex";
+                document.getElementById("set2-jail-top").style.display = "none";
+                document.getElementById("set2-jail-bottom").style.display = "none";
+            }
+        </script>
+        
+        <div class="bg-image">
+            <img src="src/new-york.jpeg">
+        </div>
+        <div class="bg-gradient"></div>
+        <div class="top-bar">
+            <img src="src/npyd-logo.png" class="logo">
+            <p class="header-text" id="garamond">New York City <br> Police Department </p>
+        </div>
+        <div class="text-bar">
+            <p class="main-text" id="roboto">Database Manager</p>
+        </div>
+        <div class="main-body">
+            <div class="criminal-box" onmouseleave="reset()">
+                <div class="box-header" id="garamond">Criminal</div>
+                <div class="box-content" id="roboto">
+                    <div class="top-row-1" id="set1-criminal-top">
+                        <button class="button down" id="roboto" onclick="window.location.href='.html'">Transaction</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='.html'">Report</button>
+                    </div>
+                    <div class="bottom-row-1" id="set1-criminal-bottom">
+                        <button class="button" id="roboto" onclick="moreButtonsCriminal()">Record Management</button>
+                    </div>
+                    <div class="top-row-2" id="set2-criminal-top" style="display: none;">
+                        <button class="button down" id="roboto" onclick="window.location.href='.html'">Add</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='.html'">Update</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='.html'">Delete</button>
+                    </div>
+                    <div class="bottom-row-2" id="set2-criminal-bottom" style="display: none;">
+                        <button class="button" id="roboto" onclick="window.location.href='.html'">View</button>
+                        <button class="button" id="roboto" onclick="window.location.href='.html'">List</button>
+                        <button class="button" id="roboto" onclick="window.location.href='.html'">View Related</button>
+                    </div>
+                </div>
+            </div>
+            <div class="crime-box" onmouseleave="reset()">
+                <div class="box-header" id="garamond">Crimes</div>
+                <div class="box-content" id="roboto">
+                    <div class="top-row-1" id="set1-crime-top">
+                        <button class="button down" id="roboto" onclick="window.location.href='change_sentence.html'">Transaction</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='.html'">Report</button>
+                    </div>
+                    <div class="bottom-row-1" id="set1-crime-bottom">
+                        <button class="button" id="roboto" onclick="moreButtonsCrime()">Record Management</button>
+                    </div>
+                    <div class="top-row-2" id="set2-crime-top" style="display: none;">
+                        <button class="button down" id="roboto" onclick="window.location.href='add_crime.html'">Add</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='.html'">Update</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='delete_crime.html'">Delete</button>
+                    </div>
+                    <div class="bottom-row-2" id="set2-crime-bottom" style="display: none;">
+                        <button class="button" id="roboto" onclick="window.location.href='view_crime.html'">View</button>
+                        <button class="button" id="roboto" onclick="window.location.href='.html'">List</button>
+                        <button class="button" id="roboto" onclick="window.location.href='.html'">View Related</button>
+                    </div>
+                </div>
+            </div>
+            <div class="officer-box" onmouseleave="reset()">
+                <div class="box-header" id="garamond">Officer</div>
+                <div class="box-content" id="roboto">
+                    <div class="top-row-1" id="set1-officer-top">
+                        <button class="button down" id="roboto" onclick="window.location.href='retrieve_officer.html'">Transaction</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='generate_officer_report.html'">Report</button>
+                    </div>
+                    <div class="bottom-row-1" id="set1-officer-bottom">
+                        <button class="button" id="roboto" onclick="moreButtonsOfficer()">Record Management</button>
+                    </div>
+                    <div class="top-row-2" id="set2-officer-top" style="display: none;">
+                        <button class="button down" id="roboto" onclick="window.location.href='add_officer.html'">Add</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='.html'">Update</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='delete_officer.html'">Delete</button>
+                    </div>
+                    <div class="bottom-row-2" id="set2-officer-bottom" style="display: none;">
+                        <button class="button" id="roboto" onclick="window.location.href='view_officer.html'">View</button>
+                        <button class="button" id="roboto" onclick="window.location.href='.html'">List</button>
+                        <button class="button" id="roboto" onclick="window.location.href='.html'">View Related</button>
+                    </div>
+                </div>
+            </div>
+            <div class="jail-box" onmouseleave="reset()">
+                <div class="box-header" id="garamond">Jail</div>
+                <div class="box-content" id="roboto">
+                    <div class="top-row-1" id="set1-jail-top">
+                        <button class="button down" id="roboto" onclick="window.location.href='transfer.html'">Transaction</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='incarceration_density_report.html'">Report</button>
+                    </div>
+                    <div class="bottom-row-1" id="set1-jail-bottom">
+                        <button class="button" id="roboto" onclick="moreButtonsJail()">Record Management</button>
+                    </div>
+                    <div class="top-row-2" id="set2-jail-top" style="display: none;">
+                        <button class="button down" id="roboto" onclick="window.location.href='add_jail.html'">Add</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='.html'">Update</button>
+                        <button class="button down" id="roboto" onclick="window.location.href='delete_jail.html'">Delete</button>
+                    </div>
+                    <div class="bottom-row-2" id="set2-jail-bottom" style="display: none;">
+                        <button class="button" id="roboto" onclick="window.location.href='view_jail.html'">View</button>
+                        <button class="button" id="roboto" onclick="window.location.href='.html'" >List</button>
+                        <button class="button" id="roboto" onclick="window.location.href='.html'">View Related</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

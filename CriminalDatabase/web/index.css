@@ -1,0 +1,190 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: 'AppleGaramond';
+    src: url('src/AppleGaramond.ttf') format('truetype'); 
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('src/Roboto-Regular.ttf') format('truetype'); 
+}
+
+.bg-gradient, .bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bg-gradient {
+    background: linear-gradient(to bottom, #004aad, rgba(0, 0, 0, 0));
+    z-index: 1; 
+    pointer-events: none;
+}
+
+.bg-image img {
+    width: 110%;
+    height: 110%;
+    object-fit: cover; 
+    filter: blur(5px);
+    z-index: 0; 
+    transform: translateX(-15px);
+}
+
+.top-bar {
+    position: relative; 
+    display: flex;
+    width: 90%; 
+    height: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 2; 
+    justify-content: space-between;
+    align-items: center;  
+}
+
+.logo {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+#garamond {
+    font-family: 'AppleGaramond';
+}
+
+.header-text {
+    font-size: 5vh;
+    color: white;
+    height: 100%; 
+    line-height: 100%;
+    text-align: right; 
+}
+
+.text-bar {
+    position: relative; 
+    display: flex;
+    width: 90%; 
+    height: 7%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 3%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 2; 
+    align-items: center;  
+    justify-content: center;
+}
+
+#roboto {
+    font-family: 'Roboto';
+}
+
+.main-text {
+    font-size: 6vh;
+    color: white;
+    height: 100%; 
+    line-height: 100%;
+    text-align: center;
+}
+
+.main-body {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr; 
+    width: 90%;
+    height: 65%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 2;
+}
+
+.criminal-box, .crime-box, .officer-box, .jail-box {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 25px;
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.criminal-box:hover, .crime-box:hover, .officer-box:hover, .jail-box:hover {
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.box-header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    font-size: 5vh;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    color: white;
+    margin-top: 2%;
+}
+
+.box-content {
+    margin-top: 8%; 
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;   /* Adds space between the top and bottom divs */
+    width: 97%;
+    height: 100%;
+}
+
+.top-row-1, .bottom-row-1, .top-row-2, .bottom-row-2{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    height: 100%;
+}
+
+.top-row-1 {
+    grid-template-columns: 1fr 1fr; 
+}
+
+.bottom-row-1 {
+    grid-template-columns: 1fr; 
+}
+
+.down {
+    align-self: flex-end;  
+}
+
+
+.button {
+    background-color: #004aad;      
+    color: white;                  
+    font-size: 3vh;                 
+    padding: 10px;                   
+    border: none;
+    border-radius: 5px;              
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;                    
+    height: 80%;                  
+}
+
+.button:hover {
+    background-color: #003366;      /* Change color on hover */
+}
