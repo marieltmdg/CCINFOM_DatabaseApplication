@@ -1,6 +1,6 @@
 <%-- 
-    Document   : retrieve_officer
-    Created on : Nov 5, 2024, 1:35:18 PM
+    Document   : view_officer
+    Created on : Nov 17, 2024, 9:53:46 PM
     Author     : marie
 --%>
 
@@ -11,10 +11,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Retrieve Officer</title>
+        <title>View Officer</title>
     </head>
-    <body> 
-        <h2>Retrieve Officer</h2>
+    <body>
+        <h2>View Officer</h2>
         <%
             String officerBadgeNumber = request.getParameter("officer_badgeNumber");
 
@@ -36,30 +36,6 @@
                         out.println("<p>Active: " + result[3] +"</p>");
                         out.println("<p>Jail Code: " + result[4] +"</p>");
                         out.println("<p>Start Date of Assignment: " + result[5] +"</p>");
-                        out.println("<p>Update Active or Update Jail Code?</p>");
-                        
-                        // active
-                        if (result[3].equals("T")) {
-                            out.println("<form action='update_officer_jailCode.jsp' method='post'>");
-                            out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
-                            out.println("<input type='hidden' name='active_status' value='" + result[3] + "'>");
-                            out.println("<label for='jail_code'>New Jail Code:</label>");
-                            out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
-                            out.println("<input type='submit' value='Update Jail Code'>");
-                            out.println("</form>");
-                        } else {
-                            out.println("<p>Officer currently inactive. Cannot change jail code.</p>");
-                        }
-
-                        out.println("<form action='update_officer_active.jsp' method='post'>");
-                        out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
-                        out.println("<input type='hidden' name='active_status' value='" + result[3] + "'>");
-                        if (result[3].equals("F")){
-                            out.println("<label for='jail_code'>New Jail Code:</label>");
-                            out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
-                        }
-                        out.println("<input type='submit' value='Update Active'>");
-                        out.println("</form>");
                     } else {
                         // redirect to add officer
                         out.println("<p>Officer does not exist</p>");

@@ -299,6 +299,48 @@ public class Officer {
     }
     
     public int deleteOfficerAndHistory() {
+        Connection conn = connect();
+
+        if (conn == null) {
+            return -1;
+        }
+
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(
+                    "UPDATE crimes SET badge_number = NULL WHERE badge_number = ?");
+            pstmt.setInt(1, badge_number);
+            pstmt.executeUpdate();
+
+            pstmt = conn.prepareStatement(
+                    "DELETE FROM officer_station_history WHERE badge_number = ?");
+            pstmt.setInt(1, badge_number);
+            pstmt.executeUpdate();
+
+            pstmt = conn.prepareStatement(
+                    "DELETE FROM officers WHERE badge_number = ?");
+            pstmt.setInt(1, badge_number);
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
+    
+    public int updateOfficerName() {
     Connection conn = connect();
 
     if (conn == null) {
@@ -307,21 +349,39 @@ public class Officer {
 
     PreparedStatement pstmt = null;
     try {
-        pstmt = conn.prepareStatement(
-                "UPDATE crimes SET badge_number = NULL WHERE badge_number = ?");
-        pstmt.setInt(1, badge_number);
-        pstmt.executeUpdate();
+        StringBuilder query = new StringBuilder("UPDATE officers SET ");
+        boolean first = true;
 
-        pstmt = conn.prepareStatement(
-                "DELETE FROM officer_station_history WHERE badge_number = ?");
-        pstmt.setInt(1, badge_number);
-        pstmt.executeUpdate();
+        if (first_name != null && !first_name.trim().isEmpty()) {
+            query.append("first_name = ?");
+            first = false;
+        }
 
-        pstmt = conn.prepareStatement(
-                "DELETE FROM officers WHERE badge_number = ?");
-        pstmt.setInt(1, badge_number);
+        if (last_name != null && !last_name.trim().isEmpty()) {
+            if (!first) {
+                query.append(", ");
+            }
+            query.append("last_name = ?");
+        }
+
+        query.append(" WHERE badge_number = ?");
+
+        pstmt = conn.prepareStatement(query.toString());
+
+        int index = 1;
+
+        if (first_name != null && !first_name.trim().isEmpty()) {
+            pstmt.setString(index++, first_name);
+        }
+
+        if (last_name != null && !last_name.trim().isEmpty()) {
+            pstmt.setString(index++, last_name);
+        }
+
+        pstmt.setInt(index, badge_number);
+
         int rowsAffected = pstmt.executeUpdate();
-
+        
         if (rowsAffected > 0) {
             return 1;
         } else {
@@ -339,5 +399,6 @@ public class Officer {
     }
     return -1;
 }
+
 
 }
