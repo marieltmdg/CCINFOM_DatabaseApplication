@@ -73,4 +73,44 @@ public class OfficerHistory {
         return -1;
     }
 
+    public int checkExists(){
+        Connection conn = connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return -1;
+        }
+        
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(
+                    "SELECT * FROM criminal_jail_history "
+                            + "WHERE badge_number = ?");
+            pstmt.setInt(1, badge_number);
+            ResultSet rst = pstmt.executeQuery();
+            
+            // dne
+            if (!rst.isBeforeFirst()) {
+                rst.close();
+                pstmt.close();
+                conn.close();
+                return 0;
+            } 
+             
+            rst.close();
+            
+            System.out.println("Success");
+            return 1;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
 }

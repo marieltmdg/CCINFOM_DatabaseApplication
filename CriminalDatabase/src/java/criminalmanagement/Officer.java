@@ -297,4 +297,47 @@ public class Officer {
         }
         return 0;
     }
+    
+    public int deleteOfficerAndHistory() {
+    Connection conn = connect();
+
+    if (conn == null) {
+        return -1;
+    }
+
+    PreparedStatement pstmt = null;
+    try {
+        pstmt = conn.prepareStatement(
+                "UPDATE crimes SET badge_number = NULL WHERE badge_number = ?");
+        pstmt.setInt(1, badge_number);
+        pstmt.executeUpdate();
+
+        pstmt = conn.prepareStatement(
+                "DELETE FROM officer_station_history WHERE badge_number = ?");
+        pstmt.setInt(1, badge_number);
+        pstmt.executeUpdate();
+
+        pstmt = conn.prepareStatement(
+                "DELETE FROM officers WHERE badge_number = ?");
+        pstmt.setInt(1, badge_number);
+        int rowsAffected = pstmt.executeUpdate();
+
+        if (rowsAffected > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    } catch (SQLException e) {
+        System.out.println("Error: " + e.getMessage());
+    } finally {
+        try {
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    return -1;
+}
+
 }
