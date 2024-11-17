@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Add Jail</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Add Jail Record</h2>
+        <form action="add_jail.jsp" method="POST">
+            <label for="area_of_jurisdiction">Area of Jurisdiction:</label>
+            <input type="text" id="area_of_jurisdiction" name="area_of_jurisdiction" required><br><br>
+            <label for="years_active">Years Active:</label>
+            <input type="number" id="years_active" name="years_active" required><br><br>
+            <input type="submit" value="Add Jail">
+        </form>
+    </body>
+</html>
