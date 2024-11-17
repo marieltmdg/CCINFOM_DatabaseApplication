@@ -2259,39 +2259,40 @@ INSERT INTO officer_station_history (badge_number, jail_code, start_date, end_da
 (103, 0, '2020-01-01', '2021-07-04');
 
 
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (1,7,'2020-10-24','2022-03-09','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (3,5,'2020-08-24','2021-03-29','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (3,1,'2021-03-29','2022-04-15','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (4,0,'2020-07-30','2022-01-03','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (5,3,'2020-03-25','2023-03-03','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (42,0,'2020-03-20','2024-02-25','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (46,3,'2020-07-15','2022-09-06','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (53,9,'2020-06-07','2024-06-11','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (57,2,'2020-03-06','2020-11-13','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (63,7,'2020-04-29','2022-02-01','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (73,6,'2020-06-09','2022-12-07','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (80,7,'2020-12-01','2024-04-29','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (93,3,'2020-10-19','2023-04-09','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (94,7,'2020-04-01','2024-11-01','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (132,8,'2020-05-30','2023-10-10','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (138,1,'2020-07-01','2023-06-21','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (138,3,'2023-06-21','2024-03-03','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (162,0,'2020-06-24','2021-04-12','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (175,8,'2020-08-01','2021-04-03','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (193,3,'2020-10-31','2020-12-25','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (198,0,'2020-03-01','2022-03-05','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (246,2,'2020-07-25','2022-04-15','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (262,3,'2020-09-14','2020-12-31','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (264,9,'2020-07-05','2021-04-02','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (340,6,'2020-05-01','2024-04-04','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (386,6,'2020-01-01','2022-09-05','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (425,0,'2020-08-01','2023-01-31','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (432,7,'2020-03-19','2022-03-09','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (437,3,'2020-01-03','2020-12-31','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (473,7,'2020-11-19','2024-04-16','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (515,3,'2020-08-30','2023-12-20','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (613,7,'2020-04-02','2022-03-15','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (624,9,'2020-03-05','2023-02-19','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (672,0,'2020-03-01','2021-02-05','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (763,0,'2020-10-20','2020-11-29','Transfer');
-INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES (778,2,'2020-06-13','2023-06-11','Transfer');
+INSERT INTO incarceration_history(criminal_code,jail_code,start_date,end_date,status) VALUES 
+(1,7,'2020-10-24','2022-03-09','Transfer'),
+(3,5,'2020-08-24','2021-03-29','Transfer'), 
+(3,1,'2021-03-29','2022-04-15','Transfer'),
+(4,0,'2020-07-30','2022-01-03','Transfer'),
+(5,3,'2020-03-25','2023-03-03','Transfer'),
+(42,0,'2020-03-20','2024-02-25','Transfer'),
+(46,3,'2020-07-15','2022-09-06','Transfer'),
+(53,9,'2020-06-07','2024-06-11','Transfer'),
+(57,2,'2020-03-06','2020-11-13','Transfer'),
+(63,7,'2020-04-29','2022-02-01','Transfer'),
+(73,6,'2020-06-09','2022-12-07','Transfer'),
+(80,7,'2020-12-01','2024-04-29','Transfer'),
+(93,3,'2020-10-19','2023-04-09','Transfer'),
+(94,7,'2020-04-01','2024-11-01','Transfer'),
+(132,8,'2020-05-30','2023-10-10','Transfer'),
+(138,1,'2020-07-01','2023-06-21','Transfer'),
+(138,3,'2023-06-21','2024-03-03','Transfer'),
+(162,0,'2020-06-24','2021-04-12','Transfer'),
+(175,8,'2020-08-01','2021-04-03','Transfer'),
+(193,3,'2020-10-31','2020-12-25','Transfer'),
+(198,0,'2020-03-01','2022-03-05','Transfer'),
+(246,2,'2020-07-25','2022-04-15','Transfer'),
+(262,3,'2020-09-14','2020-12-31','Transfer'),
+(264,9,'2020-07-05','2021-04-02','Transfer'),
+(340,6,'2020-05-01','2024-04-04','Transfer'),
+(386,6,'2020-01-01','2022-09-05','Transfer'),
+(425,0,'2020-08-01','2023-01-31','Transfer'),
+(432,7,'2020-03-19','2022-03-09','Transfer'),
+(437,3,'2020-01-03','2020-12-31','Transfer'),
+(473,7,'2020-11-19','2024-04-16','Transfer'),
+(515,3,'2020-08-30','2023-12-20','Transfer'),
+(613,7,'2020-04-02','2022-03-15','Transfer'),
+(624,9,'2020-03-05','2023-02-19','Transfer'),
+(672,0,'2020-03-01','2021-02-05','Transfer'),
+(763,0,'2020-10-20','2020-11-29','Transfer'),
+(778,2,'2020-06-13','2023-06-11','Transfer');
