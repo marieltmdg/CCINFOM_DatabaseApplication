@@ -77,20 +77,21 @@ public class OfficerReport {
         }
     }
 
-    public String[] getReport() {
-    List<String> reportLines = new ArrayList<>();
+    public List<String[]> getReport() {
+        List<String[]> reportLines = new ArrayList<>();
 
-    reportLines.add("Officer Report for Year: " + year);
-    reportLines.add("Badge Number | Criminals Caught");
-    reportLines.add("---------------------------------");
+        for (Map.Entry<Integer, Integer> entry : officerCriminalsMap.entrySet()) {
+            int badgeNumber = entry.getKey();
+            int criminalsCaught = entry.getValue();
 
-    for (Map.Entry<Integer, Integer> entry : officerCriminalsMap.entrySet()) {
-        int badgeNumber = entry.getKey();
-        int criminalsCaught = entry.getValue();
-        reportLines.add(badgeNumber + "           | " + criminalsCaught);
+            String[] reportLine = new String[2];
+            reportLine[0] = String.valueOf(badgeNumber);
+            reportLine[1] = String.valueOf(criminalsCaught); 
+
+            reportLines.add(reportLine);
+        }
+
+        return reportLines;
     }
-    
-    return reportLines.toArray(new String[0]);
-}
 
 }

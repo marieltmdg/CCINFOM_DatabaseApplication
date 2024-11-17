@@ -162,11 +162,13 @@ public class Officer {
             pstmt.setString(2, first_name);
             pstmt.setString(3, last_name);
             pstmt.setInt(4, jail_code);
-            pstmt.executeUpdate();
-            
-            
-            System.out.println("Success");
-            return badge_number;
+            int rowsAffected = pstmt.executeUpdate();
+        
+            if (rowsAffected > 0) {
+                return badge_number;
+            } else {
+                return -1;
+            }
         } catch(Exception e){
             System.out.println(e.getMessage());
         } finally {
@@ -197,10 +199,13 @@ public class Officer {
             );
             pstmt.setInt(1,jail_code);
             pstmt.setInt(2, badge_number);
-            pstmt.executeUpdate();
-            
-            System.out.println("Success");
-            return 1;
+            int rowsAffected = pstmt.executeUpdate();
+        
+            if (rowsAffected > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
         } catch(Exception e){
             System.out.println(e.getMessage());
         } finally {
@@ -237,10 +242,13 @@ public class Officer {
             }
             pstmt.setInt(3, badge_number);
                
-            pstmt.executeUpdate();
-            
-            System.out.println("Success");
-            return 1;
+            int rowsAffected = pstmt.executeUpdate();
+        
+            if (rowsAffected > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
         } catch(Exception e){
             System.out.println(e.getMessage());
         } finally {
@@ -280,10 +288,13 @@ public class Officer {
             );
             pstmt.setInt(1, jail_code);
             pstmt.setInt(2, badge_number);
-            pstmt.executeUpdate();
-            
-            System.out.println("Success");
-            return 1;
+            int rowsAffected = pstmt.executeUpdate();
+        
+            if (rowsAffected > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
         } catch(Exception e){
             System.out.println(e.getMessage());
         } finally {
@@ -341,64 +352,107 @@ public class Officer {
     }
     
     public int updateOfficerName() {
-    Connection conn = connect();
+        Connection conn = connect();
 
-    if (conn == null) {
+        if (conn == null) {
+            return -1;
+        }
+
+        PreparedStatement pstmt = null;
+        try {
+            StringBuilder query = new StringBuilder("UPDATE officers SET ");
+            boolean first = true;
+
+            if (first_name != null && !first_name.trim().isEmpty()) {
+                query.append("first_name = ?");
+                first = false;
+            }
+
+            if (last_name != null && !last_name.trim().isEmpty()) {
+                if (!first) {
+                    query.append(", ");
+                }
+                query.append("last_name = ?");
+            }
+
+            query.append(" WHERE badge_number = ?");
+
+            pstmt = conn.prepareStatement(query.toString());
+
+            int index = 1;
+
+            if (first_name != null && !first_name.trim().isEmpty()) {
+                pstmt.setString(index++, first_name);
+            }
+
+            if (last_name != null && !last_name.trim().isEmpty()) {
+                pstmt.setString(index++, last_name);
+            }
+
+            pstmt.setInt(index, badge_number);
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return -1;
     }
 
-    PreparedStatement pstmt = null;
-    try {
-        StringBuilder query = new StringBuilder("UPDATE officers SET ");
-        boolean first = true;
+    public List<String[]> getOfficersByActiveStatus(String status) {
+        Connection conn = connect();
+        List<String[]> officerList = new ArrayList<>();
 
-        if (first_name != null && !first_name.trim().isEmpty()) {
-            query.append("first_name = ?");
-            first = false;
+        if (conn == null) {
+            System.out.println("Failed to connect to server");
+            return null;
         }
 
-        if (last_name != null && !last_name.trim().isEmpty()) {
-            if (!first) {
-                query.append(", ");
-            }
-            query.append("last_name = ?");
-        }
-
-        query.append(" WHERE badge_number = ?");
-
-        pstmt = conn.prepareStatement(query.toString());
-
-        int index = 1;
-
-        if (first_name != null && !first_name.trim().isEmpty()) {
-            pstmt.setString(index++, first_name);
-        }
-
-        if (last_name != null && !last_name.trim().isEmpty()) {
-            pstmt.setString(index++, last_name);
-        }
-
-        pstmt.setInt(index, badge_number);
-
-        int rowsAffected = pstmt.executeUpdate();
-        
-        if (rowsAffected > 0) {
-            return 1;
-        } else {
-            return 0;
-        }
-    } catch (SQLException e) {
-        System.out.println("Error: " + e.getMessage());
-    } finally {
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
         try {
-            if (pstmt != null) pstmt.close();
-            if (conn != null) conn.close();
+            pstmt = conn.prepareStatement(
+                "SELECT badge_number, first_name, last_name, start_date_current, active, jail_code " +
+                "FROM officers WHERE active = ?");
+            pstmt.setString(1, status);  
+            rst = pstmt.executeQuery();
+
+            while (rst.next()) {
+                String[] officer = new String[6];
+                officer[0] = String.valueOf(rst.getInt("badge_number"));
+                officer[1] = rst.getString("first_name");
+                officer[2] = rst.getString("last_name");
+                officer[3] = rst.getDate("start_date_current").toString();
+                officer[4] = rst.getString("active");
+                officer[5] = String.valueOf(rst.getInt("jail_code"));
+                officerList.add(officer);
+            }
+
+            rst.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+                if (rst != null) rst.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
+        return officerList;
     }
-    return -1;
-}
-
-
 }

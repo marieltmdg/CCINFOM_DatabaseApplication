@@ -113,4 +113,53 @@ public class OfficerHistory {
         }
         return -1;
     }
+    
+    public List<String[]> getOfficerHistory() {
+        Connection conn = connect();
+        List<String[]> historyRecords = new ArrayList<>();
+
+        if (conn == null) {
+            System.out.println("Failed to connect to server");
+            return null;
+        }
+
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        try {
+            pstmt = conn.prepareStatement(
+                "SELECT badge_number, jail_code, start_date, end_date " +
+                "FROM officer_station_history " +
+                "WHERE badge_number = ?"
+            );
+            pstmt.setInt(1, badge_number);
+            rst = pstmt.executeQuery();
+
+            while (rst.next()) {
+                String[] record = new String[4];
+                record[0] = String.valueOf(rst.getInt("badge_number"));
+                
+                if (rst.getObject("jail_code") == null) {
+                    record[1] = "null";
+                } else {
+                    record[1] = String.valueOf(rst.getInt("jail_code"));
+                }                
+                record[2] = rst.getDate("start_date").toString();
+                record[3] = rst.getDate("end_date").toString();
+                historyRecords.add(record);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return historyRecords;
+    }
+
 }
