@@ -8,9 +8,18 @@ import java.util.*;
 import java.sql.*;
 /**
  *
- * @author marie
+ * @author nathanaelIan
  */
 public class Jails {
+    public int jail_code;
+    public String area_of_jurisdiction;
+    public int years_active;
+    
+    
+    public Jails() {
+        
+    }
+    
     public Connection connect(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -19,13 +28,142 @@ public class Jails {
         }
         
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=Niannian12;';");
             System.out.println("Connection successful");
             return conn;
         } catch(Exception e){
             System.out.println(e.getMessage());
             return null;
         }
+    }
+    
+    public String[] retrieveJail(){
+        Connection conn = connect();
+        String jailCode = null;
+        String areaOfJurisdiction = null;
+        String yearsActive = null;
+        String criminalCount = null;
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return null;
+        }
+        
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT * FROM jails WHERE jail_code = ?");
+            pstmt.setInt(1, jail_code);
+            ResultSet rst = pstmt.executeQuery();
+            
+            // dne
+            if (!rst.isBeforeFirst()) {
+                return null;
+            } 
+             
+            String[] arr = null;
+            if (rst.next()) {
+                jailCode = rst.getString("jail_code");
+                areaOfJurisdiction = rst.getString("area_of_jurisdiction");
+                yearsActive = rst.getString("years_active");
+            }
+            
+            rst.close();
+            
+            pstmt = conn.prepareStatement("SELECT COUNT(jail_code) AS criminal_count FROM criminals WHERE jail_code = ?;");
+            pstmt.setInt(1, jail_code);
+            rst = pstmt.executeQuery();
+            
+            if (!rst.isBeforeFirst()) {
+                return null;
+            } 
+            
+            if (rst.next()){
+                criminalCount = rst.getString("criminal_count");
+            }     
+            
+            arr = new String[] {jailCode, areaOfJurisdiction, yearsActive, criminalCount};
+       
+            System.out.println("Success");
+            return arr;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    
+    public boolean addJail(){
+        Connection conn = connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return false;
+        }
+        
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        
+        try {
+            pstmt = conn.prepareStatement("SELECT MAX(jail_code) + 1 AS MaxJailCode FROM Jails");
+            rst = pstmt.executeQuery();
+            while(rst.next()) {
+                jail_code = rst.getInt("MaxJailCode");
+            }
+            
+            pstmt = conn.prepareStatement("INSERT INTO Jails (jail_code, area_of_jurisdiction, years_active) VALUE (?, ?, ?)");
+            pstmt.setInt(1, jail_code);
+            pstmt.setString(2, area_of_jurisdiction);
+            pstmt.setInt(3, years_active);
+            pstmt.executeUpdate();
+            System.out.println("Jail Added Successfully.");
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+    
+    public boolean deleteJail(){
+        Connection conn = connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return false;
+        }
+        
+        PreparedStatement pstmt = null;
+        
+        try {
+            pstmt = conn.prepareStatement("DELETE FROM jails WHERE jail_code = ?");
+            pstmt.setInt(1, jail_code);
+            pstmt.executeUpdate();
+            pstmt.close();
+            System.out.println("Jail Deleted Successfully.");
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
     
 }
