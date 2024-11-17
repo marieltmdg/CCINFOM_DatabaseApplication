@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Add Crime</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Add Crime Record</h2>
+        <form action="add_crime.jsp" method="POST">
+            <label for="crime_type">Crime Name:</label>
+            <input type="text" id="crime_type" name="crime_type" required><br><br>
+            
+            <label for="badgeNum">Badge Number:</label>
+            <input type="number" id="badgeNum" name="badgeNum" required><br><br>
+            
+            <label for="date">Date Committed:</label>
+            <input type="number" id="date" name="date" required><br><br>
+            
+            <label for="sentence">Sentence (in years):</label>
+            <input type="number" id="sentence" name="sentence" required><br><br>
+            
+            <label for="criminal_code">Criminal Code:</label>
+            <input type="number" id="criminal_code" name="criminal_code" required><br><br>
+            
+            <input type="submit" value="Add Crime">
+        </form>
+    </body>
+</html>
