@@ -28,7 +28,7 @@ public class Jails {
         }
         
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=112345678");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection successful");
             return conn;
         } catch(Exception e){
