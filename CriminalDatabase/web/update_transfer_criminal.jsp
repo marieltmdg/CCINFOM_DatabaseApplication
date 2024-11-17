@@ -36,9 +36,10 @@
                     //out.println(dateCommitted);
                     int newJailCode = Integer.parseInt(new_Jail_Code);
                     int cjhResult;
-                    CriminalJailHistory cjh = new CriminalJailHistory();
+                    IncarcerationHistory cjh = new IncarcerationHistory();
                     cjh.criminal_code = criminalCode;
                     cjh.jail_code = oldJailCode;
+                    cjh.status = "Transfer";
                     int doesExist = cjh.checkExists();
                     if (doesExist == 1){
                         cjhResult = cjh.addRecordWith();
