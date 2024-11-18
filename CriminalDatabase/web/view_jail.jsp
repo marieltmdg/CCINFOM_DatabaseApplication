@@ -28,7 +28,7 @@
                     if (res != null) {
                         out.println("<p>Jail Code: " + res[0] + "</p>");
                         out.println("<p>Area of Jurisdiction: " + res[1] + "</p>");
-                        out.println("<p>Years Active: " + res[2] + "</p>");
+                        out.println("<p>Start Date: " + res[2] + "</p>");
                         out.println("<p>Criminal Count: " + res[3] + "</p>");
                     } else {
                         out.println("<p>Jail not found.</p>");

@@ -4,6 +4,7 @@
     Author     : nathanaelian
 --%>
 <%@ page import="criminalmanagement.*" %>
+<%@page import="java.text.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,14 +16,15 @@
         <h2>Add Jail Record</h2>
         <%
             String areaJuris = request.getParameter("area_of_jurisdiction");
-            String yearsActive = request.getParameter("years_active");
+            String startDate = request.getParameter("start_date");
             
-            if (areaJuris != null && yearsActive != null){
+            if (areaJuris != null && startDate != null){
                 try {
-                    int yActive = Integer.parseInt(yearsActive);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    java.util.Date date = sdf.parse(startDate); 
                     
                     Jails jail = new Jails();
-                    jail.years_active = yActive;
+                    jail.start_date = new java.sql.Date(date.getTime());;
                     jail.area_of_jurisdiction = areaJuris;
                     
                     boolean res = jail.addJail();

@@ -13,7 +13,7 @@ import java.sql.*;
 public class Jails {
     public int jail_code;
     public String area_of_jurisdiction;
-    public int years_active;
+    public java.sql.Date start_date;
     
     
     public Jails() {
@@ -64,7 +64,7 @@ public class Jails {
             if (rst.next()) {
                 jailCode = rst.getString("jail_code");
                 areaOfJurisdiction = rst.getString("area_of_jurisdiction");
-                yearsActive = rst.getString("years_active");
+                yearsActive = rst.getString("start_date");
             }
             
             rst.close();
@@ -116,10 +116,10 @@ public class Jails {
                 jail_code = rst.getInt("MaxJailCode");
             }
             
-            pstmt = conn.prepareStatement("INSERT INTO Jails (jail_code, area_of_jurisdiction, years_active) VALUE (?, ?, ?)");
+            pstmt = conn.prepareStatement("INSERT INTO Jails (jail_code, area_of_jurisdiction, start_date) VALUE (?, ?, ?)");
             pstmt.setInt(1, jail_code);
             pstmt.setString(2, area_of_jurisdiction);
-            pstmt.setInt(3, years_active);
+            pstmt.setDate(3, start_date);
             pstmt.executeUpdate();
             System.out.println("Jail Added Successfully.");
             return true;
