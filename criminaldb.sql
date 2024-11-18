@@ -6,8 +6,7 @@ DROP TABLE IF EXISTS Jails;
 CREATE TABLE Jails(
     `Jail_Code`             int(100)  NOT NULL DEFAULT '0' PRIMARY KEY,
     `Area_of_Jurisdiction`  char(100) NOT NULL DEFAULT '',
-    `Years_Active`          int(100)  NOT NULL DEFAULT '0',
-    `Number_of_Criminals`   int(100) NOT NULL DEFAULT '0'
+    `Years_Active`          int(100)  NOT NULL DEFAULT '0'
 );
 
 DROP TABLE IF EXISTS Criminals;
@@ -65,16 +64,16 @@ CREATE TABLE incarceration_history(
 );
 
 INSERT INTO `Jails` VALUES
- (0,'Manila',12,44)
-,(1,'Makati',39,86)
-,(2,'Taguig',34,82)
-,(3,'Mandaluyong',68,102)
-,(4,'Muntinlupa',1,94)
-,(5,'Quezon',90,85)
-,(6,'Bulacan',33,108)
-,(7,'Laguna',14,89)
-,(8,'Cavite',44,82)
-,(9,'Pasay',15,28);
+ (0,'Manila',12)
+,(1,'Makati',39)
+,(2,'Taguig',34)
+,(3,'Mandaluyong',68)
+,(4,'Muntinlupa',1)
+,(5,'Quezon',90)
+,(6,'Bulacan',33)
+,(7,'Laguna',14)
+,(8,'Cavite',44)
+,(9,'Pasay',15);
 
 INSERT INTO `Criminals` VALUES
  (0,'Kon','Haider',36,8)
