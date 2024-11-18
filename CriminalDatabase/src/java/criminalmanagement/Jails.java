@@ -262,4 +262,47 @@ public class Jails {
         }
         return false;
     }
+    
+    public List<String[]> getJailsByAreaAndYear(String area, String year){
+        Connection conn = connect();
+        List<String[]> jailList = new ArrayList<>();
+        if (conn == null) {
+            System.out.println("Failed to connect to server");
+            return jailList;
+        }
+        
+        area = "%" + area + "%";
+
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        try {
+            String sql = "SELECT * FROM jails WHERE (area_of_jurisdiction LIKE ? or ? = 'all') AND (YEAR(start_date) = ? or ? = 'all')";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, area);
+            pstmt.setString(2, area);
+            pstmt.setString(3, year);
+            pstmt.setString(4, year);
+            rst = pstmt.executeQuery();
+            
+            while (rst.next()){
+                String[] jail = new String[3];
+                jail[0] = String.valueOf(rst.getInt("jail_code"));
+                jail[1] = rst.getString("area_of_jurisdiction");
+                jail[2] = rst.getDate("start_date").toString();
+                jailList.add(jail);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return jailList;
+    }
 }
