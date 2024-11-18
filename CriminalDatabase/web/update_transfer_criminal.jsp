@@ -4,10 +4,11 @@
     Author     : nathanaelian
 --%>
 
-<%@page import="java.time.format.DateTimeFormatter"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="criminalmanagement.*" %>
 <%@ page import="java.time.*"%>
+<%@ page import="java.text.*"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
@@ -24,16 +25,12 @@
             String date_Committed = request.getParameter("date_committed");
             
             int criminalCode = Integer.parseInt(criminal_code);
-            int oldJailCode = Integer.parseInt(old_Jail_Code);
-//            SimpleDateFormat aaDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-//            Date dateCommitted = aaDateFormat.parse(date_Committed);            
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
-            LocalDateTime date = LocalDateTime.parse(date_Committed, formatter);
+            int oldJailCode = Integer.parseInt(old_Jail_Code);         
             
             if (new_Jail_Code != null) {
                 try {
-                    out.println(date_Committed);
-                    //out.println(dateCommitted);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    java.util.Date date = sdf.parse(date_Committed); 
                     int newJailCode = Integer.parseInt(new_Jail_Code);
                     int cjhResult;
                     IncarcerationHistory cjh = new IncarcerationHistory();
@@ -44,7 +41,7 @@
                     if (doesExist == 1){
                         cjhResult = cjh.addRecordWith();
                     } else {
-                        cjh.start_date = java.sql.Date.valueOf(date.toLocalDate());
+                        cjh.start_date = new java.sql.Date(date.getTime());
                         cjhResult = cjh.addRecordWithout();
                     }
                     

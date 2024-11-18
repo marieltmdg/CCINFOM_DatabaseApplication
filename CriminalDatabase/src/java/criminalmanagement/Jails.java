@@ -69,7 +69,7 @@ public class Jails {
             
             rst.close();
             
-            pstmt = conn.prepareStatement("SELECT COUNT(jail_code) AS criminal_count FROM criminals WHERE jail_code = ?;");
+            pstmt = conn.prepareStatement("SELECT COUNT(jail_code) AS criminal_count FROM criminals WHERE jail_code = ?");
             pstmt.setInt(1, jail_code);
             rst = pstmt.executeQuery();
             
