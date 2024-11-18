@@ -439,7 +439,7 @@ public class Officer {
                 officer[2] = rst.getString("last_name");
                 officer[3] = rst.getDate("start_date_current").toString();
                 officer[4] = rst.getString("active");
-                officer[5] = String.valueOf(rst.getInt("jail_code"));
+                officer[5] = (rst.getObject("jail_code") == null) ? "null" : String.valueOf(rst.getInt("jail_code"));
                 officerList.add(officer);
             }
 
@@ -458,19 +458,20 @@ public class Officer {
 
         return officerList;
     }
+
     
     public List<String[]> getOfficersByStatusAndJail(String status, String jail) {
-    Connection conn = connect();
-    List<String[]> officerList = new ArrayList<>();
+        Connection conn = connect();
+        List<String[]> officerList = new ArrayList<>();
 
-    if (conn == null) {
-        System.out.println("Failed to connect to server");
-        return officerList;
-    }
+        if (conn == null) {
+            System.out.println("Failed to connect to server");
+            return officerList;
+        }
 
-    PreparedStatement pstmt = null;
-    ResultSet rst = null;
-    try {
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        try {
             String sql = "SELECT badge_number, first_name, last_name, start_date_current, active, jail_code " +
                          "FROM officers WHERE (active = ? OR ? = 'all') AND (jail_code = ? OR ? = 'all')";
             pstmt = conn.prepareStatement(sql);
@@ -488,7 +489,7 @@ public class Officer {
                 officer[2] = rst.getString("last_name");
                 officer[3] = rst.getDate("start_date_current").toString();
                 officer[4] = rst.getString("active");
-                officer[5] = String.valueOf(rst.getInt("jail_code"));
+                officer[5] = (rst.getObject("jail_code") == null) ? "null" : String.valueOf(rst.getInt("jail_code"));
                 officerList.add(officer);
             }
 
@@ -506,5 +507,6 @@ public class Officer {
 
         return officerList;
     }
+
 
 }

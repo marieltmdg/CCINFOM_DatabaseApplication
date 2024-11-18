@@ -6,12 +6,25 @@
     <head>
         <title>List Officers</title>
         <meta charset="UTF-8">
+        <script>
+            function toggleJailDropdown() {
+                const activeDropdown = document.getElementById("active");
+                const jailDropdown = document.getElementById("jail");
+
+                if (activeDropdown.value === "F") {
+                    jailDropdown.disabled = true;
+                    jailDropdown.value = "all"; // Reset to default
+                } else {
+                    jailDropdown.disabled = false;
+                }
+            }
+        </script>
     </head>
     <body>
         <h2>List Officers</h2>
         <form action="list_officers.jsp" method="POST">
             <label for="active">Choose Active Status:</label>
-            <select id="active" name="active" required>
+            <select id="active" name="active" required onchange="toggleJailDropdown()">
                 <option value="all">All</option>
                 <option value="T">Active</option>
                 <option value="F">Inactive</option>
