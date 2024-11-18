@@ -28,7 +28,7 @@ public class Jails {
         }
         
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=Niannian12;';");
             System.out.println("Connection successful");
             return conn;
         } catch(Exception e){
@@ -41,7 +41,7 @@ public class Jails {
         Connection conn = connect();
         String jailCode = null;
         String areaOfJurisdiction = null;
-        String yearsActive = null;
+        String startDate = null;
         String criminalCount = null;
         
         if(conn == null){
@@ -64,7 +64,7 @@ public class Jails {
             if (rst.next()) {
                 jailCode = rst.getString("jail_code");
                 areaOfJurisdiction = rst.getString("area_of_jurisdiction");
-                yearsActive = rst.getString("start_date");
+                startDate = rst.getString("start_date");
             }
             
             rst.close();
@@ -81,7 +81,7 @@ public class Jails {
                 criminalCount = rst.getString("criminal_count");
             }     
             
-            arr = new String[] {jailCode, areaOfJurisdiction, yearsActive, criminalCount};
+            arr = new String[] {jailCode, areaOfJurisdiction, startDate, criminalCount};
        
             System.out.println("Success");
             return arr;
