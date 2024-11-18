@@ -28,7 +28,7 @@ public class Jails {
         }
         
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=Niannian12;';");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
             System.out.println("Connection successful");
             return conn;
         } catch(Exception e){
@@ -201,5 +201,65 @@ public class Jails {
         }
 
         return jails;
+    }
+    
+    public boolean updateJail(){
+        Connection conn = connect();
+
+        if (conn == null) {
+            return false;
+        }
+        
+        PreparedStatement pstmt = null;
+        try {
+            StringBuilder query = new StringBuilder("UPDATE jails SET ");
+            boolean first = true;
+
+            if (area_of_jurisdiction  != null && !area_of_jurisdiction.trim().isEmpty()) {
+                query.append("area_of_jurisdiction = ?");
+                first = false;
+            }
+
+            if (start_date != null) {
+                if (!first) {
+                    query.append(", ");
+                }
+                query.append("start_date = ?");
+            }
+
+            query.append(" WHERE jail_code = ?");
+
+            pstmt = conn.prepareStatement(query.toString());
+
+            int index = 1;
+
+            if (area_of_jurisdiction  != null && !area_of_jurisdiction.trim().isEmpty()) {
+                pstmt.setString(index++, area_of_jurisdiction);
+            }
+
+            if (start_date != null) {
+                pstmt.setDate(index++, start_date);
+            }
+
+            pstmt.setInt(index, jail_code);
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }
