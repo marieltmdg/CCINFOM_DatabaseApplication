@@ -32,8 +32,8 @@
                         // record history
                         OfficerHistory oh = new OfficerHistory();
                         oh.badge_number = badgeNum;
-                        oh.jail_code = Integer.parseInt(result[4]);
-                        String dateStr = result[5];
+                        oh.jail_code = Integer.parseInt(result[5]);
+                        String dateStr = result[3];
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         java.util.Date utilDate = sdf.parse(dateStr); 
                         oh.start_date = new java.sql.Date(utilDate.getTime()); 
@@ -51,9 +51,9 @@
                             out.println("<p>Badge Number: " + result[0] +"</p>");
                             out.println("<p>First Name: " + result[1] +"</p>");
                             out.println("<p>Last Name: " + result[2] +"</p>");
-                            out.println("<p>Active: " + result[3] +"</p>");
-                            out.println("<p>Jail Code: " + result[4] +"</p>");
-                            out.println("<p>Start Date of Assignment: " + result[5] +"</p>");
+                            out.println("<p>Start Date of Assignment: " + result[3] +"</p>");
+                            out.println("<p>Active: " + result[4] +"</p>");
+                            out.println("<p>Jail Code: " + result[5] +"</p>");
 
                         } else if (changeResult == -2){
                             out.println("<p>Jail does not exist.</p>");

@@ -165,5 +165,41 @@ public class Jails {
         }
         return false;
     }
-    
+
+    public List<String[]> getJails() {
+        Connection conn = connect();
+        List<String[]> jails = new ArrayList<>();
+
+        if (conn == null) {
+            System.out.println("Failed to connect to database.");
+            return jails;
+        }
+
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        try {
+            String sql = "SELECT jail_code, area_of_jurisdiction FROM jails";
+            pstmt = conn.prepareStatement(sql);
+            rst = pstmt.executeQuery();
+
+            while (rst.next()) {
+                String[] jail = new String[2];
+                jail[0] = String.valueOf(rst.getInt("jail_code"));
+                jail[1] = rst.getString("area_of_jurisdiction");
+                jails.add(jail);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching jails: " + e.getMessage());
+        } finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jails;
+    }
 }

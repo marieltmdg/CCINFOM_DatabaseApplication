@@ -28,7 +28,6 @@
                     int check = officer.checkExists();
 
                     if (check == 1) {
-                        // Check if user provided new names, and update accordingly
                         if (newFirstName != null && !newFirstName.isEmpty()) {
                             officer.first_name = newFirstName;
                         }
@@ -45,9 +44,9 @@
                             out.println("<p>Badge Number: " + badgeNumber +"</p>");
                             out.println("<p>First Name: " + result[1] +"</p>");
                             out.println("<p>Last Name: " + result[2] +"</p>");
-                            out.println("<p>Active: " + result[3] +"</p>");
-                            out.println("<p>Jail Code: " + result[4] +"</p>");
-                            out.println("<p>Start Date of Assignment: " + result[5] +"</p>");
+                            out.println("<p>Start Date of Assignment: " + result[3] +"</p>");
+                            out.println("<p>Active: " + result[4] +"</p>");
+                            out.println("<p>Jail Code: " + result[5] +"</p>");
                         } else {
                             out.println("<p>Failed to update officer name.</p>");
                         }

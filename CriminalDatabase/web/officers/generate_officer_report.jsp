@@ -15,16 +15,24 @@
     </head>
     <body>
         <h2>Officer Report</h2>
+
+        <form action="generate_officer_report.jsp" method="GET">
+            <label for="year">Select Year:</label>
+            <input type="number" id="year" name="year" required>
+            <input type="submit" value="Generate Report">
+        </form>
+
         <%
             String sYear = request.getParameter("year");
 
-            if (sYear != null) {
+            if (sYear != null && !sYear.trim().isEmpty()) {
                 try {
-                    int year = Integer.parseInt(sYear);
+                    int year = Integer.parseInt(sYear);  
                     OfficerReport report = new OfficerReport(year);
                     report.generateReport();
                     List<String[]> result = report.getReport();
                     
+                    out.println("<p><strong>Showing results for year " + year + "</strong></p>");
                     if (result == null || result.isEmpty()) {
                         out.println("<p>No report data available for the year " + year + ".</p>");
                     } else {
@@ -48,10 +56,10 @@
                     }
                     
                 } catch (NumberFormatException e) {
-                    out.println("<p>Invalid input format. Please enter valid numbers.</p>");
+                    out.println("<p>Invalid year format. Please enter a valid year.</p>");
                 }
             } else {
-                out.println("<p>All fields are required.</p>");
+                out.println("<p>Please enter a year to generate the report.</p>");
             }
         %>
     </body>

@@ -103,12 +103,12 @@ public class Officer {
                 String badgeNumber = rst.getString("badge_number");
                 String firstName = rst.getString("first_name");
                 String lastName = rst.getString("last_name");
+                String startDate = rst.getString("start_date_current");
                 String active = rst.getString("active");
                 String jailCode = rst.getString("jail_code");
-                String startDate = rst.getString("start_date_current");
                 
-                arr = new String[] { badgeNumber, firstName, lastName, active,
-                                        jailCode, startDate};
+                arr = new String[] { badgeNumber, firstName, lastName, startDate,
+                                    active, jailCode};
             }
             
      
@@ -317,7 +317,9 @@ public class Officer {
         }
 
         PreparedStatement pstmt = null;
+        System.out.println("here");
         try {
+            conn.setAutoCommit(false);
             pstmt = conn.prepareStatement(
                     "UPDATE crimes SET badge_number = NULL WHERE badge_number = ?");
             pstmt.setInt(1, badge_number);
@@ -327,13 +329,14 @@ public class Officer {
                     "DELETE FROM officer_station_history WHERE badge_number = ?");
             pstmt.setInt(1, badge_number);
             pstmt.executeUpdate();
-
+            
             pstmt = conn.prepareStatement(
                     "DELETE FROM officers WHERE badge_number = ?");
             pstmt.setInt(1, badge_number);
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
+                conn.commit();
                 return 1;
             } else {
                 return 0;
@@ -455,4 +458,53 @@ public class Officer {
 
         return officerList;
     }
+    
+    public List<String[]> getOfficersByStatusAndJail(String status, String jail) {
+    Connection conn = connect();
+    List<String[]> officerList = new ArrayList<>();
+
+    if (conn == null) {
+        System.out.println("Failed to connect to server");
+        return officerList;
+    }
+
+    PreparedStatement pstmt = null;
+    ResultSet rst = null;
+    try {
+            String sql = "SELECT badge_number, first_name, last_name, start_date_current, active, jail_code " +
+                         "FROM officers WHERE (active = ? OR ? = 'all') AND (jail_code = ? OR ? = 'all')";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, status);
+            pstmt.setString(2, status);
+            pstmt.setString(3, jail);
+            pstmt.setString(4, jail);
+
+            rst = pstmt.executeQuery();
+
+            while (rst.next()) {
+                String[] officer = new String[6];
+                officer[0] = String.valueOf(rst.getInt("badge_number"));
+                officer[1] = rst.getString("first_name");
+                officer[2] = rst.getString("last_name");
+                officer[3] = rst.getDate("start_date_current").toString();
+                officer[4] = rst.getString("active");
+                officer[5] = String.valueOf(rst.getInt("jail_code"));
+                officerList.add(officer);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return officerList;
+    }
+
 }

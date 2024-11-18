@@ -20,16 +20,17 @@
 
             if (officerBadgeNumber != null) {
                 try {
-                    int badgeNumber = Integer.parseInt(officerBadgeNumber);
+                    int badgeNumber = Integer.parseInt(officerBadgeNumber); 
                     Officer officer = new Officer();
                     officer.badge_number = badgeNumber;
                     int check = officer.checkExists();
 
                     if (check == 1) {
                         OfficerHistory oh = new OfficerHistory();
-                        
-                        List<String[]> result = oh.getOfficerHistory();
-                        
+                        oh.badge_number = badgeNumber;
+                        List<String[]> result = oh.getOfficerHistory(); 
+
+                        out.println("<p>Showing results for officer with badge number: " + badgeNumber +"</p>");
                         if (result == null || result.isEmpty()){
                             out.println("<p>Officer has no past assignment history.</p>");
                         } else {
@@ -51,21 +52,17 @@
                             out.println("</tbody>");
                             out.println("</table>");
                         }
-                    
                     } else {
-                        // redirect to add officer
-                        out.println("<p>Officer does not exist</p>");
-                        out.println("<form action ='add_officer.html' method='post'>");
-                        out.println("<input type='submit' value='Add officer'>");
+                        out.println("<p>Officer with badge number " + badgeNumber + " does not exist.</p>");
+                        out.println("<p><a href='add_officer.html'>Click here to add the officer</a></p>");
                     }
 
                 } catch (NumberFormatException e) {
-                    out.println("<p>Invalid input format. Please enter valid numbers.</p>");
+                    out.println("<p>Invalid input format. Please enter a valid badge number.</p>");
                 }
             } else {
-                out.println("<p>All fields are required.</p>");
+                out.println("<p>Badge number is required to view officer history.</p>");
             }
         %>
-        
     </body>
 </html>

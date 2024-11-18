@@ -1,6 +1,6 @@
 <%-- 
-    Document   : view_officer
-    Created on : Nov 17, 2024, 9:53:46 PM
+    Document   : update_officer
+    Created on : Nov 17, 2024, 9:50:25 PM
     Author     : marie
 --%>
 
@@ -11,12 +11,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>View Officer</title>
+        <title>Update Officer Record</title>
     </head>
     <body>
-        <h2>View Officer</h2>
         <%
-            String officerBadgeNumber = request.getParameter("officer_badgeNumber");
+            String officerBadgeNumber = request.getParameter("badge_number");
 
             if (officerBadgeNumber != null) {
                 try {
@@ -33,9 +32,20 @@
                         out.println("<p>Badge Number: " + badgeNumber +"</p>");
                         out.println("<p>First Name: " + result[1] +"</p>");
                         out.println("<p>Last Name: " + result[2] +"</p>");
-                        out.println("<p>Active: " + result[3] +"</p>");
-                        out.println("<p>Jail Code: " + result[4] +"</p>");
-                        out.println("<p>Start Date of Assignment: " + result[5] +"</p>");
+                        out.println("<p>Start Date of Assignment: " + result[3] +"</p>");
+                        out.println("<p>Active: " + result[4] +"</p>");
+                        out.println("<p>Jail Code: " + result[5] +"</p>");
+                        out.println("<p>Leave blank for fields that will not change</p>");
+                        
+                        out.println("<form action='update_officer_name.jsp' method='post'>");
+                        out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
+                        out.println("<label for='first_name'>First Name: </label>");
+                        out.println("<input type='text' id='first_name' name='first_name'<br>");
+                        out.println("<label for='last_name'>Last Name: </label>");
+                        out.println("<input type='text' id='last_name' name='last_name'<br>");
+                        out.println("<input type='submit' value='Update Name'>");
+                        out.println("</form>");
+                        
                     } else {
                         // redirect to add officer
                         out.println("<p>Officer does not exist</p>");
