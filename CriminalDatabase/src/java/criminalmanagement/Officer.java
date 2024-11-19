@@ -300,27 +300,16 @@ public class Officer {
         }
 
         PreparedStatement pstmt = null;
-        System.out.println("here");
         try {
             conn.setAutoCommit(false);
-            pstmt = conn.prepareStatement(
-                    "UPDATE crimes SET badge_number = NULL WHERE badge_number = ?");
-            pstmt.setInt(1, badge_number);
-            pstmt.executeUpdate();
 
-            pstmt = conn.prepareStatement(
-                    "DELETE FROM officer_station_history WHERE badge_number = ?");
-            pstmt.setInt(1, badge_number);
-            pstmt.executeUpdate();
-            
-            pstmt = conn.prepareStatement(
-                    "DELETE FROM officers WHERE badge_number = ?");
+            pstmt = conn.prepareStatement("DELETE FROM officers WHERE badge_number = ?");
             pstmt.setInt(1, badge_number);
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
                 conn.commit();
-                return 1;
+                return 1; 
             } else {
                 return 0;
             }
@@ -334,7 +323,7 @@ public class Officer {
                 e.printStackTrace();
             }
         }
-        return -1;
+        return -1; 
     }
     
     public int updateOfficerName() {

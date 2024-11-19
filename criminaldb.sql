@@ -34,23 +34,25 @@ DROP TABLE IF EXISTS Crimes;
 CREATE TABLE Crimes(
     `Crime_Code`     int(100)  NOT NULL DEFAULT '0' PRIMARY KEY,
     `Crime_Type`     char(100) NOT NULL DEFAULT '',
-    `Badge_Number`   int(100)  NOT NULL DEFAULT '0',
+    `Badge_Number`   int(100),
     `Date_Committed` DATE      NOT NULL,
     `Sentence`       int(100)  NOT NULL DEFAULT '0',
     `Criminal_Code`  int(100)  DEFAULT '0',
     FOREIGN KEY(`Criminal_Code`) REFERENCES criminals(`Criminal_Code`),
-    FOREIGN KEY(`Badge_Number`) REFERENCES officers(`Badge_Number`)
+    FOREIGN KEY(`Badge_Number`) REFERENCES officers(`Badge_Number`) ON DELETE SET NULL
 );
 
 DROP TABLE IF EXISTS officer_station_history;
 CREATE TABLE officer_station_history(
-   Badge_Number INTEGER  NOT NULL,
-   Jail_Code    INTEGER NOT NULL, 
-   start_date   DATE  NOT NULL, 
-   end_date     DATE NOT NULL,
-   FOREIGN KEY(Badge_Number) REFERENCES officers(Badge_Number),
-   FOREIGN KEY(Jail_Code) REFERENCES jails(Jail_Code)
+   `Badge_Number` INTEGER NOT NULL,
+   `Jail_Code` INTEGER NOT NULL, 
+   `start_date` DATE NOT NULL, 
+   `end_date` DATE NOT NULL,
+   PRIMARY KEY (`Badge_Number`, `Jail_Code`, `start_date`), 
+   FOREIGN KEY (`Badge_Number`) REFERENCES officers (`Badge_Number`) ON DELETE CASCADE,
+   FOREIGN KEY (`Jail_Code`) REFERENCES jails (`Jail_Code`)
 );
+
 
 DROP TABLE IF EXISTS incarceration_history;
 CREATE TABLE incarceration_history(
@@ -2180,7 +2182,6 @@ INSERT INTO `Crimes` VALUES
 ,(997,'LEWD/LASCIVIOUS ACTS WITH CHILD',115,'2020-05-01',120,579)
 ,(998,'THEFT OF IDENTITY',199,'2020-09-01',36,495);
 
--- Historical data for officers before their current assignments
 INSERT INTO officer_station_history (badge_number, jail_code, start_date, end_date) VALUES
 (0, 1, '2019-12-01', '2020-03-14'),
 (1, 3, '2020-01-01', '2021-06-21'),
