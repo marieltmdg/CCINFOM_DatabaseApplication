@@ -53,8 +53,15 @@
                             out.println("</table>");
                         }
                     } else {
-                        out.println("<p>Officer with badge number " + badgeNumber + " does not exist.</p>");
-                        out.println("<p><a href='add_officer.html'>Click here to add the officer</a></p>");
+                        // Redirect to add officer
+                        out.println("<table>");
+                        out.println("<tr><td>Officer Record Not Found</td></tr>");
+                        out.println("<form action='add_officer.html' method='post'>");
+                        out.println("<div class='button-container'>");
+                        out.println("<input type='submit' value='Add Officer' id='roboto' class='button'>");
+                        out.println("</div>");
+                        out.println("</form>");
+                        out.println("</table>");
                     }
 
                 } catch (NumberFormatException e) {

@@ -73,7 +73,7 @@
                                     result = officer.retrieveOfficer();
                                     out.println("<table>");
                                         out.println("<thead>");
-                                        out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer jail code updated.</th></tr>");
+                                        out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Jail Code Updated.</th></tr>");
                                         out.println("</thead>");
                                         out.println("<tbody>");
                                         out.println("<tr><td>Badge Number:</td><td>" + result[0] + "</td></tr>");
@@ -86,7 +86,7 @@
                                         out.println("</table>");
                                 } else if (changeResult == -2) {
                                     out.println("<table>");
-                                    out.println("<tr><td colspan='2'>Jail does not exist.</td></tr>");
+                                    out.println("<tr><td colspan='2'>Jail Does Not Exist.</td></tr>");
                                     out.println("</table>");
                                 } else {
                                     out.println("<table>");
@@ -95,7 +95,7 @@
                                 }               
                             } else {
                                 out.println("<table>");
-                                out.println("<tr><td colspan='2'>Officer currently inactive.</td></tr>");
+                                out.println("<tr><td colspan='2'>Officer Currently Inactive.</td></tr>");
                                 out.println("</table>");
                             }
 

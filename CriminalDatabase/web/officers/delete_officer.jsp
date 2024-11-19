@@ -70,7 +70,7 @@
                             } else {
                                 out.println("<table>");
                                 out.println("<thead>");
-                                out.println("<tr><th colspan='2' style='color: white;'>Officer Not Found</th></tr>");
+                                out.println("<tr><th colspan='2' style='color: white;'>Officer Record Not Found</th></tr>");
                                 out.println("</thead>");
                                 out.println("<tbody>");
                                 out.println("<tr><td colspan='2'>No officer found with Badge Number: " + badgeNum + "</td></tr>");

@@ -17,7 +17,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Officer Report</title>
+        <title>List Officers</title>
         <link rel="stylesheet" href="../style.css">
         <script>
             function toggleJailDropdown() {
@@ -47,7 +47,7 @@
             <p class="header-text" id="garamond">Philippine <br> National Police </p>
         </div>
         <div class="text-bar">
-            <p class="main-text" id="garamond">Officer Report</p>
+            <p class="main-text" id="garamond">List Officers</p>
         </div>
         
         <div style="display: flex; justify-content: center; align-items: center;">
@@ -76,7 +76,7 @@
 
             <div class="button-container">
                         <button class="button back-button" id="roboto" onclick="window.location.href='../index.html'" type="button">Back</button>
-                        <input type="submit" value="Generate Report" id="roboto" class="button">
+                        <input type="submit" value="List Officers" id="roboto" class="button">
             </div>
         </form>
 
