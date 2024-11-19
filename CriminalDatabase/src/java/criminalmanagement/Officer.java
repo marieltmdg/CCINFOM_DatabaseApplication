@@ -88,7 +88,7 @@ public class Officer {
                 String lastName = rst.getString("last_name");
                 String startDate = rst.getString("start_date_current");
                 String active = rst.getString("active");
-                String jailCode = rst.getString("jail_code");
+                String jailCode = (rst.getObject("jail_code") == null) ? "none" : String.valueOf(rst.getInt("jail_code"));
                 
                 arr = new String[] { badgeNumber, firstName, lastName, startDate,
                                     active, jailCode};
@@ -417,7 +417,7 @@ public class Officer {
                 officer[2] = rst.getString("last_name");
                 officer[3] = rst.getDate("start_date_current").toString();
                 officer[4] = rst.getString("active");
-                officer[5] = (rst.getObject("jail_code") == null) ? "null" : String.valueOf(rst.getInt("jail_code"));
+                officer[5] = (rst.getObject("jail_code") == null) ? "none" : String.valueOf(rst.getInt("jail_code"));
                 officerList.add(officer);
             }
 

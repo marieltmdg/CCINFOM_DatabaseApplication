@@ -78,12 +78,15 @@
                                 out.println("</form>");
 
                             } else {
+                                // Redirect to add officer
                                 out.println("<table>");
-                                out.println("<tr><td colspan='2'>Officer does not exist.</td></tr>");
-                                out.println("</table>");
+                                out.println("<tr><td>Officer Record Not Found</td></tr>");
                                 out.println("<form action='add_officer.html' method='post'>");
+                                out.println("<div class='button-container'>");
                                 out.println("<input type='submit' value='Add Officer' id='roboto' class='button'>");
+                                out.println("</div>");
                                 out.println("</form>");
+                                out.println("</table>");
                             }
 
                         } catch (NumberFormatException e) {

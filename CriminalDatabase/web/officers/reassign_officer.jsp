@@ -102,7 +102,7 @@
                             } else {
                                 // Redirect to add officer
                                 out.println("<table>");
-                                out.println("<tr><td>Officer does not exist.</td></tr>");
+                                out.println("<tr><td>Officer Record Not Found</td></tr>");
                                 out.println("<form action='add_officer.html' method='post'>");
                                 out.println("<div class='button-container'>");
                                 out.println("<input type='submit' value='Add Officer' id='roboto' class='button'>");

@@ -58,7 +58,7 @@
                                 String[] result = officer.retrieveOfficer();
                                 out.println("<table>");
                                 out.println("<thead>");
-                                out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer created successfully.</th></tr>");
+                                out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Created Successfully.</th></tr>");
                                 out.println("</thead>");
                                 out.println("<tbody>");
                                 out.println("<tr><td>Badge Number:</td><td>" + badgeNumber + "</td></tr>");
