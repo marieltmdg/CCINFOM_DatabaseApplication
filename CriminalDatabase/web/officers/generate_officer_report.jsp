@@ -75,7 +75,6 @@
                         try {
                             int year = Integer.parseInt(sYear);
                             OfficerReport report = new OfficerReport(year);
-                            report.generateReport();
 
                             boolean ascending = "asc".equals(sortOrder);
                             List<String[]> result = report.getReport(sortBy, ascending);

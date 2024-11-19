@@ -63,7 +63,9 @@
                                 out.println("<tbody>");
                                 
                                 if (result == null || result.isEmpty()){
-                                    out.println("<p>Officer Has No Past Assignment History.</p>");
+                                    out.println("<table>");
+                                    out.println("<tr><td colspan='4' class='no-data'>Officer Has No Past Assignment History</td></tr>");
+                                    out.println("</table>");
                                 } else {
                                     out.println("<tr>");
                                     out.println("<th>Badge Number</th><th>Jail Code</th><th>Start Date</th><th>End Date</th>");

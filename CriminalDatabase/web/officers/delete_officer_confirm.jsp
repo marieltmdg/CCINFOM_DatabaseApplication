@@ -35,7 +35,7 @@
                             int badgeNum = Integer.parseInt(badgeNumber);
                             Officer officer = new Officer();
                             officer.badge_number = badgeNum;
-                            int result = officer.deleteOfficerAndHistory(); 
+                            int result = officer.deleteOfficerSoft();
 
                             if (result == 1) {
                                 out.println("<table>");
