@@ -81,7 +81,6 @@ public class Officer {
                 return null;
             }
 
-            
             String[] arr = null;
             if (rst.next()) {
                 String badgeNumber = rst.getString("badge_number");
@@ -397,52 +396,6 @@ public class Officer {
         }
         return -1;
     }
-
-    public List<String[]> getOfficersByActiveStatus(String status) {
-        Connection conn = ConnectToSQL.connect();
-        List<String[]> officerList = new ArrayList<>();
-
-        if (conn == null) {
-            System.out.println("Failed to connect to server");
-            return null;
-        }
-
-        PreparedStatement pstmt = null;
-        ResultSet rst = null;
-        try {
-            pstmt = conn.prepareStatement(
-                "SELECT badge_number, first_name, last_name, start_date_current, active, jail_code " +
-                "FROM officers WHERE active = ?");
-            pstmt.setString(1, status);  
-            rst = pstmt.executeQuery();
-
-            while (rst.next()) {
-                String[] officer = new String[6];
-                officer[0] = String.valueOf(rst.getInt("badge_number"));
-                officer[1] = rst.getString("first_name");
-                officer[2] = rst.getString("last_name");
-                officer[3] = rst.getDate("start_date_current").toString();
-                officer[4] = rst.getString("active");
-                officer[5] = (rst.getObject("jail_code") == null) ? "null" : String.valueOf(rst.getInt("jail_code"));
-                officerList.add(officer);
-            }
-
-            rst.close();
-        } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
-        } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-                if (rst != null) rst.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return officerList;
-    }
-
     
     public List<String[]> getOfficersByStatusAndJail(String status, String jail) {
         Connection conn = ConnectToSQL.connect();
@@ -457,7 +410,9 @@ public class Officer {
         ResultSet rst = null;
         try {
             String sql = "SELECT badge_number, first_name, last_name, start_date_current, active, jail_code " +
-                         "FROM officers WHERE (active = ? OR ? = 'all') AND (jail_code = ? OR ? = 'all')";
+                "FROM officers WHERE (active = ? OR ? = 'all') " + 
+                "AND (jail_code = ? OR ? = 'all' OR jail_code IS NULL)";
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, status);
             pstmt.setString(2, status);

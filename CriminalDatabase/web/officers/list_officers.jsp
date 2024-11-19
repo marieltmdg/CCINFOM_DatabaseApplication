@@ -1,3 +1,9 @@
+<%-- 
+    Document   : delete_officer
+    Created on : Nov 17, 2024, 5:53:01 PM
+    Author     : marie
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="criminalmanagement.*" %>
 <%@page import="java.util.*"%>
@@ -13,7 +19,7 @@
 
                 if (activeDropdown.value === "F") {
                     jailDropdown.disabled = true;
-                    jailDropdown.value = "all"; // Reset to default
+                    jailDropdown.value = "all";
                 } else {
                     jailDropdown.disabled = false;
                 }
@@ -51,7 +57,7 @@
             String active = request.getParameter("active");
             String jail = request.getParameter("jail");
 
-            if (active != null && jail != null) {
+            if (active != null) {
                 Officer officer = new Officer();
                 List<String[]> officers = officer.getOfficersByStatusAndJail(active, jail);
                 

@@ -33,7 +33,7 @@
                         out.println("<p><strong>Start Date of Assignment:</strong> " + result[3] + "</p>");
                         out.println("<p><strong>Active Status:</strong> " + result[4] + "</p>");
                         out.println("<p><strong>Jail Code:</strong> " + result[5] + "</p>");
-                        out.println("<form action='confirm_delete_officer.jsp' method='POST'>");
+                        out.println("<form action='delete_officer_confirm.jsp' method='POST'>");
                         out.println("<input type='hidden' name='badge_number' value='" + badgeNum + "'/>");
                         out.println("<p>Are you sure you want to delete this officer?</p>");
                         out.println("<input type='submit' value='Confirm Deletion' />");

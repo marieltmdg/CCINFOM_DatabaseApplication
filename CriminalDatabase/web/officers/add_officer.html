@@ -1,24 +1,51 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Create a New Officer Record</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
     </head>
     <body>
-        <h2>Create a New Officer Record</h2>
-        <form action="add_officer.jsp" method="post">
-            <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" required><br>
-            <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" required><br>
-            <label for="jail_code">Jail Code:</label>
-            <input type="text" id="jail_code" name="jail_code" required><br>
-            <input type="submit" value="Add Officer">
-        </form>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <div class="bg-image">
+            <img src="../src/vigan.jpg">
+        </div>
+        <div class="bg-gradient"></div>
+        <div class="top-bar">
+            <img src="../src/pnp-logo.png" class="logo">
+            <p class="header-text" id="garamond">Philippine <br> National Police</p>
+        </div>
+        <div class="text-bar">
+            <p class="main-text" id="garamond">Create a New Officer Record</p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="action-box" id="action">
+                <form action="add_officer.jsp" id="roboto">
+                    <label for="first_name" class="form-label">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" required class="form-input"><br>
+
+                    <label for="last_name" class="form-label">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" required class="form-input"><br>
+
+                    <label for="jail_code" class="form-label">Jail Code:</label>
+                    <input type="text" id="jail_code" name="jail_code" required class="form-input"><br>
+
+                    <div class="button-container">
+                        <button class="button back-button" id="roboto" onclick="window.location.href='../index.html'" type="button">Back</button>
+                        <input type="submit" value="Add Officer" id="roboto" class="button">
+                    </div>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

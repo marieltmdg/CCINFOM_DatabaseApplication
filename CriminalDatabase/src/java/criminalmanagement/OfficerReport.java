@@ -7,14 +7,10 @@ package criminalmanagement;
 import java.util.*;
 import java.sql.*;
 import criminalmanagement.ConnectToSQL;
-/**
- *
- * @author marie
- */
+
 public class OfficerReport {
     public int year;
-
-    public HashMap<Integer, Integer> officerCriminalsMap;
+    public HashMap<Integer, OfficerReportData> officerCriminalsMap;
 
     public OfficerReport(int year) {
         this.year = year;
@@ -33,7 +29,7 @@ public class OfficerReport {
 
         try {
             pstmt = conn.prepareStatement(
-                    "SELECT o.badge_number, COUNT(c.crime_code) AS criminalsCaught "
+                    "SELECT o.badge_number, o.first_name, o.last_name, COUNT(c.crime_code) AS criminalsCaught "
                     + "FROM officers o "
                     + "LEFT JOIN crimes c ON o.badge_number = c.badge_number "
                     + "WHERE YEAR(c.date_committed) = ? "
@@ -44,9 +40,12 @@ public class OfficerReport {
 
             while (rst.next()) {
                 int badgeNumber = rst.getInt("badge_number");
+                String firstName = rst.getString("first_name");
+                String lastName = rst.getString("last_name");
                 int criminalsCaught = rst.getInt("criminalsCaught");
 
-                officerCriminalsMap.put(badgeNumber, criminalsCaught);
+                OfficerReportData officerData = new OfficerReportData(firstName, lastName, criminalsCaught);
+                officerCriminalsMap.put(badgeNumber, officerData);
             }
 
             System.out.println("Report generated successfully.");
@@ -62,22 +61,56 @@ public class OfficerReport {
             }
         }
     }
+    
+    public List<String[]> getReport(String sortBy, boolean ascending) {
+        List<String[]> reportData = new ArrayList<>();
 
-    public List<String[]> getReport() {
-        List<String[]> reportLines = new ArrayList<>();
-
-        for (Map.Entry<Integer, Integer> entry : officerCriminalsMap.entrySet()) {
-            int badgeNumber = entry.getKey();
-            int criminalsCaught = entry.getValue();
-
-            String[] reportLine = new String[2];
-            reportLine[0] = String.valueOf(badgeNumber);
-            reportLine[1] = String.valueOf(criminalsCaught); 
-
-            reportLines.add(reportLine);
+        for (Map.Entry<Integer, OfficerReportData> entry : officerCriminalsMap.entrySet()) {
+            OfficerReportData data = entry.getValue();
+            reportData.add(new String[]{
+                String.valueOf(entry.getKey()), 
+                data.firstName, 
+                data.lastName,
+                String.valueOf(data.criminalsCaught) 
+            });
         }
 
-        return reportLines;
-    }
+        Comparator<String[]> comparator;
+        switch (sortBy) {
+            case "last_name":
+                comparator = Comparator.comparing(o -> o[2]);  
+                break;
+            case "first_name":
+                comparator = Comparator.comparing(o -> o[1]); 
+                break;
+            case "badge_number":
+                comparator = Comparator.comparingInt(o -> Integer.parseInt(o[0]));
+                break;
+            case "criminals_caught":
+                comparator = Comparator.comparingInt(o -> Integer.parseInt(o[3])); 
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid sort field: " + sortBy);
+        }
 
+        if (!ascending) {
+            comparator = comparator.reversed();
+        }
+
+        reportData.sort(comparator);
+        return reportData;
+    }
+    
+    public static class OfficerReportData {
+        String firstName;
+        String lastName;
+        int criminalsCaught;
+
+        public OfficerReportData(String firstName, String lastName, int criminalsCaught) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.criminalsCaught = criminalsCaught;
+        }
+    }
 }
+
