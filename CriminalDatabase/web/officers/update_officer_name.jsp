@@ -8,57 +8,92 @@
 <%@ page import="criminalmanagement.Officer" %>
 <%@page import="java.util.*"%>
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Update Officer Name</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
     </head>
     <body>
-        <h2>Update Officer Name</h2>
-        <%
-            String officerBadgeNumber = request.getParameter("badge_number");
-            String newFirstName = request.getParameter("first_name");
-            String newLastName = request.getParameter("last_name");
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
 
-            if (officerBadgeNumber != null) {
-                try {
-                    int badgeNumber = Integer.parseInt(officerBadgeNumber);
-                    Officer officer = new Officer();
-                    officer.badge_number = badgeNumber;
-                    int check = officer.checkExists();
+        <div class="bg-image">
+            <img src="../src/vigan.jpg">
+        </div>
+        <div class="bg-gradient"></div>
+        <div class="top-bar">
+            <img src="../src/pnp-logo.png" class="logo">
+            <p class="header-text" id="garamond">Philippine <br> National Police </p>
+        </div>
+        <div class="text-bar">
+            <p class="main-text" id="garamond">Update Officer Name</p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="output-box" id="output">
+                <%
+                    String officerBadgeNumber = request.getParameter("badge_number");
+                    String newFirstName = request.getParameter("first_name");
+                    String newLastName = request.getParameter("last_name");
 
-                    if (check == 1) {
-                        if (newFirstName != null && !newFirstName.isEmpty()) {
-                            officer.first_name = newFirstName;
-                        }
-                        if (newLastName != null && !newLastName.isEmpty()) {
-                            officer.last_name = newLastName;
-                        }
+                    if (officerBadgeNumber != null) {
+                        try {
+                            int badgeNumber = Integer.parseInt(officerBadgeNumber);
+                            Officer officer = new Officer();
+                            officer.badge_number = badgeNumber;
+                            int check = officer.checkExists();
 
-                        int updateResult = officer.updateOfficerName();
-                        if (updateResult == 1) {
-                            out.println("<p>Officer name updated successfully.</p>");
-                            
-                            String[] result = officer.retrieveOfficer();
-                            out.println("<p>Details: </p>");
-                            out.println("<p>Badge Number: " + badgeNumber +"</p>");
-                            out.println("<p>First Name: " + result[1] +"</p>");
-                            out.println("<p>Last Name: " + result[2] +"</p>");
-                            out.println("<p>Start Date of Assignment: " + result[3] +"</p>");
-                            out.println("<p>Active: " + result[4] +"</p>");
-                            out.println("<p>Jail Code: " + result[5] +"</p>");
-                        } else {
-                            out.println("<p>Failed to update officer name.</p>");
+                            if (check == 1) {
+                                if (newFirstName != null && !newFirstName.isEmpty()) {
+                                    officer.first_name = newFirstName;
+                                }
+                                if (newLastName != null && !newLastName.isEmpty()) {
+                                    officer.last_name = newLastName;
+                                }
+
+                                int updateResult = officer.updateOfficerName();
+                                if (updateResult == 1) {
+                                    String[] result = officer.retrieveOfficer();
+                                    out.println("<table>");
+                                    out.println("<tr><th colspan='2'>Success! Officer name updated</th></tr>");
+                                    out.println("<tr><th>Badge Number</th><td>" + badgeNumber +"</td></tr>");
+                                    out.println("<tr><th>First Name</th><td>" + result[1] +"</td></tr>");
+                                    out.println("<tr><th>Last Name</th><td>" + result[2] +"</td></tr>");
+                                    out.println("<tr><th>Start Date of Assignment</th><td>" + result[3] +"</td></tr>");
+                                    out.println("<tr><th>Active</th><td>" + result[4] +"</td></tr>");
+                                    out.println("<tr><th>Jail Code</th><td>" + result[5] +"</td></tr>");
+                                    out.println("</table>");
+                                } else {
+                                    out.println("<table>");
+                                    out.println("<tr><td colspan='2'>Failed to update officer name.</td></tr>");
+                                    out.println("</table>");
+                                }
+                            } else {
+                                out.println("<table>");
+                                out.println("<tr><td colspan='2'>Officer does not exist.</td></tr>");
+                                out.println("</table>");
+                            }
+                        } catch (NumberFormatException e) {
+                            out.println("<table>");
+                            out.println("<tr><td colspan='2'>Invalid input format. Please enter a valid number for the badge number.</td></tr>");
+                            out.println("</table>");
                         }
                     } else {
-                        out.println("<p>Officer does not exist.</p>");
+                        out.println("<table>");
+                        out.println("<tr><td colspan='2'>Badge number is required.</td></tr>");
+                        out.println("</table>");
                     }
-                } catch (NumberFormatException e) {
-                    out.println("<p>Invalid input format. Please enter a valid number for the badge number.</p>");
-                }
-            } else {
-                out.println("<p>Badge number is required.</p>");
-            }
-        %>
+                %>
+                <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
+            </div>
+        </div>
     </body>
 </html>
