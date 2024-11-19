@@ -17,7 +17,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Create a New Officer</title>
+        <title>View Officer Record</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../style.css">
@@ -36,7 +36,7 @@
             <p class="header-text" id="garamond">Philippine <br> National Police </p>
         </div>
         <div class="text-bar">
-            <p class="main-text" id="garamond">Create a New Officer</p>
+            <p class="main-text" id="garamond">View Officer Record</p>
         </div>
         <div style="display: flex; justify-content: center; align-items: center;">
             <div class="output-box" id="output">
@@ -82,7 +82,7 @@
                             out.println("</table>");}
                     } else {
                         out.println("<table>");
-                        out.println("<tr><td colspan='2' style='color: white; text-align: center;'>All fields are required.</td></tr>");
+                        out.println("<tr><td colspan='2' style='color: white; text-align: center;'>All Fields Are Required.</td></tr>");
                         out.println("</table>");
                     }
                 %>

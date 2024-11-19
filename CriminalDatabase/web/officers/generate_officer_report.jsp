@@ -90,7 +90,7 @@
                             out.println("<tbody>");
 
                             if (result == null || result.isEmpty()) {
-                                out.println("<tr><td colspan='4' class='no-data'>No report data available for the year " + year + ".</td></tr>");
+                                out.println("<tr><td colspan='4' class='no-data'>No report data available for the year " + year + "</td></tr>");
                             } else {
                                 
                                 out.println("<tr>");
@@ -114,13 +114,13 @@
 
                         } catch (NumberFormatException e) {
                             out.println("<table>");
-                            out.println("<tr><td colspan='4' class='no-data'>Invalid year format. Please enter a valid year.</td></tr>");
+                            out.println("<tr><td colspan='4' class='no-data'>Invalid year format. Please enter a valid year</td></tr>");
                             out.println("</table>");
                         }
                     } else {
                         out.println("<p></p>");
                         out.println("<table>");
-                        out.println("<tr><td colspan='4' class='no-data'>Please enter a year to generate the report.</td></tr>");
+                        out.println("<tr><td colspan='4' class='no-data'>Please enter a year to generate the report</td></tr>");
                         out.println("</table>");
                     }
                 %>

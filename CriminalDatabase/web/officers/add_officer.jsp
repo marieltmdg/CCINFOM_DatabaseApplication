@@ -16,7 +16,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Create a New Officer</title>
+        <title>Create a New Officer Record</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../style.css">
@@ -35,7 +35,7 @@
             <p class="header-text" id="garamond">Philippine <br> National Police </p>
         </div>
         <div class="text-bar">
-            <p class="main-text" id="garamond">Create a New Officer</p>
+            <p class="main-text" id="garamond">Create a New Officer Record</p>
         </div>
         <div style="display: flex; justify-content: center; align-items: center;">
             <div class="output-box" id="output">
@@ -58,7 +58,7 @@
                                 String[] result = officer.retrieveOfficer();
                                 out.println("<table>");
                                 out.println("<thead>");
-                                out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Created Successfully.</th></tr>");
+                                out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Created Successfully</th></tr>");
                                 out.println("</thead>");
                                 out.println("<tbody>");
                                 out.println("<tr><td>Badge Number:</td><td>" + badgeNumber + "</td></tr>");
@@ -75,7 +75,7 @@
                                 out.println("<tr><th colspan='2' style='color: white;'>Officer Not Created</th></tr>");
                                 out.println("</thead>");
                                 out.println("<tbody>");
-                                out.println("<tr><td colspan='2'>Jail does not exist.</td></tr>");
+                                out.println("<tr><td colspan='2'>Jail Does Not Exist</td></tr>");
                                 out.println("</tbody>");
                                 out.println("</table>");
                             } else {
@@ -84,7 +84,7 @@
                                 out.println("<tr><th colspan='2' style='color: white;'>Creation Unsuccessful</th></tr>");
                                 out.println("</thead>");
                                 out.println("<tbody>");
-                                out.println("<tr><td colspan='2'>Please try again.</td></tr>");
+                                out.println("<tr><td colspan='2'>Please try again</td></tr>");
                                 out.println("</tbody>");
                                 out.println("</table>");
                             }
@@ -95,7 +95,7 @@
                             out.println("</table>");}
                     } else {
                         out.println("<table>");
-                        out.println("<tr><td colspan='2' style='color: red; text-align: center;'>All fields are required.</td></tr>");
+                        out.println("<tr><td colspan='2' style='color: red; text-align: center;'>All Fields Are Required</td></tr>");
                         out.println("</table>");
                     }
                 %>

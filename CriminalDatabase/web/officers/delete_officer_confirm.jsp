@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Confirm Delete</title>
+        <title>Confirm Delete Officer Record</title>
         <link rel="stylesheet" href="../style.css">
     </head>
     <body>
@@ -23,7 +23,7 @@
             <p class="header-text" id="garamond">Philippine <br> National Police </p>
         </div>
         <div class="text-bar">
-            <p class="main-text" id="garamond">Delete Officer Record</p>
+            <p class="main-text" id="garamond">Confirm Delete Officer Record</p>
         </div>
 
         <div style="display: flex; justify-content: center; align-items: center;">
@@ -52,9 +52,6 @@
                                 out.println("<thead>");
                                 out.println("<tr><th colspan='2' style='color: white;'>Failed to Delete Officer</th></tr>");
                                 out.println("</thead>");
-                                out.println("<tbody>");
-                                out.println("<tr><td colspan='2'>Failed to delete officer.</td></tr>");
-                                out.println("</tbody>");
                                 out.println("</table>");
                             }
                         } catch (Exception e) {

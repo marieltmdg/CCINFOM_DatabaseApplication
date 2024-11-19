@@ -63,7 +63,7 @@
                                 if (updateResult == 1) {
                                     String[] result = officer.retrieveOfficer();
                                     out.println("<table>");
-                                    out.println("<tr><th colspan='2'>Success! Officer name updated</th></tr>");
+                                    out.println("<tr><th colspan='2'>Success! Officer Name Updated</th></tr>");
                                     out.println("<tr><th>Badge Number</th><td>" + badgeNumber +"</td></tr>");
                                     out.println("<tr><th>First Name</th><td>" + result[1] +"</td></tr>");
                                     out.println("<tr><th>Last Name</th><td>" + result[2] +"</td></tr>");
@@ -73,12 +73,17 @@
                                     out.println("</table>");
                                 } else {
                                     out.println("<table>");
-                                    out.println("<tr><td colspan='2'>Failed to update officer name.</td></tr>");
+                                    out.println("<tr><td colspan='2'>Failed to Update Officer Name</td></tr>");
                                     out.println("</table>");
                                 }
                             } else {
                                 out.println("<table>");
-                                out.println("<tr><td colspan='2'>Officer does not exist.</td></tr>");
+                                out.println("<tr><td>Officer Record Not Found</td></tr>");
+                                out.println("<form action='add_officer.html' method='post'>");
+                                out.println("<div class='button-container'>");
+                                out.println("<input type='submit' value='Add Officer' id='roboto' class='button'>");
+                                out.println("</div>");
+                                out.println("</form>");
                                 out.println("</table>");
                             }
                         } catch (NumberFormatException e) {
@@ -88,7 +93,7 @@
                         }
                     } else {
                         out.println("<table>");
-                        out.println("<tr><td colspan='2'>Badge number is required.</td></tr>");
+                        out.println("<tr><td colspan='2'>Badge Number is Required</td></tr>");
                         out.println("</table>");
                     }
                 %>

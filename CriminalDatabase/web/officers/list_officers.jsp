@@ -98,7 +98,7 @@
                 out.println("<tbody>");
                             
                 if (officers == null || officers.isEmpty()) {
-                    out.println("<tr><td colspan='4' class='no-data'>No officers found matching the criteria.</td></tr>");
+                    out.println("<tr><td colspan='4' class='no-data'>No Officers Found Matching the Criteria</td></tr>");
                 } else {
                     out.println("<table>");
                     out.println("<thead>");
@@ -125,7 +125,7 @@
             } else {
                 out.println("<p></p>");
                 out.println("<table>");
-                out.println("<tr><td colspan='4' class='no-data'>Please select active and jail.</td></tr>");
+                out.println("<tr><td colspan='4' class='no-data'>Please Select Active and Jail.</td></tr>");
                 out.println("</table>");
             }
         %>

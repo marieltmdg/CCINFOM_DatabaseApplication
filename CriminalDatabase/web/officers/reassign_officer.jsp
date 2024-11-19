@@ -118,7 +118,7 @@
                         }
                     } else {
                         out.println("<table>");
-                        out.println("<tr><td>All fields are required. Please enter a badge number.</td></tr>");
+                        out.println("<tr><td>All Fields are Required. Please Enter a Badge Number.</td></tr>");
                         out.println("</table>");
                     }
                 %>

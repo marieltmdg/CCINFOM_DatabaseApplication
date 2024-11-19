@@ -16,7 +16,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Update Officer Jail Code</title>
+        <title>Change Officer Jail Code</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../style.css">
@@ -35,7 +35,7 @@
             <p class="header-text" id="garamond">Philippine <br> National Police </p>
         </div>
         <div class="text-bar">
-            <p class="main-text" id="garamond">Update Officer Jail Code</p>
+            <p class="main-text" id="garamond">Change Officer Jail Code</p>
         </div>
         <div style="display: flex; justify-content: center; align-items: center;">
             <div class="output-box" id="output">
@@ -73,7 +73,7 @@
                                     result = officer.retrieveOfficer();
                                     out.println("<table>");
                                         out.println("<thead>");
-                                        out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Jail Code Updated.</th></tr>");
+                                        out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Jail Code Updated</th></tr>");
                                         out.println("</thead>");
                                         out.println("<tbody>");
                                         out.println("<tr><td>Badge Number:</td><td>" + result[0] + "</td></tr>");
@@ -86,27 +86,27 @@
                                         out.println("</table>");
                                 } else if (changeResult == -2) {
                                     out.println("<table>");
-                                    out.println("<tr><td colspan='2'>Jail Does Not Exist.</td></tr>");
+                                    out.println("<tr><td colspan='2'>Jail Does Not Exist</td></tr>");
                                     out.println("</table>");
                                 } else {
                                     out.println("<table>");
-                                    out.println("<tr><td colspan='2'>Update Unsuccessful.</td></tr>");
+                                    out.println("<tr><td colspan='2'>Update Unsuccessful</td></tr>");
                                     out.println("</table>");
                                 }               
                             } else {
                                 out.println("<table>");
-                                out.println("<tr><td colspan='2'>Officer Currently Inactive.</td></tr>");
+                                out.println("<tr><td colspan='2'>Officer Currently Inactive</td></tr>");
                                 out.println("</table>");
                             }
 
                         } catch (NumberFormatException e) {
                             out.println("<table>");
-                            out.println("<tr><td colspan='2'>Invalid input format. Please enter valid numbers.</td></tr>");
+                            out.println("<tr><td colspan='2'>Invalid input format. Please enter valid numbers</td></tr>");
                             out.println("</table>");
                         }
                     } else {
                         out.println("<table>");
-                        out.println("<tr><td colspan='2'>All fields are required.</td></tr>");
+                        out.println("<tr><td colspan='2'>All Fields Are Required</td></tr>");
                         out.println("</table>");
                     }
                 %>

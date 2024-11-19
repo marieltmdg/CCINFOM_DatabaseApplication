@@ -83,6 +83,10 @@
                             out.println("<tr><td colspan='2' style='color: white; text-align: center;'>Invalid input format. Please enter a valid badge number.</td></tr>");
                             out.println("</table>");
                         }
+                    } else {
+                        out.println("<table>");
+                        out.println("<tr><td colspan='2' style='color: red; text-align: center;'>All Fields Are Required</td></tr>");
+                        out.println("</table>");
                     }
                 %>
                 <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
