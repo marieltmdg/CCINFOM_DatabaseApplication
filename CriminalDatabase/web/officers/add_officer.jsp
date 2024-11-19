@@ -1,4 +1,4 @@
-<%--
+<%-- 
     Document   : add_officer
     Created on : Nov 5, 2024, 7:54:27 PM
     Author     : marie
@@ -39,13 +39,12 @@
         </div>
         <div style="display: flex; justify-content: center; align-items: center;">
             <div class="output-box" id="output">
-                <%
+                <% 
                     String officerFirstName = request.getParameter("first_name");
                     String officerLastName = request.getParameter("last_name");
                     String stringJailCode = request.getParameter("jail_code");
 
-                    if (officerFirstName != null && officerLastName != null
-                        && stringJailCode != null) {
+                    if (officerFirstName != null && officerLastName != null && stringJailCode != null) {
                         try {
                             int jailCode = Integer.parseInt(stringJailCode);
 
@@ -57,25 +56,47 @@
 
                             if (badgeNumber >= 0) {
                                 String[] result = officer.retrieveOfficer();
-                                out.println("<p>Success.</p>");
-                                out.println("<p>Details: </p>");
-                                out.println("<p>Badge Number: " + badgeNumber +"</p>");
-                                out.println("<p>First Name: " + result[1] +"</p>");
-                                out.println("<p>Last Name: " + result[2] +"</p>");
-                                out.println("<p>Start Date of Assignment: " + result[3] +"</p>");
-                                out.println("<p>Active: " + result[4] +"</p>");
-                                out.println("<p>Jail Code: " + result[5] +"</p>");
-                            } else if (badgeNumber == -2){
-                                    out.println("<p>Jail does not exist.</p>");
-                            }else {
-                                out.println("<p>Creation Unsuccessful.</p>");
+                                out.println("<table>");
+                                out.println("<thead>");
+                                out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer created successfully.</th></tr>");
+                                out.println("</thead>");
+                                out.println("<tbody>");
+                                out.println("<tr><td>Badge Number:</td><td>" + badgeNumber + "</td></tr>");
+                                out.println("<tr><td>First Name:</td><td>" + result[1] + "</td></tr>");
+                                out.println("<tr><td>Last Name:</td><td>" + result[2] + "</td></tr>");
+                                out.println("<tr><td>Start Date of Assignment:</td><td>" + result[3] + "</td></tr>");
+                                out.println("<tr><td>Active:</td><td>" + result[4] + "</td></tr>");
+                                out.println("<tr><td>Jail Code:</td><td>" + result[5] + "</td></tr>");
+                                out.println("</tbody>");
+                                out.println("</table>");
+                            } else if (badgeNumber == -2) {
+                                out.println("<table>");
+                                out.println("<thead>");
+                                out.println("<tr><th colspan='2' style='color: white;'>Officer Not Created</th></tr>");
+                                out.println("</thead>");
+                                out.println("<tbody>");
+                                out.println("<tr><td colspan='2'>Jail does not exist.</td></tr>");
+                                out.println("</tbody>");
+                                out.println("</table>");
+                            } else {
+                                out.println("<table>");
+                                out.println("<thead>");
+                                out.println("<tr><th colspan='2' style='color: white;'>Creation Unsuccessful</th></tr>");
+                                out.println("</thead>");
+                                out.println("<tbody>");
+                                out.println("<tr><td colspan='2'>Please try again.</td></tr>");
+                                out.println("</tbody>");
+                                out.println("</table>");
                             }
 
                         } catch (NumberFormatException e) {
-                            out.println("<p>Invalid input format. Please enter valid numbers.</p>");
-                        }
+                            out.println("<table");
+                            out.println("<tr><td colspan='2' style='color: white; text-align: center;'>Invalid input format. Please enter a valid badge number.</td></tr>");
+                            out.println("</table>");}
                     } else {
-                        out.println("<p>All fields are required.</p>");
+                        out.println("<table>");
+                        out.println("<tr><td colspan='2' style='color: red; text-align: center;'>All fields are required.</td></tr>");
+                        out.println("</table>");
                     }
                 %>
                 <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>

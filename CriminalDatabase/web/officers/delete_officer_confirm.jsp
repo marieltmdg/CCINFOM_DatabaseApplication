@@ -11,30 +11,75 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Confirm Delete</title>
+        <link rel="stylesheet" href="../style.css">
     </head>
     <body>
-        <h2>Delete Officer Record</h2>
-        <%
-            String badgeNumber = request.getParameter("badge_number");
-            if (badgeNumber != null) {
-                try {
-                    int badgeNum = Integer.parseInt(badgeNumber);
-                    Officer officer = new Officer();
-                    officer.badge_number = badgeNum;
-                    int result = officer.deleteOfficerAndHistory(); 
+        <div class="bg-image">
+            <img src="../src/vigan.jpg">
+        </div>
+        <div class="bg-gradient"></div>
+        <div class="top-bar">
+            <img src="../src/pnp-logo.png" class="logo">
+            <p class="header-text" id="garamond">Philippine <br> National Police </p>
+        </div>
+        <div class="text-bar">
+            <p class="main-text" id="garamond">Delete Officer Record</p>
+        </div>
 
-                    if (result == 1) {
-                        out.println("<p>Officer deleted successfully.</p>");
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="output-box" id="output">
+                <%
+                    String badgeNumber = request.getParameter("badge_number");
+                    if (badgeNumber != null) {
+                        try {
+                            int badgeNum = Integer.parseInt(badgeNumber);
+                            Officer officer = new Officer();
+                            officer.badge_number = badgeNum;
+                            int result = officer.deleteOfficerAndHistory(); 
+
+                            if (result == 1) {
+                                out.println("<table>");
+                                out.println("<thead>");
+                                out.println("<tr><th colspan='2' style='color: white;'>Officer Deleted Successfully</th></tr>");
+                                out.println("</thead>");
+                                out.println("<tbody>");
+                                out.println("<tr><td><strong>Badge Number:</strong></td><td>" + badgeNum + "</td></tr>");
+                                out.println("<tr><td colspan='2'>The officer has been deleted from the system.</td></tr>");
+                                out.println("</tbody>");
+                                out.println("</table>");
+                            } else {
+                                out.println("<table>");
+                                out.println("<thead>");
+                                out.println("<tr><th colspan='2' style='color: white;'>Failed to Delete Officer</th></tr>");
+                                out.println("</thead>");
+                                out.println("<tbody>");
+                                out.println("<tr><td colspan='2'>Failed to delete officer.</td></tr>");
+                                out.println("</tbody>");
+                                out.println("</table>");
+                            }
+                        } catch (Exception e) {
+                            out.println("<table>");
+                            out.println("<thead>");
+                            out.println("<tr><th colspan='2' style='color: white;'>Error</th></tr>");
+                            out.println("</thead>");
+                            out.println("<tbody>");
+                            out.println("<tr><td colspan='2'>Error: " + e.getMessage() + "</td></tr>");
+                            out.println("</tbody>");
+                            out.println("</table>");
+                        }
                     } else {
-                        out.println("<p>Failed to delete officer. Please check the badge number or officer status.</p>");
+                        out.println("<table>");
+                        out.println("<thead>");
+                        out.println("<tr><th colspan='2' style='color: white;'>Badge Number Missing</th></tr>");
+                        out.println("</thead>");
+                        out.println("<tbody>");
+                        out.println("<tr><td colspan='2'>Badge number is required to delete the officer.</td></tr>");
+                        out.println("</tbody>");
+                        out.println("</table>");
                     }
-                } catch (Exception e) {
-                    out.println("<p>Error: " + e.getMessage() + "</p>");
-                }
-            } else {
-                out.println("<p>Badge number is required.</p>");
-            }
-            
-            %>
+                %>
+                <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
+            </div>
+        </div>
     </body>
 </html>

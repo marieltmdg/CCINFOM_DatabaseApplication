@@ -5,74 +5,118 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="criminalmanagement.Officer" %>
+<%@ page import="criminalmanagement.*" %>
 <%@page import="java.util.*"%>
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Reassign Officer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
     </head>
-    <body> 
-        <h2>Reassign Officer</h2>
-        <%
-            String officerBadgeNumber = request.getParameter("officer_badgeNumber");
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
 
-            if (officerBadgeNumber != null) {
-                try {
-                    int badgeNumber = Integer.parseInt(officerBadgeNumber);
-                    Officer officer = new Officer();
-                    officer.badge_number = badgeNumber;
-                    int check = officer.checkExists();
+        <div class="bg-image">
+            <img src="../src/vigan.jpg">
+        </div>
+        <div class="bg-gradient"></div>
+        <div class="top-bar">
+            <img src="../src/pnp-logo.png" class="logo">
+            <p class="header-text" id="garamond">Philippine <br> National Police </p>
+        </div>
+        <div class="text-bar">
+            <p class="main-text" id="garamond">Reassign Officer</p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="output-box" id="output">
+            <%
+                String officerBadgeNumber = request.getParameter("officer_badgeNumber");
 
-                    if (check == 1) {
-                        String[] result = officer.retrieveOfficer();
-                    
-                        out.println("<p>Officer Record Exists.</p>");
-                        out.println("<p>Details</p>");
-                        out.println("<p>Badge Number: " + badgeNumber +"</p>");
-                        out.println("<p>First Name: " + result[1] +"</p>");
-                        out.println("<p>Last Name: " + result[2] +"</p>");
-                        out.println("<p>Start Date of Assignment: " + result[3] +"</p>");
-                        out.println("<p>Active: " + result[4] +"</p>");
-                        out.println("<p>Jail Code: " + result[5] +"</p>");
-                        out.println("<p>Update Active or Update Jail Code?</p>");
-                        
-                        // active
-                        if (result[4].equals("T")) {
-                            out.println("<form action='reassign_officer_jailCode.jsp' method='post'>");
+                if (officerBadgeNumber != null) {
+                    try {
+                        int badgeNumber = Integer.parseInt(officerBadgeNumber);
+                        Officer officer = new Officer();
+                        officer.badge_number = badgeNumber;
+                        int check = officer.checkExists();
+
+                        if (check == 1) {
+                            String[] result = officer.retrieveOfficer();
+
+                            out.println("<table>");
+                            out.println("<tr><td>Badge Number:</td><td>" + badgeNumber + "</td></tr>");
+                            out.println("<tr><td>First Name:</td><td>" + result[1] + "</td></tr>");
+                            out.println("<tr><td>Last Name:</td><td>" + result[2] + "</td></tr>");
+                            out.println("<tr><td>Start Date of Assignment:</td><td>" + result[3] + "</td></tr>");
+                            out.println("<tr><td>Active:</td><td>" + result[4] + "</td></tr>");
+                            out.println("<tr><td>Jail Code:</td><td>" + result[5] + "</td></tr>");
+                            out.println("</table>");
+
+                            out.println("<table>");
+                            out.println("<tr><td>Update Active or Update Jail Code?</td></tr>");
+                            out.println("</table>");
+
+                            // If the officer is active, allow jail code update
+                            if (result[4].equals("T")) {
+                                out.println("<form action='reassign_officer_jailCode.jsp' method='post'>");
+                                out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
+                                out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
+                                out.println("<tr><td><label for='jail_code' class='form-label'>New Jail Code:</label></td>");
+                                out.println("<td><input type='text' id='jail_code' name='jail_code' class='form-input' required></td></tr>");
+                                out.println("<div class='button-container'>");
+                                out.println("<input type='submit' value='Update Jail Code' class='button'>");
+                                out.println("</div>");
+                                out.println("</form>");
+                            } else {
+                                out.println("<table>");
+                                out.println("<tr><td>Officer currently inactive. Cannot change jail code.</td></tr>");
+                                out.println("</table>");
+                            }
+
+                            // Form to update active status
+                            out.println("<form action='reassign_officer_active.jsp' method='post'>");
                             out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
                             out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
-                            out.println("<label for='jail_code'>New Jail Code:</label>");
-                            out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
-                            out.println("<input type='submit' value='Update Jail Code'>");
+                            if (result[4].equals("F")) {
+                                out.println("<tr><td><label for='jail_code' class='form-label'>New Jail Code:</label></td>");
+                                out.println("<td><input type='text' id='jail_code' name='jail_code' class='form-input' required></td></tr>");
+                            }
+                            out.println("<div class='button-container'>");
+                            out.println("<input type='submit' value='Update Active' class='button'>");
+                            out.println("</div>");
                             out.println("</form>");
                         } else {
-                            out.println("<p>Officer currently inactive. Cannot change jail code.</p>");
+                            // Redirect to add officer
+                            out.println("<table>");
+                            out.println("<tr><td>Officer does not exist.</td></tr>");
+                            out.println("<form action='add_officer.html' method='post'>");
+                            out.println("<div class='button-container'>");
+                            out.println("<input type='submit' value='Add Officer' id='roboto' class='button'>");
+                            out.println("</div>");
+                            out.println("</form>");
+                            out.println("</table>");
                         }
 
-                        out.println("<form action='reassign_officer_active.jsp' method='post'>");
-                        out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
-                        out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
-                        if (result[4].equals("F")){
-                            out.println("<label for='jail_code'>New Jail Code:</label>");
-                            out.println("<input type='text' id='jail_code' name='jail_code' required><br>");
-                        }
-                        out.println("<input type='submit' value='Update Active'>");
-                        out.println("</form>");
-                    } else {
-                        // redirect to add officer
-                        out.println("<p>Officer does not exist</p>");
-                        out.println("<form action ='add_officer.html' method='post'>");
-                        out.println("<input type='submit' value='Add officer'>");
+                    } catch (NumberFormatException e) {
+                        out.println("<table>");
+                        out.println("<tr><td>Invalid input format. Please enter valid numbers for the badge number.</td></tr>");
+                        out.println("</table>");
                     }
-
-                } catch (NumberFormatException e) {
-                    out.println("<p>Invalid input format. Please enter valid numbers.</p>");
+                } else {
+                    out.println("<table>");
+                    out.println("<tr><td>All fields are required. Please enter a badge number.</td></tr>");
+                    out.println("</table>");
                 }
-            } else {
-                out.println("<p>All fields are required.</p>");
-            }
-        %>
+            %>
+
     </body>
 </html>
