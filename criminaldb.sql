@@ -16,7 +16,7 @@ CREATE TABLE Criminals(
     `Last_Name`         char(100)  NOT NULL DEFAULT '',
     `Total_Sentence`    int(100) NOT NULL DEFAULT '0',
     `Jail_Code`         int(100)  DEFAULT '0',
-    FOREIGN KEY(`Jail_Code`) REFERENCES Jails(`Jail_Code`)
+    FOREIGN KEY(`Jail_Code`) REFERENCES Jails(`Jail_Code`) ON DELETE SET NULL
 );
 
 DROP TABLE IF EXISTS officers;
@@ -27,7 +27,7 @@ CREATE TABLE officers(
     `Jail_Code`         INTEGER DEFAULT '0',
     `Start_Date_Current`  DATE,
     `Active`            char(1) NOT NULL DEFAULT '', 
-    FOREIGN KEY(`Jail_Code`) REFERENCES Jails(`Jail_Code`)
+    FOREIGN KEY(`Jail_Code`) REFERENCES Jails(`Jail_Code`) ON DELETE SET NULL
 );
 
 DROP TABLE IF EXISTS Crimes;
@@ -45,12 +45,12 @@ CREATE TABLE Crimes(
 DROP TABLE IF EXISTS officer_station_history;
 CREATE TABLE officer_station_history(
    `Badge_Number` INTEGER NOT NULL,
-   `Jail_Code` INTEGER NOT NULL, 
+   `Jail_Code` INTEGER, 
    `start_date` DATE NOT NULL, 
    `end_date` DATE NOT NULL,
    PRIMARY KEY (`Badge_Number`, `Jail_Code`, `start_date`), 
    FOREIGN KEY (`Badge_Number`) REFERENCES officers (`Badge_Number`) ON DELETE CASCADE,
-   FOREIGN KEY (`Jail_Code`) REFERENCES jails (`Jail_Code`)
+   FOREIGN KEY (`Jail_Code`) REFERENCES jails (`Jail_Code`) ON DELETE CASCADE
 );
 
 
@@ -62,7 +62,7 @@ CREATE TABLE incarceration_history(
    end_date        DATE  NOT NULL, 
    status		   char(100) NOT NULL,
   FOREIGN KEY(Criminal_Code) REFERENCES criminals(Criminal_Code),
-  FOREIGN KEY(Jail_Code) REFERENCES jails(Jail_Code)
+  FOREIGN KEY(Jail_Code) REFERENCES jails(Jail_Code) ON DELETE SET NULL
 );
 
 INSERT INTO `Jails` VALUES
