@@ -6,7 +6,7 @@ package criminalmanagement;
 
 import java.util.*;
 import java.sql.*;
-
+import criminalmanagement.ConnectToSQL;
 /**
  *
  * @author marie
@@ -21,22 +21,8 @@ public class OfficerReport {
         this.officerCriminalsMap = new HashMap<>();
     }
 
-    public Connection connect() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678"
-            );
-        } catch (ClassNotFoundException e) {
-            System.err.println("JDBC Driver not found: " + e.getMessage());
-        } catch (SQLException e) {
-            System.err.println("Database connection failed: " + e.getMessage());
-        }
-        return null;
-    }
-
     public void generateReport() {
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         if (conn == null) {
             System.out.println("Failed to connect to the database.");
             return;

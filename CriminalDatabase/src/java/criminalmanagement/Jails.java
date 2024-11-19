@@ -6,6 +6,8 @@ package criminalmanagement;
 
 import java.util.*;
 import java.sql.*;
+import criminalmanagement.ConnectToSQL;
+
 /**
  *
  * @author nathanaelIan
@@ -19,26 +21,8 @@ public class Jails {
     public Jails() {
         
     }
-    
-    public Connection connect(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
-            System.out.println("Connection successful");
-            return conn;
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-    
     public String[] retrieveJail(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         String jailCode = null;
         String areaOfJurisdiction = null;
         String startDate = null;
@@ -99,7 +83,7 @@ public class Jails {
     }
     
     public boolean addJail(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -137,7 +121,7 @@ public class Jails {
     }
     
     public boolean deleteJail(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -167,7 +151,7 @@ public class Jails {
     }
 
     public List<String[]> getJails() {
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         List<String[]> jails = new ArrayList<>();
 
         if (conn == null) {
@@ -204,7 +188,7 @@ public class Jails {
     }
     
     public boolean updateJail(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
 
         if (conn == null) {
             return false;
@@ -264,7 +248,7 @@ public class Jails {
     }
     
     public List<String[]> getJailsByAreaAndYear(String area, String year){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         List<String[]> jailList = new ArrayList<>();
         if (conn == null) {
             System.out.println("Failed to connect to server");

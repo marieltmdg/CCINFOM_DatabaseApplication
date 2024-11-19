@@ -6,7 +6,7 @@ package criminalmanagement;
 
 import java.util.*;
 import java.sql.*;
-
+import criminalmanagement.ConnectToSQL;
 /**
  *
  * @author marie
@@ -20,17 +20,17 @@ public class Crimes {
     public int sentence;
     public int criminal_code;
     public Connection conn;
-    
+
     public Crimes() {
-        this.conn = connect();
+        this.conn = ConnectToSQL.connect();
     }
 
     public Crimes(int crime_code, int additional_sentence) {
         this.crime_code = crime_code;
         this.additional_sentence = additional_sentence;
-        this.conn = connect();
+        this.conn = ConnectToSQL.connect();
     }
-    
+
     public Crimes(int crime_code, String crime_type, int badge_number, String date, int sentence, int criminal_code) {
         this.crime_code = crime_code;
         this.crime_type = crime_type;
@@ -38,22 +38,7 @@ public class Crimes {
         this.date = date;
         this.sentence = sentence;
         this.criminal_code = criminal_code;
-        this.conn = connect();
-    }
-    
-    public Connection connect() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=032805paolo"
-            );
-            System.out.println("Connection successful");
-            this.conn = conn;
-            return conn;
-        } catch (Exception e) {
-            System.out.println("Connection failed: " + e.getMessage());
-            return null;
-        }
+        this.conn = ConnectToSQL.connect();
     }
 
     public boolean changeSentence() {
@@ -100,7 +85,7 @@ public class Crimes {
             pstmt.setInt(2, crime_code);
             pstmt.executeUpdate();
             pstmt.close();
-        
+
             // Update the Criminals table with the updated total sentence
             pstmt = conn.prepareStatement("UPDATE Criminals SET Total_Sentence = ? WHERE Criminal_Code = ?");
             pstmt.setInt(1, updatedTotalSentence);
@@ -114,10 +99,10 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-        
+
         return true;
     }
-    
+
     public boolean addCrime() {
         if (conn == null) {
             System.out.println("Failed to connect to the database.");
@@ -151,7 +136,7 @@ public class Crimes {
             pstmt.setInt(6, criminal_code);
             pstmt.executeUpdate();
             pstmt.close();
-            
+
             pstmt = conn.prepareStatement("SELECT Total_Sentence FROM Criminals WHERE Criminal_Code = ?");
             pstmt.setInt(1, criminal_code);
             rst = pstmt.executeQuery();
@@ -164,7 +149,7 @@ public class Crimes {
             int currentTotalSentence = rst.getInt("Total_Sentence");
             rst.close();
             pstmt.close();
-            
+
             pstmt = conn.prepareStatement("UPDATE Criminals SET Total_Sentence = ? WHERE Criminal_Code = ?");
             pstmt.setInt(1, currentTotalSentence + sentence);
             pstmt.setInt(2, criminal_code);

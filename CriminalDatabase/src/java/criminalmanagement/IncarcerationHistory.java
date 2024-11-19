@@ -6,7 +6,7 @@ package criminalmanagement;
 
 import java.util.*;
 import java.sql.*;
-
+import criminalmanagement.ConnectToSQL;
 /**
  *
  * @author nathanaelian
@@ -18,25 +18,8 @@ public class IncarcerationHistory {
     public java.sql.Date end_date;
     public String status;
     
-    public Connection connect(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
-            System.out.println("Connection successful");
-            return conn;
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-    
     public int addRecordWith(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -80,7 +63,7 @@ public class IncarcerationHistory {
     }
     
         public int addRecordWithout(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -113,7 +96,7 @@ public class IncarcerationHistory {
     }
     
     public int checkExists(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");

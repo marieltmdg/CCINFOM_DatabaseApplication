@@ -12,6 +12,7 @@ package criminalmanagement;
  */
 import java.util.*;
 import java.sql.*;
+import criminalmanagement.ConnectToSQL;
 
 public class Criminal {
     // insert fields
@@ -31,26 +32,8 @@ public class Criminal {
         
     }
     
-    public Connection connect(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
-            System.out.println("Connection successful");
-            return conn;
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-    
     public int registerCriminal(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -84,7 +67,7 @@ public class Criminal {
     }
     
     public int transferCriminal(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -103,7 +86,7 @@ public class Criminal {
     }
     
     public String[] retrieveCriminal() {
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         String criminalCode = null;
         String firstName = null;
         String lastName = null;
@@ -170,7 +153,7 @@ public class Criminal {
     }
     
     public int checkExists(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -211,7 +194,7 @@ public class Criminal {
     }
     
     public int updateCriminalJailCode(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");

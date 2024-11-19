@@ -6,6 +6,7 @@ package criminalmanagement;
 
 import java.util.*;
 import java.sql.*;
+import criminalmanagement.ConnectToSQL;
 /**
  *
  * @author marie
@@ -17,26 +18,9 @@ public class Officer {
     public java.sql.Date start_date_current;
     public String active;
     public int jail_code;
-    
-    public Connection connect(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
-            System.out.println("Connection successful");
-            return conn;
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-    
+
     public int checkExists(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -79,7 +63,7 @@ public class Officer {
     }
     
     public String[] retrieveOfficer(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -130,7 +114,7 @@ public class Officer {
     }
     
     public int registerNewOfficer(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -184,7 +168,7 @@ public class Officer {
     }
     
     public int assignExistingOfficer(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -220,7 +204,7 @@ public class Officer {
     }
     
     public int changeOfficerActive(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -263,7 +247,7 @@ public class Officer {
     }
     
     public int changeOfficerJailCode(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -310,7 +294,7 @@ public class Officer {
     }
     
     public int deleteOfficerAndHistory() {
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
 
         if (conn == null) {
             return -1;
@@ -355,7 +339,7 @@ public class Officer {
     }
     
     public int updateOfficerName() {
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
 
         if (conn == null) {
             return -1;
@@ -415,7 +399,7 @@ public class Officer {
     }
 
     public List<String[]> getOfficersByActiveStatus(String status) {
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         List<String[]> officerList = new ArrayList<>();
 
         if (conn == null) {
@@ -461,7 +445,7 @@ public class Officer {
 
     
     public List<String[]> getOfficersByStatusAndJail(String status, String jail) {
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         List<String[]> officerList = new ArrayList<>();
 
         if (conn == null) {

@@ -6,6 +6,7 @@ package criminalmanagement;
 
 import java.util.*;
 import java.sql.*;
+import criminalmanagement.ConnectToSQL;
 
 /**
  *
@@ -17,25 +18,8 @@ public class OfficerHistory {
     public java.sql.Date start_date;
     public java.sql.Date end_date;
     
-    public Connection connect(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/criminaldb?useTimezone=true&serverTimezone=UTC&user=root&password=12345678");
-            System.out.println("Connection successful");
-            return conn;
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-    
     public int recordCurrentAssignment(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
 
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -74,7 +58,7 @@ public class OfficerHistory {
     }
 
     public int checkExists(){
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
@@ -115,7 +99,7 @@ public class OfficerHistory {
     }
     
     public List<String[]> getOfficerHistory() {
-        Connection conn = connect();
+        Connection conn = ConnectToSQL.connect();
         List<String[]> historyRecords = new ArrayList<>();
 
         if (conn == null) {
