@@ -17,7 +17,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>List Officers</title>
+        <title>List Officers Records</title>
         <link rel="stylesheet" href="../style.css">
         <script>
             function toggleJailDropdown() {
@@ -47,7 +47,7 @@
             <p class="header-text" id="garamond">Philippine <br> National Police </p>
         </div>
         <div class="text-bar">
-            <p class="main-text" id="garamond">List Officers</p>
+            <p class="main-text" id="garamond">List Officers Records</p>
         </div>
         
         <div style="display: flex; justify-content: center; align-items: center;">
@@ -125,7 +125,7 @@
             } else {
                 out.println("<p></p>");
                 out.println("<table>");
-                out.println("<tr><td colspan='4' class='no-data'>Please Select Active and Jail.</td></tr>");
+                out.println("<tr><td colspan='4' class='no-data'>Please Select Active and Jail</td></tr>");
                 out.println("</table>");
             }
         %>
