@@ -113,7 +113,8 @@ public class OfficerHistory {
             pstmt = conn.prepareStatement(
                 "SELECT badge_number, jail_code, start_date, end_date " +
                 "FROM officer_station_history " +
-                "WHERE badge_number = ?"
+                "WHERE badge_number = ? "
+                        + "ORDER BY end_date DESC;"
             );
             pstmt.setInt(1, badge_number);
             rst = pstmt.executeQuery();
@@ -121,12 +122,7 @@ public class OfficerHistory {
             while (rst.next()) {
                 String[] record = new String[4];
                 record[0] = String.valueOf(rst.getInt("badge_number"));
-                
-                if (rst.getObject("jail_code") == null) {
-                    record[1] = "null";
-                } else {
-                    record[1] = String.valueOf(rst.getInt("jail_code"));
-                }                
+                record[1] = String.valueOf(rst.getInt("jail_code"));
                 record[2] = rst.getDate("start_date").toString();
                 record[3] = rst.getDate("end_date").toString();
                 historyRecords.add(record);
