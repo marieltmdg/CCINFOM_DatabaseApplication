@@ -256,7 +256,7 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? AND deleted = 0;");
+            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ?;");
             pstmt.setInt(1, jail_code); 
 
             rst = pstmt.executeQuery();

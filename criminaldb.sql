@@ -50,7 +50,6 @@ CREATE TABLE officer_station_history(
    `Jail_Code` INTEGER NOT NULL, 
    `start_date` DATE NOT NULL, 
    `end_date` DATE NOT NULL,
-   PRIMARY KEY (`Badge_Number`, `Jail_Code`, `start_date`), 
    FOREIGN KEY (`Badge_Number`) REFERENCES officers (`Badge_Number`),
    FOREIGN KEY (`Jail_Code`) REFERENCES jails (`Jail_Code`)
 );
