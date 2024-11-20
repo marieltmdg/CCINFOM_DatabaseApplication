@@ -36,7 +36,7 @@
                     IncarcerationHistory cjh = new IncarcerationHistory();
                     cjh.criminal_code = criminalCode;
                     cjh.jail_code = oldJailCode;
-                    cjh.status = "Transfer";
+                    cjh.status = "Transferred";
                     int doesExist = cjh.checkExists();
                     if (doesExist == 1){
                         cjhResult = cjh.addRecordWith();

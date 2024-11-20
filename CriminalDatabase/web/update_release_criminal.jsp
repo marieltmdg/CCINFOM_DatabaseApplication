@@ -33,7 +33,7 @@
                 java.util.Date date = sdf.parse(date_Committed); 
                 cjh.criminal_code = criminalCode;
                 cjh.jail_code = oldJailCode;
-                cjh.status = "Release";
+                cjh.status = "Released";
                 int doesExist = cjh.checkExists();
                 if (doesExist == 1){
                     cjhResult = cjh.addRecordWith();

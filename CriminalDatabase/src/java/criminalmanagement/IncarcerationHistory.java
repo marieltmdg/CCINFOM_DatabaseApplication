@@ -62,7 +62,7 @@ public class IncarcerationHistory {
         return -1;
     }
     
-        public int addRecordWithout(){
+    public int addRecordWithout(){
         Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
@@ -134,6 +134,58 @@ public class IncarcerationHistory {
             }
         }
         return -1;
+    }
+    
+    public List<String[]> getCrimHistory(){
+        Connection conn = ConnectToSQL.connect();
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return null;
+        }
+        String crimCode = null;
+        String jailCode = null;
+        String startDate = null;
+        String endDate = null;
+        String status = null;
+        List<String[]> jailList = new ArrayList<>();
+        
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement("SELECT * FROM incarceration_history WHERE jail_code = ?");
+            pstmt.setInt(1, jail_code);
+            ResultSet rst = pstmt.executeQuery();
+            
+            // dne
+            if (!rst.isBeforeFirst()) {
+                return jailList;
+            } 
+             
+            String[] arr = null;
+            while (rst.next()) {
+                crimCode = rst.getString("criminal_code");
+                jailCode = rst.getString("jail_code");
+                startDate = rst.getString("start_date");
+                endDate = rst.getString("end_date");
+                status = rst.getString("status");
+                arr = new String[] {crimCode, jailCode, startDate, endDate, status};
+                jailList.add(arr);
+            }
+            
+            rst.close();
+       
+            System.out.println("Success");
+            return jailList;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return jailList;
     }
     
 }
