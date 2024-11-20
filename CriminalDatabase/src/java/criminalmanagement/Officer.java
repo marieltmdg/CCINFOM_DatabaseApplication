@@ -32,7 +32,7 @@ public class Officer {
         try {
             pstmt = conn.prepareStatement(
                     "SELECT * FROM officers "
-                            + "WHERE badge_number = ? AND deleted = 0");
+                            + "WHERE badge_number = ? AND deleted = 0;");
             pstmt.setInt(1, badge_number);
             rst = pstmt.executeQuery();
             
@@ -73,7 +73,7 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            pstmt = conn.prepareStatement("SELECT * FROM officers WHERE badge_number = ? AND deleted = 0");
+            pstmt = conn.prepareStatement("SELECT * FROM officers WHERE badge_number = ? AND deleted = 0;");
             pstmt.setInt(1, badge_number);
             rst = pstmt.executeQuery();
             
@@ -123,7 +123,7 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? AND deleted = 0");
+            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ?;");
             pstmt.setInt(1, jail_code); 
 
             rst = pstmt.executeQuery();
@@ -132,7 +132,7 @@ public class Officer {
                 return -2; 
             }
             // create new in db
-            pstmt = conn.prepareStatement("SELECT MAX(badge_number) + 1 as newID FROM officers");
+            pstmt = conn.prepareStatement("SELECT MAX(badge_number) + 1 as newID FROM officers;");
             rst = pstmt.executeQuery();
             while (rst.next()){
                 badge_number = rst.getInt("newId");
@@ -140,7 +140,7 @@ public class Officer {
             
             pstmt = conn.prepareStatement(
                 "INSERT INTO officers (badge_number, first_name, last_name, start_date_current, active, jail_code, deleted) "
-                + "VALUES (?, ?, ?, CURDATE(), \"T\", ?, 0)");
+                + "VALUES (?, ?, ?, CURDATE(), \"T\", ?, 0);");
             pstmt.setInt(1,badge_number);
             pstmt.setString(2, first_name);
             pstmt.setString(3, last_name);
@@ -178,7 +178,7 @@ public class Officer {
         try {
             pstmt = conn.prepareStatement(
                 "UPDATE officers SET jail_code = ?, start_date_current = CURDATE() "
-                + "WHERE badge_number = ? AND deleted = 0"
+                + "WHERE badge_number = ? AND deleted = 0;"
             );
             pstmt.setInt(1,jail_code);
             pstmt.setInt(2, badge_number);
@@ -214,7 +214,7 @@ public class Officer {
         try {
             pstmt = conn.prepareStatement(
             "UPDATE officers SET active = ?, jail_code = ?, start_date_current = CURDATE() "
-            + "WHERE badge_number = ? AND deleted = 0"
+            + "WHERE badge_number = ? AND deleted = 0;"
             );
             pstmt.setString(1, active);
 
@@ -256,7 +256,7 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? AND deleted = 0");
+            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? AND deleted = 0;");
             pstmt.setInt(1, jail_code); 
 
             rst = pstmt.executeQuery();
@@ -267,7 +267,7 @@ public class Officer {
             
             pstmt = conn.prepareStatement(
                 "UPDATE officers SET jail_code = ?, start_date_current = CURDATE()"
-                + "WHERE badge_number = ?"
+                + "WHERE badge_number = ? and deleted = 0;"
             );
             pstmt.setInt(1, jail_code);
             pstmt.setInt(2, badge_number);
@@ -300,7 +300,7 @@ public class Officer {
 
         PreparedStatement pstmt = null;
         try {
-            pstmt = conn.prepareStatement("UPDATE officers SET deleted = 1 WHERE badge_number = ? AND deleted = 0");
+            pstmt = conn.prepareStatement("UPDATE officers SET deleted = 1 WHERE badge_number = ? AND deleted = 0;");
             pstmt.setInt(1, badge_number);
 
             int rowsAffected = pstmt.executeUpdate();
@@ -347,7 +347,7 @@ public class Officer {
                 query.append("last_name = ?");
             }
 
-            query.append(" WHERE badge_number = ? AND deleted = 0");
+            query.append(" WHERE badge_number = ? AND deleted = 0;");
 
             pstmt = conn.prepareStatement(query.toString());
 
@@ -398,7 +398,7 @@ public class Officer {
             String sql = "SELECT badge_number, first_name, last_name, start_date_current, active, jail_code " +
                 "FROM officers WHERE (active = ? OR ? = 'all') " + 
                 "AND (jail_code = ? OR ? = 'all' OR jail_code IS NULL)"
-                    + "AND deleted = 0";
+                    + "AND deleted = 0;";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, status);

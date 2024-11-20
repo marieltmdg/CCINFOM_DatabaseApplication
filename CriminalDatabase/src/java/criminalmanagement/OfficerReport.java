@@ -32,7 +32,7 @@ public class OfficerReport {
                     "SELECT o.badge_number, o.first_name, o.last_name, COUNT(c.crime_code) AS criminalsCaught "
                     + "FROM officers o "
                     + "LEFT JOIN crimes c ON o.badge_number = c.badge_number "
-                    + "WHERE YEAR(c.date_committed) = ? AND o.deleted = 0"
+                    + "WHERE YEAR(c.date_committed) = ? AND o.deleted = 0 "
                     + "GROUP BY o.badge_number;"
             );
             pstmt.setInt(1, year);

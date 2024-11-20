@@ -46,9 +46,10 @@
 
                     <label for="sortBy" class="form-label">Sort By:</label>
                     <select id="sortBy" name="sortBy" required class="form-input">
+                        
+                        <option value="badge_number">Badge Number</option>
                         <option value="last_name">Last Name</option>
                         <option value="first_name">First Name</option>
-                        <option value="badge_number">Badge Number</option>
                         <option value="criminals_caught">Criminals Caught</option>
                     </select>
                     <br><br>
