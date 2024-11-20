@@ -151,7 +151,7 @@ public class IncarcerationHistory {
         
         PreparedStatement pstmt = null;
         try {
-            pstmt = conn.prepareStatement("SELECT * FROM incarceration_history WHERE jail_code = ?");
+            pstmt = conn.prepareStatement("SELECT * FROM incarceration_history WHERE jail_code = ? ORDER BY criminal_code");
             pstmt.setInt(1, jail_code);
             ResultSet rst = pstmt.executeQuery();
             
