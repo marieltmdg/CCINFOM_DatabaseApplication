@@ -48,9 +48,9 @@ CREATE TABLE Crimes(
 
 DROP TABLE IF EXISTS officer_station_history;
 CREATE TABLE officer_station_history(
-   `Badge_Number` INTEGER NOT NULL,
+   `Badge_Number` INTEGER NOT NULL PRIMARY KEY,
    `Jail_Code` INTEGER NOT NULL, 
-   `start_date` DATE NOT NULL, 
+   `start_date` DATE NOT NULL PRIMARY KEY, 
    `end_date` DATE NOT NULL,
    FOREIGN KEY (`Badge_Number`) REFERENCES officers (`Badge_Number`),
    FOREIGN KEY (`Jail_Code`) REFERENCES jails (`Jail_Code`)

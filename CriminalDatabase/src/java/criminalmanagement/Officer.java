@@ -7,6 +7,7 @@ package criminalmanagement;
 import java.util.*;
 import java.sql.*;
 import criminalmanagement.ConnectToSQL;
+import criminalmanagement.Jails;
 /**
  *
  * @author marie
@@ -19,7 +20,7 @@ public class Officer {
     public String active;
     public int jail_code;
 
-    public int checkExists(){
+    public int checkExistsAndNotDeleted(){
         Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
@@ -123,7 +124,7 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ?;");
+            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? AND deleted = 0;");
             pstmt.setInt(1, jail_code); 
 
             rst = pstmt.executeQuery();
@@ -166,42 +167,6 @@ public class Officer {
         return -1;
     }
     
-    public int assignExistingOfficer(){
-        Connection conn = ConnectToSQL.connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
-            return -1;
-        }
-        
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = conn.prepareStatement(
-                "UPDATE officers SET jail_code = ?, start_date_current = CURDATE() "
-                + "WHERE badge_number = ? AND deleted = 0;"
-            );
-            pstmt.setInt(1,jail_code);
-            pstmt.setInt(2, badge_number);
-            int rowsAffected = pstmt.executeUpdate();
-        
-            if (rowsAffected > 0) {
-                return 1;
-            } else {
-                return 0;
-            }
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
-    }
-    
     public int changeOfficerActive(){
         Connection conn = ConnectToSQL.connect();
         
@@ -211,7 +176,17 @@ public class Officer {
         }
         
         PreparedStatement pstmt = null;
+        ResultSet rst = null;
         try {
+            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? AND deleted = 0;");
+            pstmt.setInt(1, jail_code); 
+
+            rst = pstmt.executeQuery();
+
+            if (!rst.next()) {
+                return -2; 
+            }
+            
             pstmt = conn.prepareStatement(
             "UPDATE officers SET active = ?, jail_code = ?, start_date_current = CURDATE() "
             + "WHERE badge_number = ? AND deleted = 0;"
@@ -238,6 +213,7 @@ public class Officer {
             try {
                 if (pstmt != null) pstmt.close();
                 if (conn != null) conn.close();
+                if (rst != null) rst.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -256,7 +232,7 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ?;");
+            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? and deleted = 0;");
             pstmt.setInt(1, jail_code); 
 
             rst = pstmt.executeQuery();

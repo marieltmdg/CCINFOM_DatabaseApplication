@@ -49,7 +49,7 @@
                             int badgeNumber = Integer.parseInt(officerBadgeNumber);
                             Officer officer = new Officer();
                             officer.badge_number = badgeNumber;
-                            int check = officer.checkExists();
+                            int check = officer.checkExistsAndNotDeleted();
 
                             if (check == 1) {
                                 if (newFirstName != null && !newFirstName.isEmpty()) {
