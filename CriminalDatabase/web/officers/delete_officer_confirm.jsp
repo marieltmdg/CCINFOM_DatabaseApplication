@@ -70,7 +70,7 @@
                         out.println("<tr><th colspan='2' style='color: white;'>Badge Number Missing</th></tr>");
                         out.println("</thead>");
                         out.println("<tbody>");
-                        out.println("<tr><td colspan='2'>Badge number is required to delete the officer.</td></tr>");
+                        out.println("<tr><td colspan='2'>Badge number is required to delete the officer</td></tr>");
                         out.println("</tbody>");
                         out.println("</table>");
                     }

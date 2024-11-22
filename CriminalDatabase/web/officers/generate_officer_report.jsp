@@ -50,6 +50,7 @@
                         <option value="badge_number">Badge Number</option>
                         <option value="last_name">Last Name</option>
                         <option value="first_name">First Name</option>
+                        <option value="hire_date">Hire Date</option> 
                         <option value="criminals_caught">Criminals Caught</option>
                     </select>
                     <br><br>
@@ -84,28 +85,31 @@
                             out.println("<table>");
                             out.println("<thead>");
                             out.println("<tr>");
-                            out.println("<th colspan='4'>Showing results for year " + year + " [Sorted by: " + sortBy + " in " + (ascending ? "ascending" : "descending") + " order]</th>");
+                            out.println("<th colspan='5'>Showing results for year " + year + " [Sorted by: " + sortBy + " in " + (ascending ? "ascending" : "descending") + " order]</th>");
                             out.println("</tr>");
                             out.println("</thead>");
                             out.println("<tbody>");
 
                             if (result == null || result.isEmpty()) {
-                                out.println("<tr><td colspan='4' class='no-data'>No report data available for the year " + year + "</td></tr>");
+                                out.println("<tr><td colspan='5' class='no-data'>No report data available for the year " + year + "</td></tr>");
                             } else {
                                 
                                 out.println("<tr>");
                                 out.println("<th>Badge Number</th>");
                                 out.println("<th>First Name</th>");
                                 out.println("<th>Last Name</th>");
+                                out.println("<th>Hire Date</th>"); 
                                 out.println("<th>Criminals Caught</th>");
                                 out.println("</tr>");
+
                             
                                 for (String[] line : result) {
                                     out.println("<tr>");
-                                    out.println("<td>" + line[0] + "</td>");
-                                    out.println("<td>" + line[1] + "</td>");
-                                    out.println("<td>" + line[2] + "</td>");
-                                    out.println("<td>" + line[3] + "</td>");
+                                    out.println("<td>" + line[0] + "</td>"); //badge
+                                    out.println("<td>" + line[1] + "</td>"); // first name
+                                    out.println("<td>" + line[2] + "</td>"); // last name
+                                    out.println("<td>" + line[3] + "</td>"); // hire date
+                                    out.println("<td>" + line[4] + "</td>"); // criminals caught
                                     out.println("</tr>");
                                 }
                             }
@@ -114,13 +118,13 @@
 
                         } catch (NumberFormatException e) {
                             out.println("<table>");
-                            out.println("<tr><td colspan='4' class='no-data'>Invalid year format. Please enter a valid year</td></tr>");
+                            out.println("<tr><td colspan='5' class='no-data'>Invalid year format. Please enter a valid year</td></tr>");
                             out.println("</table>");
                         }
                     } else {
                         out.println("<p></p>");
                         out.println("<table>");
-                        out.println("<tr><td colspan='4' class='no-data'>Please enter a year to generate the report</td></tr>");
+                        out.println("<tr><td colspan='5' class='no-data'>Please enter a year to generate the report</td></tr>");
                         out.println("</table>");
                     }
                 %>

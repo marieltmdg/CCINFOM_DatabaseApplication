@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>View Criminal Record</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>View Criminal</h2>
+        <form action="view_criminal.jsp" id="roboto">
+            <label for="criminal_code">Criminal Code:</label>
+            <input type="text" id="criminal_code" name="criminal_code" required><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>View Criminal Record</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <div class="bg-image">
+            <img src="../src/vigan.jpg">
+        </div>
+        <div class="bg-gradient"></div>
+        <div class="top-bar">
+            <img src="../src/pnp-logo.png" class="logo">
+            <p class="header-text" id="garamond">Philippine <br> National Police </p>
+        </div>
+        <div class="text-bar">
+            <p class="main-text" id="garamond">View Criminal Record</p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="action-box" id="action">
+                <form action="view_criminal.jsp" id="roboto">
+                    <label for="criminal_code" class="form-label">Criminal Code:</label>
+                    <input type="text" id="criminal_code" name="criminal_code" required class="form-input"><br>
+                    <input type="submit" value="Submit">
+                    <div class="button-container">
+                        <button class="button back-button" id="roboto" onclick="window.location.href='../index.html'">Back</button>
+                        <input type="submit" value="Submit" id="roboto" class="button">
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

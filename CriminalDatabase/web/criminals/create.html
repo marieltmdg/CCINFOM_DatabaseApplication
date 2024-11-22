@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Record A Crime</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <div class="bg-image">
+            <img src="../src/vigan.jpg">
+        </div>
+        <div class="bg-gradient"></div>
+        <div class="top-bar">
+            <img src="../src/pnp-logo.png" class="logo">
+            <p class="header-text" id="garamond">Philippine <br> National Police </p>
+        </div>
+        <div class="text-bar">
+            <p class="main-text" id="garamond">Record A Crime</p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="action-box" id="action">
+                <form action="create_criminal.jsp" id="roboto">
+                    
+                    <h2 class="form-label">Crime Details</h2>
+                    <label for="crime_type" class="form-label">Crime Type:</label>
+                    <input type="text" id="crime_type" name="crime_type" required class="form-input"><br>
+                    <label for="sentence" class="form-label">Sentence:</label>
+                    <input type="text" id="sentence" name="sentence" required class="form-input"><br>
+                    <label for="badge_number" class="form-label">Badge Number of officer-in-charge:</label>
+                    <input type="text" id="badge_number" name="badge_number" required class="form-input">
+
+                    <p class="form-label">Date Committed</p>
+                    <label for="month" class="form-label">Month:</label>
+                    <select name="month" id="month">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select><br>
+                    <label for="day" class="form-label">Day:</label>
+                    <input type="text" id="day" name="day" required class="form-input"><br>
+                    <label for="year" class="form-label">Year:</label>
+                    <input type="text" id="year" name="year" required class="form-input"><br>
+
+                    <br>
+                    <h2 class="form-label">Criminal Details</h2>
+                    <label for="jail_code" class="form-label">Criminal Code:</label>
+                    <input type="text" id="criminal_code" name="criminal_code" required class="form-input"><br>
+                    <label for="first_name" class="form-label">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" required class="form-input"><br>
+                    <label for="last_name" class="form-label">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" required class="form-input"><br>
+                    <label for="jail_code" class="form-label">Jail Code:</label>
+                    <input type="text" id="jail_code" name="jail_code" required class="form-input"><br>
+                    
+                    
+                    <div class="button-container">
+                        <button class="button back-button" id="roboto" onclick="window.location.href='../index.html'">Back</button>
+                        <input type="submit" value="Submit" id="roboto" class="button">
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
