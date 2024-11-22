@@ -6,7 +6,8 @@ DROP TABLE IF EXISTS Jails;
 CREATE TABLE Jails(
     `Jail_Code`             int(100)  NOT NULL DEFAULT '0' PRIMARY KEY,
     `Area_of_Jurisdiction`  char(100) NOT NULL DEFAULT '',
-    `Start_Date`          	DATE  NOT NULL
+    `Start_Date`          	DATE  NOT NULL,
+    `Deleted`               TINYINT(1) NOT NULL DEFAULT 0 -- 0: Not deleted, 1: Deleted
 );
 
 DROP TABLE IF EXISTS Criminals;
@@ -50,7 +51,7 @@ DROP TABLE IF EXISTS officer_station_history;
 CREATE TABLE officer_station_history(
    `Badge_Number` INTEGER NOT NULL PRIMARY KEY,
    `Jail_Code` INTEGER NOT NULL, 
-   `start_date` DATE NOT NULL PRIMARY KEY, 
+   `start_date` DATE NOT NULL, 
    `end_date` DATE NOT NULL,
    FOREIGN KEY (`Badge_Number`) REFERENCES officers (`Badge_Number`),
    FOREIGN KEY (`Jail_Code`) REFERENCES jails (`Jail_Code`)
@@ -69,16 +70,17 @@ CREATE TABLE incarceration_history(
 );
 
 INSERT INTO `Jails` VALUES
- (0,'Manila','2012-01-01')
-,(1,'Makati','1985-01-01')
-,(2,'Taguig','1990-01-01')
-,(3,'Mandaluyong','1956-01-01')
-,(4,'Muntinlupa','2023-01-01')
-,(5,'Quezon','1934-01-01')
-,(6,'Bulacan','1991-01-01')
-,(7,'Laguna','2010-01-01')
-,(8,'Cavite','1980-01-01')
-,(9,'Pasay','2009-01-01');
+ (-1, 'DNE', '9999-12-12', 0)
+,(0,'Manila','2012-01-01', 0)
+,(1,'Makati','1985-01-01', 0)
+,(2,'Taguig','1990-01-01', 0)
+,(3,'Mandaluyong','1956-01-01', 0)
+,(4,'Muntinlupa','2023-01-01', 0)
+,(5,'Quezon','1934-01-01', 0)
+,(6,'Bulacan','1991-01-01', 0)
+,(7,'Laguna','2010-01-01', 0)
+,(8,'Cavite','1980-01-01', 0)
+,(9,'Pasay','2009-01-01', 0);
 
 INSERT INTO Criminals VALUES
  (0,'Kon','Haider',36,8,0)
