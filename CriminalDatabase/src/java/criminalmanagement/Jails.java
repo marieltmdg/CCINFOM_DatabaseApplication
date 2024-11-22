@@ -82,12 +82,12 @@ public class Jails {
         return null;
     }
     
-    public int addJail(){
+    public boolean addJail(){
         Connection conn = ConnectToSQL.connect();
         
         if(conn == null){
             System.out.println("Failed to connect to server");
-            return -2;
+            return false;
         }
         
         PreparedStatement pstmt = null;
@@ -106,7 +106,7 @@ public class Jails {
             pstmt.setDate(3, start_date);
             pstmt.executeUpdate();
             System.out.println("Jail Added Successfully.");
-            return jail_code;
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -117,7 +117,7 @@ public class Jails {
                 e.printStackTrace();
             }
         }
-        return -2;
+        return false;
     }
     
     public boolean deleteJail(){

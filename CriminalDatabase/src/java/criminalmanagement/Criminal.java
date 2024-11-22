@@ -68,40 +68,6 @@ public class Criminal {
             return 0;
         }
     }
-
-    public int updateCriminalJailCode(){
-        Connection conn = ConnectToSQL.connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
-            return -1;
-        }
-        
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = conn.prepareStatement(
-                "UPDATE criminals SET jail_code = ? "
-                + "WHERE criminal_code = ?"
-            );
-            
-            pstmt.setInt(1, jail_code);
-            pstmt.setInt(2, criminal_code);
-            pstmt.executeUpdate();
-            
-            System.out.println("Success");
-            return 1;
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
-    }
     
     public int checkExists(){
         Connection conn = connect();
@@ -314,41 +280,18 @@ public class Criminal {
                 return null;
             }
             
-            String criminalCode = null;
-            String firstName = null;
-            String lastName = null;
-            String sentence = null;
-            String jailCode = null;
-            String deleted = null;
-            String dateCommitted = null;
-            
             String[] arr = null;
             if (rst.next()) {
-                criminalCode = rst.getString("criminal_code");
-                firstName = rst.getString("first_name");
-                lastName = rst.getString("last_name");
-                sentence = rst.getString("total_sentence");
-                jailCode = rst.getString("jail_code");
-                deleted = rst.getString("deleted");
+                String criminalCode = rst.getString("criminal_code");
+                String firstName = rst.getString("first_name");
+                String lastName = rst.getString("last_name");
+                String sentence = rst.getString("total_sentence");
+                String jailCode = rst.getString("jail_code");
+                String deleted = rst.getString("deleted");
+                
+                arr = new String[] { criminalCode, firstName, lastName, sentence,
+                                        jailCode, deleted};
             }
-            
-            rst.close();
-            
-            pstmt = conn.prepareStatement("SELECT * FROM crimes WHERE criminal_code = ? ORDER BY date_committed DESC LIMIT 1");
-            pstmt.setInt(1, criminal_code);
-            rst = pstmt.executeQuery();
-            
-            if (!rst.isBeforeFirst()){
-                return null;
-            }
-            
-            if (rst.next()){
-                dateCommitted = rst.getString("date_committed");
-            }
-            
-            arr = new String[] { criminalCode, firstName, lastName, sentence,
-                                        jailCode, deleted, dateCommitted};
-            rst.close();
             System.out.println("Success");
    
             return arr;
