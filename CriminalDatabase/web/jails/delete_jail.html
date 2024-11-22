@@ -18,3 +18,77 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         </form>
     </body>
 </html>
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Delete Jail</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <div class="bg-image">
+            <img src="src/vigan.jpg">
+        </div>
+        <div class="bg-gradient"></div>
+        <div class="top-bar">
+            <img src="src/pnp-logo.png" class="logo">
+            <p class="header-text" id="garamond">Philippine <br> National Police </p>
+        </div>
+        <div class="text-bar">
+            <p class="main-text" id="garamond">Delete Jail</p>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="action-box" id="action">
+                <!-- Add form here, delete button -->
+                <form action="delete_jail.jsp" id="roboto">
+                    <label for="jail_code" class="form-label">Jail Code:</label>
+                    <input type="text" id="jail_code" name="jail_code" required class="form-input"><br><br>
+                    <div class="button-container">
+                    <button class="button back-button" id="roboto" onclick="window.location.href='index.html'">Back</button>
+                    <input type="submit" value="Submit" id="roboto" class="button">
+                </div> 
+                </form>
+
+                <!-- 
+                Put this inside the form, replacing previous button
+                <div class="button-container">
+                    <button class="button back-button" id="roboto" onclick="window.location.href='index.html'">Back</button>
+                    <input type="submit" value="Submit" id="roboto" class="button">
+                </div> 
+                -->
+            </div>
+            
+
+            <!-- 
+            Add if there is output, else delete
+            <div class="output-box" id="output" style="display: none;">
+                <button class="button" id="roboto" onclick="window.location.href='index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
+            </div> 
+            -->
+        </div>
+    </body>
+</html>
+
+<!-- 
+Class:
+form-label - for labels
+form-input - for inputs
+
+ID: 
+roboto - to change font to roboto 
+
+Alert script:
+out.println("<script>alert('All fields are required.'); window.location.href = 'index.html';</script>");
+-->
