@@ -42,83 +42,86 @@
         <div style="display: flex; justify-content: center; align-items: center;">
             <div class="output-box" id="output">
                 <%
-                    Criminal criminal = new Criminal();
-                    Crimes crime = new Crimes();
+                    try{
+                        Criminal criminal = new Criminal();
+                        Crimes crime = new Crimes();
 
-                    String v_crime_type = request.getParameter("crime_type");
-                    String v_sentence = request.getParameter("sentence");
-                    String v_badge_number = request.getParameter("badge_number");
-                    String v_date_committed =(request.getParameter("year") +"-"+ request.getParameter("month") +"-"+ request.getParameter("day"));
+                        String v_crime_type = request.getParameter("crime_type");
+                        String v_sentence = request.getParameter("sentence");
+                        String v_badge_number = request.getParameter("badge_number");
+                        String v_date_committed =(request.getParameter("year") +"-"+ request.getParameter("month") +"-"+ request.getParameter("day"));
 
-                    String v_criminal_code = request.getParameter("criminal_code");
-                    String v_first_name = request.getParameter("first_name");
-                    String v_last_name = request.getParameter("last_name");
-                    String v_jail_code = request.getParameter("jail_code");
+                        String v_criminal_code = request.getParameter("criminal_code");
+                        String v_first_name = request.getParameter("first_name");
+                        String v_last_name = request.getParameter("last_name");
+                        String v_jail_code = request.getParameter("jail_code");
 
-                    criminal.criminal_code = Integer.parseInt(v_criminal_code);
-                    criminal.first_name = v_first_name;
-                    criminal.last_name = v_last_name;
-                    criminal.total_sentence = 0;
-                    criminal.jail_code = Integer.parseInt(v_jail_code);
+                        criminal.criminal_code = Integer.parseInt(v_criminal_code);
+                        criminal.first_name = v_first_name;
+                        criminal.last_name = v_last_name;
+                        criminal.total_sentence = 0;
+                        criminal.jail_code = Integer.parseInt(v_jail_code);
 
-                    int criminalExists = criminal.checkExists();
-                    if(criminalExists==0){
-                        criminal.criminal_code = criminal.newCriminalCode();
-                        int status = criminal.registerCriminal();
-                        if(status==1){
-                            String[] result = criminal.retrieveCriminal();
-                            out.println("<table>");
-                            out.println("<thead>");
-                                out.println("<tr><td colspan='2' style='color: white; font-weight: bold;'>New criminal record created</td></tr>");
-                            out.println("</thead>");
-                            out.println("<tbody>");
-                                out.println("<tr><td>Criminal Code:</td><td>" + criminal.criminal_code + "</td></tr>");
-                                out.println("<tr><td>First Name:</td><td>" + result[1] + "</td></tr>");
-                                out.println("<tr><td>Last Name:</td><td>" + result[2] + "</td></tr>");
-                                out.println("<tr><td>Total Sentence:</td><td>" + result[3] + "</td></tr>");
-                                out.println("<tr><td>Jail Code:</td><td>" + result[4] + "</td></tr>");
-                            out.println("</tbody>");
-                            out.println("</table>");
+                        int criminalExists = criminal.checkExists();
+                        if(criminalExists==0){
+                            criminal.criminal_code = criminal.newCriminalCode();
+                            int status = criminal.registerCriminal();
+                            if(status==1){
+                                String[] result = criminal.retrieveCriminal();
+                                out.println("<table>");
+                                out.println("<thead>");
+                                    out.println("<tr><td colspan='2' style='color: white; font-weight: bold;'>New criminal record created</td></tr>");
+                                out.println("</thead>");
+                                out.println("<tbody>");
+                                    out.println("<tr><td>Criminal Code:</td><td>" + criminal.criminal_code + "</td></tr>");
+                                    out.println("<tr><td>First Name:</td><td>" + result[1] + "</td></tr>");
+                                    out.println("<tr><td>Last Name:</td><td>" + result[2] + "</td></tr>");
+                                    out.println("<tr><td>Total Sentence:</td><td>" + result[3] + "</td></tr>");
+                                    out.println("<tr><td>Jail Code:</td><td>" + result[4] + "</td></tr>");
+                                out.println("</tbody>");
+                                out.println("</table>");
+                            }else{
+                                out.println("<table>");
+                                out.println("<tr><td colspan='2'>Criminal does not exist but was failed to be recorded</td></tr>");
+                                out.println("</table>");
+                            }
+                        }
+
+                        crime.criminal_code = criminal.criminal_code;
+                        crime.crime_type = v_crime_type;
+                        crime.badge_number = Integer.parseInt(v_badge_number);
+                        crime.date = v_date_committed;
+                        crime.sentence = Integer.parseInt(v_sentence);
+
+                        boolean success = crime.addCrime();
+                        if(success){
+                            crime.crime_code = criminal.getMax(4);
+                            ResultSet rst = crime.viewCrime();
+                            if (rst != null && rst.next()) {
+                                out.println("<table>");
+                                out.println("<thead>");
+                                    out.println("<tr><td colspan='2' style='color: white; font-weight: bold;'>Crime Recorded</td></tr>");
+                                out.println("</thead>");
+                                out.println("<tbody>");
+                                    out.println("<tr><td>Crime Code: </td><td>" + rst.getString("Crime_Code") + "</td></tr>");
+                                    out.println("<tr><td>Crime Type: </td><td>" + rst.getString("Crime_Type") + "</td></tr>");
+                                    out.println("<tr><td>Badge Number: </td><td>" + rst.getString("Badge_Number") + "</td></tr>");
+                                    out.println("<tr><td>Date Committed: </td><td>" + rst.getString("Date_Committed") + "</td></tr>");
+                                    out.println("<tr><td>Sentence: </td><td>" + rst.getInt("Sentence") + "</td></tr>");
+                                    out.println("<tr><td>Criminal Code: </td><td>" + rst.getInt("Criminal_Code") + "</td></tr>");
+                                out.println("</tbody>");
+                                out.println("</table>");
+                            } else {
+                                out.println("<p>Crime not found.</p>");
+                            }
                         }else{
                             out.println("<table>");
-                            out.println("<tr><td colspan='2'>Criminal does not exist but was failed to be recorded</td></tr>");
+                            out.println("<tr><td colspan='2'>c.crime_code</td></tr>");
                             out.println("</table>");
                         }
+                    }catch(NumberFormatException e){
+                        out.println("<script>alert('Please input a valid number'); window.location.href = 'create.html';</script>");
                     }
-                    
-                    crime.criminal_code = criminal.criminal_code;
-                    crime.crime_type = v_crime_type;
-                    crime.badge_number = Integer.parseInt(v_badge_number);
-                    crime.date = v_date_committed;
-                    crime.sentence = Integer.parseInt(v_sentence);
-
-                    boolean success = crime.addCrime();
-                    if(success){
-                        crime.crime_code = criminal.getMax(4);
-                        ResultSet rst = crime.viewCrime();
-                        if (rst != null && rst.next()) {
-                            out.println("<table>");
-                            out.println("<thead>");
-                                out.println("<tr><td colspan='2' style='color: white; font-weight: bold;'>Crime Recorded</td></tr>");
-                            out.println("</thead>");
-                            out.println("<tbody>");
-                                out.println("<tr><td>Crime Code: </td><td>" + rst.getString("Crime_Code") + "</td></tr>");
-                                out.println("<tr><td>Crime Type: </td><td>" + rst.getString("Crime_Type") + "</td></tr>");
-                                out.println("<tr><td>Badge Number: </td><td>" + rst.getString("Badge_Number") + "</td></tr>");
-                                out.println("<tr><td>Date Committed: </td><td>" + rst.getString("Date_Committed") + "</td></tr>");
-                                out.println("<tr><td>Sentence: </td><td>" + rst.getInt("Sentence") + "</td></tr>");
-                                out.println("<tr><td>Criminal Code: </td><td>" + rst.getInt("Criminal_Code") + "</td></tr>");
-                            out.println("</tbody>");
-                            out.println("</table>");
-                        } else {
-                            out.println("<p>Crime not found.</p>");
-                        }
-                    }else{
-                        out.println("<table>");
-                        out.println("<tr><td colspan='2'>c.crime_code</td></tr>");
-                        out.println("</table>");
-                    }
-
                 %>
                 <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             </div> 

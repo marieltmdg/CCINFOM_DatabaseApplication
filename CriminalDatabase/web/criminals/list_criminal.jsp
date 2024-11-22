@@ -39,47 +39,51 @@
         </div>
         <div style="display: flex; justify-content: center; align-items: center;">
             <div class="output-box" id="output">
-                <table border="1">
-                    <thead>
+                <% try{ %>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                            <td>Criminal Code</td>
+                            <td>First Name</td>
+                            <td>Last Name</td>
+                            <td>Total Sentence</td>
+                            <td>Jail Code</td>
+                            <td>Deleted</td>
+                            </tr>
+                        </thead>
+                        <%
+                            Criminal criminal = new Criminal();
+                            int cCodeStart = Integer.parseInt(request.getParameter("cCodeStart"));
+                            int cCodeEnd = Integer.parseInt(request.getParameter("cCodeEnd"));
+                            int tsStart = Integer.parseInt(request.getParameter("tsStart"));
+                            int tsEnd = Integer.parseInt(request.getParameter("tsEnd"));
+                            int jcStart = Integer.parseInt(request.getParameter("jcStart"));
+                            int jcEnd = Integer.parseInt(request.getParameter("jcEnd"));
+
+                            if("-1".equals(request.getParameter("cCodeEnd")))   cCodeEnd=criminal.getMax(1);
+                            if("-1".equals(request.getParameter("tsEnd")))      tsEnd=criminal.getMax(2);
+                            if("-1".equals(request.getParameter("jcEnd")))      jcEnd=criminal.getMax(3);
+
+                            List<Map<String, Object>> criminals = criminal.listCriminals(cCodeStart, cCodeEnd, tsStart, tsEnd, jcStart, jcEnd);
+
+                            // Iterate through the list and display each row in the table
+                            for (Map<String, Object> row : criminals) {
+                        %>
                         <tr>
-                        <td>Criminal Code</td>
-                        <td>First Name</td>
-                        <td>Last Name</td>
-                        <td>Total Sentence</td>
-                        <td>Jail Code</td>
-                        <td>Deleted</td>
+                            <td><%= row.get("criminal_code") %></td>
+                            <td><%= row.get("first_name") %></td>
+                            <td><%= row.get("last_name") %></td>
+                            <td><%= row.get("total_sentence") %></td>
+                            <td><%= row.get("jail_code") %></td>
+                            <td><%= row.get("deleted") %></td>
                         </tr>
-                    </thead>
-                    <%
-                        Criminal criminal = new Criminal();
-                        int cCodeStart = Integer.parseInt(request.getParameter("cCodeStart"));
-                        int cCodeEnd = Integer.parseInt(request.getParameter("cCodeEnd"));
-                        int tsStart = Integer.parseInt(request.getParameter("tsStart"));
-                        int tsEnd = Integer.parseInt(request.getParameter("tsEnd"));
-                        int jcStart = Integer.parseInt(request.getParameter("jcStart"));
-                        int jcEnd = Integer.parseInt(request.getParameter("jcEnd"));
-
-                        if("-1".equals(request.getParameter("cCodeEnd")))   cCodeEnd=criminal.getMax(1);
-                        if("-1".equals(request.getParameter("tsEnd")))      tsEnd=criminal.getMax(2);
-                        if("-1".equals(request.getParameter("jcEnd")))      jcEnd=criminal.getMax(3);
-
-                        List<Map<String, Object>> criminals = criminal.listCriminals(cCodeStart, cCodeEnd, tsStart, tsEnd, jcStart, jcEnd);
-
-                        // Iterate through the list and display each row in the table
-                        for (Map<String, Object> row : criminals) {
-                    %>
-                    <tr>
-                        <td><%= row.get("criminal_code") %></td>
-                        <td><%= row.get("first_name") %></td>
-                        <td><%= row.get("last_name") %></td>
-                        <td><%= row.get("total_sentence") %></td>
-                        <td><%= row.get("jail_code") %></td>
-                        <td><%= row.get("deleted") %></td>
-                    </tr>
-                    <%
-                        }
-                    %>
-                </table>
+                        <%
+                            }
+                        %>
+                    </table>
+                <%}catch(NumberFormatException e){
+                    out.println("<script>alert('Please input a valid number'); window.location.href = 'list_criminal.html';</script>");
+                }%>
                 <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             </div> 
         </div>
