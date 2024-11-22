@@ -82,7 +82,7 @@
                                 out.println("</table>");
                             }else{
                                 out.println("<table>");
-                                out.println("<tr><td colspan='2'>Criminal does not exist but was failed to be recorded</td></tr>");
+                                out.println("<tr><td colspan='2'>Unable to create criminal record</td></tr>");
                                 out.println("</table>");
                                 
                                 Jails j = new Jails();
@@ -125,7 +125,7 @@
                             }
                         }else{
                             out.println("<table>");
-                            out.println("<tr><td colspan='2'>c.crime_code</td></tr>");
+                            out.println("<tr><td colspan='2'>Unable to record crime</td></tr>");
                             out.println("</table>");
                         }
                     }catch(NumberFormatException e){
