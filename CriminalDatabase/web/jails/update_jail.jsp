@@ -62,13 +62,13 @@
                             if (res != null) {
                                 out.println("<table>");
                                 out.println("<thead>");
-                                out.println("<tr><th> colspan='2' style='color: white; font-weight: bold;'>Table Details</th></tr>");
+                                out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Table Details</th></tr>");
                                 out.println("</thead>");
                                 out.println("<tbody>");
                                 out.println("<tr><td>Jail Code:</td><td>" + res[0] + "</td></tr>");
                                 out.println("<tr><td>Area of Jurisdiction</td><td>" + res[1] + "</td></tr>");
                                 out.println("<tr><td>Start Date of Jail:</td><td>" + res[2] + "</td></tr>");
-                                out.println("<tr><th> colspan='2' style='color: white; font-weight: bold;'>Leave Blank if Data Will Not Be Updated.</th></tr>");
+                                out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Leave Blank if Data Will Not Be Updated.</th></tr>");
                                 out.println("</tbody>");
                                 out.println("</table>");
                                
@@ -85,7 +85,7 @@
                                 out.println("<tr><td>Jail Does Not Exist</td></tr>");
                                 out.println("<form action='add_jail.html' method='post'>");
                                 out.println("<div class='button-container'>");
-                                out.println("<input type='submit' value='Add Officer' id='roboto' class='button'>");
+                                out.println("<input type='submit' value='Add Jail' id='roboto' class='button'>");
                                 out.println("</div>");
                                 out.println("</form>");
                                 out.println("</table>");

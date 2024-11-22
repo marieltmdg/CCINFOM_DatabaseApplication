@@ -65,7 +65,7 @@
                                 out.println("</tbody>");
                                 out.println("</table>");
 
-                                if (res[4] == "-1"){
+                                if (Integer.parseInt(res[4]) == -1){
                                     out.println("<script>alert('Criminal is freed. Cannot be transferred.'); window.location.href = 'index.html';</script>");
                                 } else {
                                     out.println("<form action='update_transfer_criminal.jsp' method='post'>");

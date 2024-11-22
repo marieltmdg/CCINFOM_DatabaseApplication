@@ -50,13 +50,17 @@
                     String date_Committed = request.getParameter("date_committed");
 
                     int criminalCode = Integer.parseInt(criminal_code);
-                    int oldJailCode = Integer.parseInt(old_Jail_Code);         
+                    int oldJailCode = Integer.parseInt(old_Jail_Code);
+                    int newJailCode = Integer.parseInt(new_Jail_Code);
+                    
+                    Jails jail = new Jails();
+                    jail.jail_code = newJailCode;
+                    int check = jail.checkExistsAndNotDeleted();
 
-                    if (new_Jail_Code != null) {
+                    if (new_Jail_Code != null && check == 1) {
                         try {
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                             java.util.Date date = sdf.parse(date_Committed); 
-                            int newJailCode = Integer.parseInt(new_Jail_Code);
                             int cjhResult;
                             IncarcerationHistory cjh = new IncarcerationHistory();
                             cjh.criminal_code = criminalCode;
@@ -98,7 +102,7 @@
                             out.println("<script>alert('Input format error.'); window.location.href = 'index.html';</script>");
                         }
                     } else {
-                        out.println("<script>alert('All fields are required.'); window.location.href = 'index.html';</script>");
+                        out.println("<script>alert('Invalid input. Possible Reason: Jail was deleted.'); window.location.href = 'index.html';</script>");
                     }
                 %>
                 <button class="button" id="roboto" onclick="window.location.href='index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>

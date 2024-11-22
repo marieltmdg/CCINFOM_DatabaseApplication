@@ -68,7 +68,7 @@ CREATE TABLE incarceration_history(
    `status`		   char(100) NOT NULL,
    PRIMARY KEY(Criminal_Code, start_date),
   FOREIGN KEY(Criminal_Code) REFERENCES criminals(Criminal_Code),
-  FOREIGN KEY(Jail_Code) REFERENCES jails(Jail_Code) ON DELETE SET NULL
+  FOREIGN KEY(Jail_Code) REFERENCES jails(Jail_Code)
 );
 
 INSERT INTO `Jails` VALUES

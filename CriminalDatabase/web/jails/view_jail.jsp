@@ -63,12 +63,12 @@
                                 out.println("</table>");
                             } else {
                                 out.println("<table>");
-                                out.println("<thead>");
-                                out.println("<tr><th colspan='2' style='color: white;'>Jail Not Found</th></tr>");
-                                out.println("</thead>");
-                                out.println("<tbody>");
-                                out.println("<tr><td colspan='2'>Please Try Again</td></tr>");
-                                out.println("</tbody>");
+                                out.println("<tr><td>Jail Does Not Exist</td></tr>");
+                                out.println("<form action='add_jail.html' method='post'>");
+                                out.println("<div class='button-container'>");
+                                out.println("<input type='submit' value='Add Jail' id='roboto' class='button'>");
+                                out.println("</div>");
+                                out.println("</form>");
                                 out.println("</table>");
                             }
                         } catch (Exception e) {

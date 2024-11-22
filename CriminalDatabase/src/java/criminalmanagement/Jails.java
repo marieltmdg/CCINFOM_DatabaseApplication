@@ -21,6 +21,48 @@ public class Jails {
     public Jails() {
         
     }
+    
+    public int checkExistsAndNotDeleted(){
+        Connection conn = ConnectToSQL.connect();
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return 0;
+        }
+        
+        PreparedStatement pstmt = null;
+       
+        try {
+            pstmt = conn.prepareStatement(
+                    "SELECT * FROM jails "
+                            + "WHERE jail_code = ? AND deleted = 0;");
+            pstmt.setInt(1, jail_code);
+            ResultSet rst = pstmt.executeQuery();
+            
+            // dne
+            if (!rst.isBeforeFirst()) {
+                rst.close();
+                pstmt.close();
+                conn.close();
+                return 0;
+            } 
+            rst.close();
+            
+            System.out.println("Success");
+            return 1;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return -1;
+        
+    }
+    
     public String[] retrieveJail(){
         Connection conn = ConnectToSQL.connect();
         String jailCode = null;
@@ -35,7 +77,7 @@ public class Jails {
         
         PreparedStatement pstmt = null;
         try {
-            pstmt = conn.prepareStatement("SELECT * FROM jails WHERE jail_code = ?");
+            pstmt = conn.prepareStatement("SELECT * FROM jails WHERE jail_code = ? AND deleted = 0");
             pstmt.setInt(1, jail_code);
             ResultSet rst = pstmt.executeQuery();
             
@@ -131,7 +173,7 @@ public class Jails {
         PreparedStatement pstmt = null;
         
         try {
-            pstmt = conn.prepareStatement("DELETE FROM jails WHERE jail_code = ?");
+            pstmt = conn.prepareStatement("UPDATE jails SET deleted = 1 WHERE jail_code = ?");
             pstmt.setInt(1, jail_code);
             pstmt.executeUpdate();
             pstmt.close();
@@ -162,7 +204,7 @@ public class Jails {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            String sql = "SELECT jail_code, area_of_jurisdiction FROM jails";
+            String sql = "SELECT jail_code, area_of_jurisdiction FROM jails WHERE deleted = 0";
             pstmt = conn.prepareStatement(sql);
             rst = pstmt.executeQuery();
 
@@ -260,7 +302,7 @@ public class Jails {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            String sql = "SELECT * FROM jails WHERE (area_of_jurisdiction LIKE ? or ? = 'all') AND (YEAR(start_date) = ? or ? = 'all')";
+            String sql = "SELECT * FROM jails WHERE deleted = 0 AND (area_of_jurisdiction LIKE ? or ? = 'all') AND (YEAR(start_date) = ? or ? = 'all')";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, area);
             pstmt.setString(2, area);
@@ -306,7 +348,7 @@ public class Jails {
                     + "FROM jails j "
                     + "LEFT JOIN officers o ON o.jail_code = j.jail_code "
                     + "LEFT JOIN crimes cri ON cri.badge_number = o.badge_number "
-                    + "WHERE YEAR(date_committed) < ? OR (YEAR(date_committed) = ? AND MONTH(date_committed) <= ?) "
+                    + "WHERE j.deleted = 0 AND YEAR(date_committed) < ? OR (YEAR(date_committed) = ? AND MONTH(date_committed) <= ?) "
                     + "GROUP BY j.jail_code;"
             );
             pstmt.setInt(1, year);
@@ -353,7 +395,7 @@ public class Jails {
                     + "FROM jails j "
                     + "LEFT JOIN criminals c ON c.jail_code = j.jail_code "
                     + "LEFT JOIN crimes cri ON cri.criminal_code = c.criminal_code "
-                    + "WHERE YEAR(date_committed) < ? OR (YEAR(date_committed) = ? AND MONTH(date_committed) <= ?) "
+                    + "WHERE j.jail_code >= 0 AND j.deleted = 0 AND YEAR(date_committed) < ? OR (YEAR(date_committed) = ? AND MONTH(date_committed) <= ?) "
                     + "GROUP BY j.jail_code; "
             );
             pstmt.setInt(1, year);

@@ -81,7 +81,7 @@
                         }
                     } else {
                         out.println("<table>");
-                        out.println("<tr><td colspan='2' style='color: red; text-align: center;'>All Fields Are Required</td></tr>");
+                        out.println("<tr><td colspan='2' style='color: red; text-align: center;'>Invalid Input.</td></tr>");
                         out.println("</table>");
                     }
                 %>
