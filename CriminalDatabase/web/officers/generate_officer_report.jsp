@@ -117,9 +117,7 @@
                             out.println("</table>");
 
                         } catch (NumberFormatException e) {
-                            out.println("<table>");
-                            out.println("<tr><td colspan='5' class='no-data'>Invalid year format. Please enter a valid year</td></tr>");
-                            out.println("</table>");
+                            out.println("<script>alert('Invalid input format. Please enter a valid number.'); window.location.href = 'generate_officer_report.jsp';</script>");
                         }
                     } else {
                         out.println("<p></p>");

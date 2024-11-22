@@ -63,9 +63,12 @@
                                 out.println("<tr><td><strong>Jail Code:</strong></td><td>" + result[5] + "</td></tr>");
                                 out.println("</tbody>");
                                 out.println("</table>");
+                                
                                 out.println("<form action='delete_officer_confirm.jsp' method='POST'>");
+                                out.println("<div class='button-container'>");
                                 out.println("<input type='hidden' name='badge_number' value='" + badgeNum + "'/>");
-                                out.println("<button class='button' id='roboto' type='submit' style='margin-top: 2vh;  margin-bottom: 0px; width: 20%;'>Confirm Deletion</button>");
+                                out.println("<button class='button' id='roboto' type='submit' style='margin-top: 2vh;  margin-bottom: 0px; width: 100%;'>Confirm Deletion</button>");            
+                                out.println("</div>");
                                 out.println("</form>");
                             } else {
                                 out.println("<table>");
@@ -79,9 +82,7 @@
                             }
 
                         } catch (NumberFormatException e) {
-                            out.println("<table");
-                            out.println("<tr><td colspan='2' style='color: white; text-align: center;'>Invalid input format. Please enter a valid badge number.</td></tr>");
-                            out.println("</table>");
+                            out.println("<script>alert('Invalid input format. Please enter a valid number.'); window.location.href = 'delete_officer.html';</script>");
                         }
                     } else {
                         out.println("<table>");

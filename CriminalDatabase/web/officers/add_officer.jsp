@@ -90,9 +90,8 @@
                             }
 
                         } catch (NumberFormatException e) {
-                            out.println("<table");
-                            out.println("<tr><td colspan='2' style='color: white; text-align: center;'>Invalid input format. Please enter a valid badge number.</td></tr>");
-                            out.println("</table>");}
+                            out.println("<script>alert('Invalid input format. Please enter a valid number.'); window.location.href = 'add_officer.html';</script>");
+                        }
                     } else {
                         out.println("<table>");
                         out.println("<tr><td colspan='2' style='color: red; text-align: center;'>All Fields Are Required</td></tr>");

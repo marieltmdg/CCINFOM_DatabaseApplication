@@ -87,9 +87,7 @@
                                 out.println("</form>");
                             }
                         } catch (NumberFormatException e) {
-                            out.println("<table>");
-                            out.println("<tr><td colspan='2'>Invalid input format. Please enter a valid number for the badge number.</td></tr>");
-                            out.println("</table>");
+                            out.println("<script>alert('Invalid input format. Please enter a valid number.'); window.location.href = 'update_officer.html';</script>");
                         }
                     } else {
                         out.println("<table>");

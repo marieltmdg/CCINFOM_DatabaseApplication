@@ -113,13 +113,11 @@
                             }
 
                         } catch (NumberFormatException e) {
-                            out.println("<table>");
-                            out.println("<tr><td>Invalid input format. Please enter valid numbers for the badge number.</td></tr>");
-                            out.println("</table>");
+                            out.println("<script>alert('Invalid input format. Please enter a valid number.'); window.location.href = 'reassign_officer.html';</script>");
                         }
                     } else {
                         out.println("<table>");
-                        out.println("<tr><td>All Fields are Required. Please Enter a Badge Number.</td></tr>");
+                        out.println("<tr><td>All Fields are Required.</td></tr>");
                         out.println("</table>");
                     }
                 %>

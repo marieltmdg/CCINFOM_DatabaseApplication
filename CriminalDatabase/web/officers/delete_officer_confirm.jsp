@@ -55,14 +55,7 @@
                                 out.println("</table>");
                             }
                         } catch (Exception e) {
-                            out.println("<table>");
-                            out.println("<thead>");
-                            out.println("<tr><th colspan='2' style='color: white;'>Error</th></tr>");
-                            out.println("</thead>");
-                            out.println("<tbody>");
-                            out.println("<tr><td colspan='2'>Error: " + e.getMessage() + "</td></tr>");
-                            out.println("</tbody>");
-                            out.println("</table>");
+                            out.println("<script>alert('Error: " + e.getMessage() + "); window.location.href = 'delete_officer.html';</script>");
                         }
                     } else {
                         out.println("<table>");
