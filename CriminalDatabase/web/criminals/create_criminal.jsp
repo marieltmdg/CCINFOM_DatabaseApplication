@@ -84,6 +84,15 @@
                                 out.println("<table>");
                                 out.println("<tr><td colspan='2'>Criminal does not exist but was failed to be recorded</td></tr>");
                                 out.println("</table>");
+                                
+                                Jails j = new Jails();
+                                j.jail_code=criminal.jail_code;
+                                int jailExist = j.checkExistsAndNotDeleted();
+                                if(jailExist==0){
+                                    out.println("<table>");
+                                    out.println("<tr><td colspan='2'>Jail does not exist</td></tr>");
+                                    out.println("</table>");
+                                }
                             }
                         }
 

@@ -48,7 +48,6 @@
                             <td>Last Name</td>
                             <td>Total Sentence</td>
                             <td>Jail Code</td>
-                            <td>Deleted</td>
                             </tr>
                         </thead>
                         <%
@@ -75,7 +74,6 @@
                             <td><%= row.get("last_name") %></td>
                             <td><%= row.get("total_sentence") %></td>
                             <td><%= row.get("jail_code") %></td>
-                            <td><%= row.get("deleted") %></td>
                         </tr>
                         <%
                             }

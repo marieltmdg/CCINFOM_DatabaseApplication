@@ -57,8 +57,17 @@
                         if(v_total_sentence != "")
                             criminal.total_sentence = Integer.parseInt(v_total_sentence);
                         else criminal.total_sentence = -1;
-                        if(v_jail_code != "")
+                        if(v_jail_code != ""){
                             criminal.jail_code = Integer.parseInt(v_jail_code);
+                            Jails j = new Jails();
+                            j.jail_code=criminal.jail_code;
+                            int jailExist = j.checkExistsAndNotDeleted();
+                            if(jailExist==0){
+                                out.println("<table>");
+                                out.println("<tr><td colspan='2'>Jail does not exist</td></tr>");
+                                out.println("</table>");
+                            }
+                        }
                         else criminal.jail_code = -1;
 
                         int exists = criminal.checkExists(criminal.criminal_code);
