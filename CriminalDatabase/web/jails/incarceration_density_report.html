@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Incarceration Density Report</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Incarceration Density Report</h2>
+        <form action="incarceration_density_report.jsp" method="POST">
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" required><br><br>
+            <label for="month" class="form-label">Choose Month:</label>
+                <select id="month" name="month" required class="form-input",required onchange="toggleCalDropdown()">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select><br><br>
+                <input type="submit" value="Generate Report">
+        </form>
+    </body>
+</html>

@@ -44,7 +44,7 @@
                 out.println("<table border='1'>");
                 out.println("<thead>");
                 out.println("<tr>");
-                out.println("<th>Jail Code</th><th>Area of Jurisdiction</th><th>Start Date/th>");
+                out.println("<th>Jail Code</th><th>Area of Jurisdiction</th><th>Start Date</th>");
                 out.println("</tr>");
                 out.println("</thead>");
                 out.println("<tbody>");

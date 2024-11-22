@@ -289,4 +289,98 @@ public class Jails {
         }
         return jailList;
     }
+    
+    public List<String[]> generateReportOfficerPart(int year, int month){
+        Connection conn = ConnectToSQL.connect();
+        List<String[]> jailList = new ArrayList<>();
+        if (conn == null) {
+            System.out.println("Failed to connect to server");
+            return jailList;
+        }
+        
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        try {
+            pstmt = conn.prepareStatement(
+                    "SELECT j.jail_code, j.area_of_jurisdiction, COUNT(DISTINCT o.badge_number) as officerCount "
+                    + "FROM jails j "
+                    + "LEFT JOIN officers o ON o.jail_code = j.jail_code "
+                    + "LEFT JOIN crimes cri ON cri.badge_number = o.badge_number "
+                    + "WHERE YEAR(date_committed) < ? OR (YEAR(date_committed) = ? AND MONTH(date_committed) <= ?) "
+                    + "GROUP BY j.jail_code;"
+            );
+            pstmt.setInt(1, year);
+            pstmt.setInt(2, year);
+            pstmt.setInt(3, month);
+            
+            rst = pstmt.executeQuery();
+            
+            while (rst.next()){
+                String[] jail = new String[3];
+                jail[0] = String.valueOf(rst.getInt("jail_code"));
+                jail[1] = rst.getString("area_of_jurisdiction");
+                jail[2] = String.valueOf(rst.getInt("officerCount"));
+                jailList.add(jail);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return jailList;
+    }
+    
+    public List<String[]> generateReportCriminalPart(int year, int month){
+        Connection conn = ConnectToSQL.connect();
+        List<String[]> jailList = new ArrayList<>();
+        if (conn == null) {
+            System.out.println("Failed to connect to server");
+            return jailList;
+        }
+        
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        try {
+            pstmt = conn.prepareStatement(
+                    "SELECT j.jail_code, j.area_of_jurisdiction, COUNT(DISTINCT c.criminal_code) as criminalCount "
+                    + "FROM jails j "
+                    + "LEFT JOIN criminals c ON c.jail_code = j.jail_code "
+                    + "LEFT JOIN crimes cri ON cri.criminal_code = c.criminal_code "
+                    + "WHERE YEAR(date_committed) < ? OR (YEAR(date_committed) = ? AND MONTH(date_committed) <= ?) "
+                    + "GROUP BY j.jail_code; "
+            );
+            pstmt.setInt(1, year);
+            pstmt.setInt(2, year);
+            pstmt.setInt(3, month);
+            
+            rst = pstmt.executeQuery();
+            
+            while (rst.next()){
+                String[] jail = new String[3];
+                jail[0] = String.valueOf(rst.getInt("jail_code"));
+                jail[1] = rst.getString("area_of_jurisdiction");
+                jail[2] = String.valueOf(rst.getInt("criminalCount"));
+                jailList.add(jail);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return jailList;
+    }
 }
