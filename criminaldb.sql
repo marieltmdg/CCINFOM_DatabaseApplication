@@ -4,44 +4,44 @@ USE `criminaldb`;
 
 DROP TABLE IF EXISTS Jails;
 CREATE TABLE Jails(
-    `Jail_Code`             int(100)  NOT NULL DEFAULT '0' PRIMARY KEY,
-    `Area_of_Jurisdiction`  char(100) NOT NULL DEFAULT '',
+    `Jail_Code`             INT(10)  NOT NULL DEFAULT '0' PRIMARY KEY,
+    `Area_of_Jurisdiction`  VARCHAR(100) NOT NULL DEFAULT '',
     `Start_Date`          	DATE  NOT NULL,
     `Deleted`               TINYINT(1) NOT NULL DEFAULT 0 -- 0: Not deleted, 1: Deleted
 );
 
 DROP TABLE IF EXISTS Criminals;
 CREATE TABLE Criminals(
-    `Criminal_Code`     int(100)  NOT NULL DEFAULT '0' PRIMARY KEY,
-    `First_Name`        char(100) NOT NULL DEFAULT '',
-    `Last_Name`         char(100)  NOT NULL DEFAULT '',
-    `Total_Sentence`    int(100) NOT NULL DEFAULT '0',
-    `Jail_Code`         int(100)  DEFAULT '0',
+    `Criminal_Code`     INT(10)  NOT NULL DEFAULT '0' PRIMARY KEY,
+    `First_Name`        VARCHAR(45) NOT NULL DEFAULT '',
+    `Last_Name`         VARCHAR(45)  NOT NULL DEFAULT '',
+    `Total_Sentence`    INT(10) NOT NULL DEFAULT '0',
+    `Jail_Code`         INT(10)  DEFAULT '0',
 	`Deleted`           TINYINT(1) NOT NULL DEFAULT 0, -- 0: Not deleted, 1: Deleted
     FOREIGN KEY(`Jail_Code`) REFERENCES Jails(`Jail_Code`)
 );
 
 DROP TABLE IF EXISTS officers;
 CREATE TABLE officers(
-    `Badge_Number`      INTEGER NOT NULL DEFAULT '0' PRIMARY KEY, 
-    `First_Name`        CHAR(100) NOT NULL DEFAULT '',
-    `Last_Name`         CHAR(100) NOT NULL DEFAULT '',
-    `Jail_Code`         INTEGER DEFAULT '0',
-    `Start_Date_Current` DATE NOT NULL,
-    `Active`            CHAR(1) NOT NULL DEFAULT '',
-    `Deleted`           TINYINT(1) NOT NULL DEFAULT 0, -- 0: Not deleted, 1: Deleted
+    `Badge_Number`      	INT(10) NOT NULL DEFAULT '0' PRIMARY KEY, 
+    `First_Name`        	VARCHAR(45) NOT NULL DEFAULT '',
+    `Last_Name`         	VARCHAR(45) NOT NULL DEFAULT '',
+    `Jail_Code`         	INT(10) DEFAULT '0',
+    `Start_Date_Current`	DATE NOT NULL,
+    `Active`            	CHAR(1) NOT NULL DEFAULT '',
+    `Deleted`           	TINYINT(1) NOT NULL DEFAULT 0, -- 0: Not deleted, 1: Deleted
     FOREIGN KEY(`Jail_Code`) REFERENCES Jails(`Jail_Code`)
 );
 
 
 DROP TABLE IF EXISTS Crimes;
 CREATE TABLE Crimes(
-    `Crime_Code`     int(100)  NOT NULL DEFAULT '0' PRIMARY KEY,
-    `Crime_Type`     char(100) NOT NULL DEFAULT '',
-    `Badge_Number`   int(100),
+    `Crime_Code`     INT(10)  NOT NULL DEFAULT '0' PRIMARY KEY,
+    `Crime_Type`     VARCHAR(100) NOT NULL DEFAULT '',
+    `Badge_Number`   INT(10),
     `Date_Committed` DATE      NOT NULL,
-    `Sentence`       int(100)  NOT NULL DEFAULT '0',
-    `Criminal_Code`  int(100)  DEFAULT '0',
+    `Sentence`       INT(10)  NOT NULL DEFAULT '0',
+    `Criminal_Code`  INT(10)  DEFAULT '0',
     `Deleted`        TINYINT(1) NOT NULL DEFAULT 0, 
     FOREIGN KEY(`Criminal_Code`) REFERENCES criminals(`Criminal_Code`),
     FOREIGN KEY(`Badge_Number`) REFERENCES officers(`Badge_Number`) 
@@ -49,10 +49,10 @@ CREATE TABLE Crimes(
 
 DROP TABLE IF EXISTS officer_station_history;
 CREATE TABLE officer_station_history(
-   `Badge_Number` INTEGER NOT NULL,
-   `Jail_Code` INTEGER NOT NULL, 
-   `start_date` DATE NOT NULL, 
-   `end_date` DATE NOT NULL,
+   `Badge_Number`	INT(10) NOT NULL,
+   `Jail_Code` 		INT(10) NOT NULL, 
+   `start_date` 	DATE NOT NULL, 
+   `end_date` 		DATE NOT NULL,
    PRIMARY KEY(`Badge_Number`, `start_date`), 
    FOREIGN KEY (`Badge_Number`) REFERENCES officers (`Badge_Number`),
    FOREIGN KEY (`Jail_Code`) REFERENCES jails (`Jail_Code`)
@@ -61,19 +61,18 @@ CREATE TABLE officer_station_history(
 
 DROP TABLE IF EXISTS incarceration_history;
 CREATE TABLE incarceration_history(
-   Criminal_Code   INTEGER, 
-   Jail_Code       INTEGER,
-   start_date      DATE  NOT NULL,
-   end_date        DATE  NOT NULL, 
-   status		   char(100) NOT NULL,
+   `Criminal_Code`	INT(10), 
+   `Jail_Code`      INT(10),
+   `start_date`     DATE  NOT NULL,
+   `end_date`       DATE  NOT NULL, 
+   `status`		   char(100) NOT NULL,
    PRIMARY KEY(Criminal_Code, start_date),
   FOREIGN KEY(Criminal_Code) REFERENCES criminals(Criminal_Code),
   FOREIGN KEY(Jail_Code) REFERENCES jails(Jail_Code) ON DELETE SET NULL
 );
 
 INSERT INTO `Jails` VALUES
- (-1, 'DNE', '9999-12-12', 0)
-,(0,'Manila','2012-01-01', 0)
+ (0,'Manila','2012-01-01', 0)
 ,(1,'Makati','1985-01-01', 0)
 ,(2,'Taguig','1990-01-01', 0)
 ,(3,'Mandaluyong','1956-01-01', 0)
