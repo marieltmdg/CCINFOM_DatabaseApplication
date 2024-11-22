@@ -49,7 +49,7 @@
                     String date_Committed = request.getParameter("date_committed");
 
                     int criminalCode = Integer.parseInt(criminal_code);
-                    int oldJailCode = Integer.parseInt(old_Jail_Code);         
+                    int oldJailCode = Integer.parseInt(old_Jail_Code);
 
                     try {
                         int cjhResult;
@@ -69,11 +69,9 @@
 
                         Criminal criminal = new Criminal();
                         criminal.criminal_code = criminalCode;
-                        criminal.jail_code = -1;
-                        int crimUpdateResult = criminal.updateCriminalJailCode();
+                        criminal.jail_code = oldJailCode;
+                        int crimUpdateResult = criminal.deleteCriminalWithCrimCodeOnly();
                         
-                        System.out.println(cjhResult);
-                        System.out.println(crimUpdateResult);
 
                         if (cjhResult == 1 && crimUpdateResult == 1){
                             String result[] = criminal.retrieveCriminal();       
