@@ -29,11 +29,19 @@ public class OfficerReport {
 
         try {
             pstmt = conn.prepareStatement(
-                    "SELECT o.badge_number, o.first_name, o.last_name, COUNT(c.crime_code) AS criminalsCaught "
-                    + "FROM officers o "
-                    + "LEFT JOIN crimes c ON o.badge_number = c.badge_number "
-                    + "WHERE YEAR(c.date_committed) = ? AND o.deleted = 0 "
-                    + "GROUP BY o.badge_number;"
+                "SELECT o.badge_number, " +
+                "       o.first_name, " +
+                "       o.last_name, " +
+                "       COALESCE(MIN(osh.start_date), o.start_date_current) AS hire_date, " +
+                "       COUNT(c.crime_code) AS criminalsCaught " +
+                "FROM officers o " +
+                "LEFT JOIN officer_station_history osh " +
+                "       ON o.badge_number = osh.badge_number " +
+                "LEFT JOIN crimes c " +
+                "       ON o.badge_number = c.badge_number " +
+                "WHERE YEAR(c.date_committed) = ? " +
+                "      AND o.deleted = 0 " +
+                "GROUP BY o.badge_number;"
             );
             pstmt.setInt(1, year);
             rst = pstmt.executeQuery();
@@ -42,25 +50,28 @@ public class OfficerReport {
                 int badgeNumber = rst.getInt("badge_number");
                 String firstName = rst.getString("first_name");
                 String lastName = rst.getString("last_name");
+                java.sql.Date hireDate = rst.getDate("hire_date"); 
                 int criminalsCaught = rst.getInt("criminalsCaught");
 
-                OfficerReportData officerData = new OfficerReportData(firstName, lastName, criminalsCaught);
+                OfficerReportData officerData = new OfficerReportData(firstName, lastName, hireDate, criminalsCaught);
                 officerCriminalsMap.put(badgeNumber, officerData);
             }
 
             System.out.println("Report generated successfully.");
         } catch (Exception e) {
-            System.out.println("Error generating report: " + e.getMessage());
+            System.out.println("Error generating report:");
+            e.printStackTrace();
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
                 if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+
     
     public List<String[]> getReport(String sortBy, boolean ascending) {
         generateReport();
@@ -72,6 +83,7 @@ public class OfficerReport {
                 String.valueOf(entry.getKey()), 
                 data.firstName, 
                 data.lastName,
+                String.valueOf(data.hireDate),
                 String.valueOf(data.criminalsCaught) 
             });
         }
@@ -87,12 +99,16 @@ public class OfficerReport {
             case "badge_number":
                 comparator = Comparator.comparingInt(o -> Integer.parseInt(o[0]));
                 break;
+            case "hire_date":
+                comparator = Comparator.comparing(o -> java.sql.Date.valueOf(o[3])); 
+                break;
             case "criminals_caught":
-                comparator = Comparator.comparingInt(o -> Integer.parseInt(o[3])); 
+                comparator = Comparator.comparingInt(o -> Integer.parseInt(o[4]));
                 break;
             default:
                 throw new IllegalArgumentException("Invalid sort field: " + sortBy);
         }
+
 
         if (!ascending) {
             comparator = comparator.reversed();
@@ -105,11 +121,13 @@ public class OfficerReport {
     public static class OfficerReportData {
         String firstName;
         String lastName;
+        java.sql.Date hireDate;
         int criminalsCaught;
 
-        public OfficerReportData(String firstName, String lastName, int criminalsCaught) {
+        public OfficerReportData(String firstName, String lastName, java.sql.Date hireDate, int criminalsCaught) {
             this.firstName = firstName;
             this.lastName = lastName;
+            this.hireDate = hireDate;
             this.criminalsCaught = criminalsCaught;
         }
     }
