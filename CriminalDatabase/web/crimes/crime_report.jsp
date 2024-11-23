@@ -5,6 +5,7 @@
 --%>
 <%@ page import="criminalmanagement.Crimes" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.util.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -41,40 +42,40 @@
                     String yearStr = request.getParameter("year");
 
                     if (monthStr != null && yearStr != null) {
-                        int month = Integer.parseInt(monthStr);
-                        int year = Integer.parseInt(yearStr);
+                        try {
+                            int month = Integer.parseInt(monthStr);
+                            int year = Integer.parseInt(yearStr);
 
-                        Crimes crimes = new Crimes();
-                        ResultSet rst = crimes.crimeReport(month, year);
+                            Crimes crimes = new Crimes();
+                            List<String[]> crimeReport = crimes.crimeReport(month, year);
 
-                        if (rst == null) {
-                            out.println("<script>alert('Error generating crime report. Please try again.'); window.location.href = '../index.html';</script>");
-                        } else {
-                            try {
-                                out.println("<table>");
-                                out.println("<tr><thead><td>Crime Type</td><td>Count</td></thead></tr>");
+                            if (crimeReport == null || crimeReport.isEmpty()) {
+                                out.println("<script>alert('No crime data found for the specified month and year.'); window.location.href = '../index.html';</script>");
+                            } else {
+                                out.println("<table border='1'>");
+                                out.println("<thead><tr><td>Crime Type</td><td>Count</td></tr></thead>");
+                                out.println("<tbody>");
 
-                                while (rst.next()) {
-                                    String crimeType = rst.getString("Crime_Type");
-                                    int count = rst.getInt("Crime_Count");
-
+                                for (String[] row : crimeReport) {
                                     out.println("<tr>");
-                                    out.println("<td>" + crimeType + "</td>");
-                                    out.println("<td>" + count + "</td>");
+                                    out.println("<td>" + row[0] + "</td>");
+                                    out.println("<td>" + row[1] + "</td>");
                                     out.println("</tr>");
                                 }
 
+                                out.println("</tbody>");
                                 out.println("</table>");
-                            } catch (Exception e) {
-                                out.println("<script>alert('Error displaying results: " + e.getMessage() + "'); window.location.href = '../index.html';</script>");
-                            } finally {
-                                rst.close();
                             }
+                        } catch (NumberFormatException e) {
+                            out.println("<script>alert('Invalid input. Please enter valid numbers for month and year.'); window.location.href = '../index.html';</script>");
+                        } catch (Exception e) {
+                            out.println("<script>alert('An error occurred: " + e.getMessage() + "'); window.location.href = '../index.html';</script>");
                         }
                     } else {
                         out.println("<script>alert('Please provide valid month and year.'); window.location.href = '../index.html';</script>");
                     }
                 %>
+
                 <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             </div> 
         </div>

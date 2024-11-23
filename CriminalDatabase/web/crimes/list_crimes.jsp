@@ -1,5 +1,6 @@
 <%@ page import="criminalmanagement.Crimes" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.util.*" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -62,7 +63,7 @@
 
                             if (rst != null) {
                                 out.println("<table border='1' cellpadding='10' cellspacing='0'>");
-                                out.println("<thead><tr><th>Crime Code</th><th>Crime Type</th><th>Date Committed</th><th>Sentence (Years)</th></tr></thead>");
+                                out.println("<thead><tr><td>Crime Code</td><td>Crime Type</td><td>Date Committed</td><td>Sentence (Years)</td></tr></thead>");
                                 out.println("<tbody>");
                                 while (rst.next()) {
                                     out.println("<tr>");
@@ -86,6 +87,7 @@
                         out.println("<script>alert('Filter is required.'); window.location.href = '../index.html';</script>");
                     }
                 %>
+
 
                 <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             </div>

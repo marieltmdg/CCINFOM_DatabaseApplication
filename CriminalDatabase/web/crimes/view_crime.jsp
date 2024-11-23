@@ -48,32 +48,32 @@
                             Crimes crime = new Crimes();
                             crime.crime_code = crimeCode;
 
-                            ResultSet rst = crime.viewCrime();
-                            if (rst != null && rst.next()) {
+                            // Call the updated viewCrime method
+                            String[] crimeDetails = crime.viewCrime(crimeCode);
+                            if (crimeDetails != null) {
                                 out.println("<table>");
                                 out.println("<thead><tr><td>Field</td><td>Value</td></tr></thead>");
-                                out.println("<tr><td>Crime Code</td><td>" + rst.getInt("Crime_Code") + "</td></tr>");
-                                out.println("<tr><td>Crime Type</td><td>" + rst.getString("Crime_Type") + "</td></tr>");
-                                out.println("<tr><td>Badge Number</td><td>" + rst.getString("Badge_Number") + "</td></tr>");
-                                out.println("<tr><td>Date Committed</td><td>" + rst.getString("Date_Committed") + "</td></tr>");
-                                out.println("<tr><td>Sentence</td><td>" + rst.getInt("Sentence") + "</td></tr>");
-                                out.println("<tr><td>Criminal Code</td><td>" + rst.getInt("Criminal_Code") + "</td></tr>");
+                                out.println("<tr><td>Crime Code</td><td>" + crimeDetails[0] + "</td></tr>");
+                                out.println("<tr><td>Crime Type</td><td>" + crimeDetails[1] + "</td></tr>");
+                                out.println("<tr><td>Badge Number</td><td>" + crimeDetails[2] + "</td></tr>");
+                                out.println("<tr><td>Date Committed</td><td>" + crimeDetails[3] + "</td></tr>");
+                                out.println("<tr><td>Sentence</td><td>" + crimeDetails[4] + "</td></tr>");
+                                out.println("<tr><td>Criminal Code</td><td>" + crimeDetails[5] + "</td></tr>");
+                                out.println("<tr><td>Deleted</td><td>" + (crimeDetails[6].equals("1") ? "Yes" : "No") + "</td></tr>");
                                 out.println("</table>");
-
                             } else {
-                                out.println("<script>alert('Crime not found.'); window.location.href = '../index.html';</script>");
-
+                                out.println("<script>alert('Crime not found or has been deleted.'); window.location.href = '../index.html';</script>");
                             }
                         } catch (NumberFormatException e) {
-                            out.println("<script>alert('Invalid input.'); window.location.href = '../index.html';</script>");
-                        } catch (SQLException e) {
-                            out.println("<script>alert('Error retrieving crime.'); window.location.href = '../index.html';</script>");
-
+                            out.println("<script>alert('Invalid input. Please enter a valid crime code.'); window.location.href = '../index.html';</script>");
+                        } catch (Exception e) {
+                            out.println("<script>alert('Error retrieving crime details.'); window.location.href = '../index.html';</script>");
                         }
                     } else {
                         out.println("<script>alert('Crime code is required.'); window.location.href = '../index.html';</script>");
                     }
                 %>
+
                 <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             </div> 
         </div>
