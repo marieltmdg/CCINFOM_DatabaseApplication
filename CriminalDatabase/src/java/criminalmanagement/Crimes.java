@@ -20,18 +20,16 @@ public class Crimes {
     public String date;
     public int sentence;
     public int criminal_code;
+    public Connection conn;
     
-    public Connection connect(){
-        return ConnectToSQL.connect();
-    }
-    
-    public Crimes(){
-        
+    public Crimes() {
+        this.conn = ConnectToSQL.connect();
     }
 
     public Crimes(int crime_code, int additional_sentence) {
         this.crime_code = crime_code;
         this.additional_sentence = additional_sentence;
+        this.conn = ConnectToSQL.connect();
     }
     
     public Crimes(int crime_code, String crime_type, int badge_number, String date, int sentence, int criminal_code) {
@@ -41,16 +39,10 @@ public class Crimes {
         this.date = date;
         this.sentence = sentence;
         this.criminal_code = criminal_code;
+        this.conn = ConnectToSQL.connect();
     }
     
     public boolean isDeleted(int crime_code) {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
-            return false;
-        }
-        
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         
@@ -70,25 +62,12 @@ public class Crimes {
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         
         return false;
     }
 
     public boolean changeSentence() {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
-            return false;
-        }
-        
         PreparedStatement pstmt = null;
         ResultSet rst = null;
 
@@ -105,8 +84,6 @@ public class Crimes {
 
             int currentCrimeSentence = rst.getInt("Sentence");
             int criminalCode = rst.getInt("Criminal_Code");
-
-            // Close current ResultSet and PreparedStatement before the next query
             rst.close();
             pstmt.close();
 
@@ -121,13 +98,11 @@ public class Crimes {
             }
 
             int currentTotalSentence = rst.getInt("Total_Sentence");
-
-            // Close current ResultSet and PreparedStatement before updates
             rst.close();
             pstmt.close();
 
             // Calculate the new sentence for the crime
-            int newCrimeSentence = currentCrimeSentence + additional_sentence; 
+            int newCrimeSentence = currentCrimeSentence + additional_sentence; // additionalSentence is assumed to be provided
             int updatedTotalSentence = currentTotalSentence - currentCrimeSentence + newCrimeSentence;
 
             // Update the Crimes table with the new sentence
@@ -135,15 +110,13 @@ public class Crimes {
             pstmt.setInt(1, newCrimeSentence);
             pstmt.setInt(2, crime_code);
             pstmt.executeUpdate();
-
             pstmt.close();
-
+        
             // Update the Criminals table with the updated total sentence
             pstmt = conn.prepareStatement("UPDATE Criminals SET Total_Sentence = ? WHERE Criminal_Code = ?");
             pstmt.setInt(1, updatedTotalSentence);
             pstmt.setInt(2, criminalCode);
             pstmt.executeUpdate();
-
             pstmt.close();
 
             // Log success
@@ -151,24 +124,14 @@ public class Crimes {
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-            return false;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-
+        
         return true;
     }
-
     
     public boolean addCrime() {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return false;
         }
 
@@ -224,23 +187,16 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error adding crime: " + e.getMessage());
             return false;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     // View crime
     public ResultSet viewCrime() {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return null;
         }
+        
         boolean deleted = isDeleted(crime_code);
         if (deleted == true) {
             return null;
@@ -257,21 +213,13 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error viewing crime: " + e.getMessage());
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     // Delete crime
     public boolean deleteCrime() {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return false;
         }
 
@@ -287,20 +235,12 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error deleting crime: " + e.getMessage());
             return false;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
     
     public ResultSet crimeReport(int month, int year) {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return null;
         }
 
@@ -316,22 +256,15 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error generating crime report: " + e.getMessage());
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     public boolean updateCrime(int code, String crime, Date dateCommitted) {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return false;
         }
+
         PreparedStatement pstmt = null;
 
         try {
@@ -355,21 +288,13 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error updating crime: " + e.getMessage());
             return false;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        } 
     }
     
     // Method to retrieve the related officer for a given crime code
     public ResultSet relatedOfficer(int crime) {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return null;
         }
 
@@ -390,20 +315,12 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error retrieving related officer: " + e.getMessage());
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     public ResultSet relatedCriminal(int crime) {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return null;
         }
 
@@ -424,20 +341,12 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error retrieving related criminal: " + e.getMessage());
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     public ResultSet filterByCrimeType(String crimeType) {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return null;
         }
 
@@ -453,22 +362,15 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error filtering by crime type: " + e.getMessage());
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
         
     public ResultSet filterBySentenceHighToLow() {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return null;
         }
+
         PreparedStatement pstmt = null;
         ResultSet rst = null;
 
@@ -480,21 +382,13 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error filtering by sentence (high to low): " + e.getMessage());
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
 
     public ResultSet filterBySentenceLowToHigh() {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return null;
         }
 
@@ -509,22 +403,15 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error filtering by sentence (low to high): " + e.getMessage());
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     public ResultSet filterByMonthAndYear(int month, int year) {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return null;
         }
+
         PreparedStatement pstmt = null;
         ResultSet rst = null;
 
@@ -538,20 +425,12 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error filtering by month and year: " + e.getMessage());
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
     
     public List<String> getCrimeTypes() {
-        Connection conn = connect();
-        
-        if(conn == null){
-            System.out.println("Failed to connect to server");
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
             return null;
         }
 
@@ -572,12 +451,6 @@ public class Crimes {
         } catch (SQLException e) {
             System.out.println("Error retrieving crime types: " + e.getMessage());
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
 
         return crimeTypes; // Return the list of crime types
