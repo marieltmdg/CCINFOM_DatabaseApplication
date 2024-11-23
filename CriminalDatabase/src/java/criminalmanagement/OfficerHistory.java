@@ -114,7 +114,7 @@ public class OfficerHistory {
                 "SELECT badge_number, jail_code, start_date, end_date " +
                 "FROM officer_station_history " +
                 "WHERE badge_number = ? "
-                        + "ORDER BY end_date DESC;"
+                        + "ORDER BY end_date DESC, start_date DESC;"
             );
             pstmt.setInt(1, badge_number);
             rst = pstmt.executeQuery();
