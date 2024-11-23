@@ -55,44 +55,50 @@
                                 officer.badge_number = badgeNum;
                                 String result[] = officer.retrieveOfficer();
 
-                                // record history
-                                OfficerHistory oh = new OfficerHistory();
-                                oh.badge_number = badgeNum;
-                                oh.jail_code = Integer.parseInt(result[5]);
-                                String dateStr = result[3];
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                java.util.Date utilDate = sdf.parse(dateStr); 
-                                oh.start_date = new java.sql.Date(utilDate.getTime()); 
-
-                                int ohResult =  oh.recordCurrentAssignment();
-
-                                officer.jail_code = newjailCode;
-                                int changeResult = officer.changeOfficerJailCode();
-
-                                if (changeResult == 1 && ohResult == 1) {
-                                    result = officer.retrieveOfficer();
+                                if (result[5] == sJailCode){
                                     out.println("<table>");
-                                        out.println("<thead>");
-                                        out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Jail Code Updated</th></tr>");
-                                        out.println("</thead>");
-                                        out.println("<tbody>");
-                                        out.println("<tr><td>Badge Number:</td><td>" + result[0] + "</td></tr>");
-                                        out.println("<tr><td>First Name:</td><td>" + result[1] + "</td></tr>");
-                                        out.println("<tr><td>Last Name:</td><td>" + result[2] + "</td></tr>");
-                                        out.println("<tr><td>Start Date of Assignment:</td><td>" + result[3] + "</td></tr>");
-                                        out.println("<tr><td>Active:</td><td>" + result[4] + "</td></tr>");
-                                        out.println("<tr><td>Jail Code:</td><td>" + result[5] + "</td></tr>");
-                                        out.println("</tbody>");
-                                        out.println("</table>");
-                                } else if (changeResult == -2) {
-                                    out.println("<table>");
-                                    out.println("<tr><td colspan='2'>Jail Does Not Exist</td></tr>");
+                                    out.println("<tr><td colspan='2'>Officer Already at Given Jail</td></tr>");
                                     out.println("</table>");
                                 } else {
-                                    out.println("<table>");
-                                    out.println("<tr><td colspan='2'>Update Unsuccessful</td></tr>");
-                                    out.println("</table>");
-                                }               
+                                    // record history
+                                    OfficerHistory oh = new OfficerHistory();
+                                    oh.badge_number = badgeNum;
+                                    oh.jail_code = Integer.parseInt(result[5]);
+                                    String dateStr = result[3];
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                    java.util.Date utilDate = sdf.parse(dateStr); 
+                                    oh.start_date = new java.sql.Date(utilDate.getTime()); 
+
+                                    int ohResult =  oh.recordCurrentAssignment();
+
+                                    officer.jail_code = newjailCode;
+                                    int changeResult = officer.changeOfficerJailCode();
+
+                                    if (changeResult == 1 && ohResult == 1) {
+                                        result = officer.retrieveOfficer();
+                                        out.println("<table>");
+                                            out.println("<thead>");
+                                            out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Jail Code Updated</th></tr>");
+                                            out.println("</thead>");
+                                            out.println("<tbody>");
+                                            out.println("<tr><td>Badge Number:</td><td>" + result[0] + "</td></tr>");
+                                            out.println("<tr><td>First Name:</td><td>" + result[1] + "</td></tr>");
+                                            out.println("<tr><td>Last Name:</td><td>" + result[2] + "</td></tr>");
+                                            out.println("<tr><td>Start Date of Assignment:</td><td>" + result[3] + "</td></tr>");
+                                            out.println("<tr><td>Active:</td><td>" + result[4] + "</td></tr>");
+                                            out.println("<tr><td>Jail Code:</td><td>" + result[5] + "</td></tr>");
+                                            out.println("</tbody>");
+                                            out.println("</table>");
+                                    } else if (changeResult == -2) {
+                                        out.println("<table>");
+                                        out.println("<tr><td colspan='2'>Jail Does Not Exist</td></tr>");
+                                        out.println("</table>");
+                                    } else {
+                                        out.println("<table>");
+                                        out.println("<tr><td colspan='2'>Update Unsuccessful</td></tr>");
+                                        out.println("</table>");
+                                    }
+                                }
                             } else {
                                 out.println("<table>");
                                 out.println("<tr><td colspan='2'>Officer Currently Inactive</td></tr>");

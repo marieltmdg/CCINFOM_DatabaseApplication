@@ -22,7 +22,7 @@
         <title>Criminal Transfer</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../style.css">
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -30,11 +30,11 @@
         <![endif]-->
 
         <div class="bg-image">
-            <img src="src/vigan.jpg">
+            <img src="../src/vigan.jpg">
         </div>
         <div class="bg-gradient"></div>
         <div class="top-bar">
-            <img src="src/pnp-logo.png" class="logo">
+            <img src="../src/pnp-logo.png" class="logo">
             <p class="header-text" id="garamond">Philippine <br> National Police </p>
         </div>
         <div class="text-bar">
@@ -105,7 +105,7 @@
                         out.println("<script>alert('Invalid input. Possible Reason: Jail was deleted.'); window.location.href = 'index.html';</script>");
                     }
                 %>
-                <button class="button" id="roboto" onclick="window.location.href='index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
+                <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             </div> 
         </div>
     </body>

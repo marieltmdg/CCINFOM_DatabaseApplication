@@ -584,13 +584,4 @@ public class Criminal {
         }
         return reportList;
     }
-    
-    public static void main(String[] args){
-        Criminal c = new Criminal();
-        c.criminal_code=804;
-        c.first_name="hairy";
-        c.last_name="styles";
-        c.jail_code=0;
-        System.out.println(c.checkExists());
-    }
 }

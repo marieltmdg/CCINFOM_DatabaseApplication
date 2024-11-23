@@ -6,8 +6,6 @@ package criminalmanagement;
 
 import java.util.*;
 import java.sql.*;
-import criminalmanagement.ConnectToSQL;
-import criminalmanagement.Jails;
 /**
  *
  * @author marie
@@ -124,14 +122,13 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? AND deleted = 0;");
-            pstmt.setInt(1, jail_code); 
+            Jails jail = new Jails();
+            jail.jail_code = jail_code;
 
-            rst = pstmt.executeQuery();
-
-            if (!rst.next()) {
-                return -2; 
-            }
+            int res = jail.checkExistsAndNotDeleted();
+            
+            if (res == 0) return -2;
+            
             // create new in db
             pstmt = conn.prepareStatement("SELECT MAX(badge_number) + 1 as newID FROM officers;");
             rst = pstmt.executeQuery();
@@ -178,14 +175,12 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? AND deleted = 0;");
-            pstmt.setInt(1, jail_code); 
+            Jails jail = new Jails();
+            jail.jail_code = jail_code;
 
-            rst = pstmt.executeQuery();
-
-            if (!rst.next()) {
-                return -2; 
-            }
+            int res = jail.checkExistsAndNotDeleted();
+            
+            if (res == 0) return -2;
             
             pstmt = conn.prepareStatement(
             "UPDATE officers SET active = ?, jail_code = ?, start_date_current = CURDATE() "
@@ -232,14 +227,12 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            pstmt = conn.prepareStatement("SELECT 1 FROM jails WHERE jail_code = ? and deleted = 0;");
-            pstmt.setInt(1, jail_code); 
+            Jails jail = new Jails();
+            jail.jail_code = jail_code;
 
-            rst = pstmt.executeQuery();
-
-            if (!rst.next()) {
-                return -2; 
-            }
+            int res = jail.checkExistsAndNotDeleted();
+            
+            if (res == 0) return -2;
             
             pstmt = conn.prepareStatement(
                 "UPDATE officers SET jail_code = ?, start_date_current = CURDATE()"

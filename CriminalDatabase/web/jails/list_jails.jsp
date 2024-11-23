@@ -19,7 +19,7 @@
         <title>List Jails</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../style.css">
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -27,11 +27,11 @@
         <![endif]-->
 
         <div class="bg-image">
-            <img src="src/vigan.jpg">
+            <img src="../src/vigan.jpg">
         </div>
         <div class="bg-gradient"></div>
         <div class="top-bar">
-            <img src="src/pnp-logo.png" class="logo">
+            <img src="../src/pnp-logo.png" class="logo">
             <p class="header-text" id="garamond">Philippine <br> National Police </p>
         </div>
         <div class="text-bar">
@@ -48,7 +48,7 @@
                     <input type="number" id="year" name="year" class="form-input"><br><br>
                     
                     <div class="button-container">
-                        <button class="button back-button" id="roboto" onclick="window.location.href='index.html'" type="button">Back</button>
+                        <button class="button back-button" id="roboto" onclick="window.location.href='../index.html'" type="button">Back</button>
                         <input type="submit" value="List Officers" id="roboto" class="button">
                 </div>
                 </form><br>
