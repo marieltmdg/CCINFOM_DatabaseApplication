@@ -24,6 +24,10 @@ public class Crimes {
     public Connection connect(){
         return ConnectToSQL.connect();
     }
+    
+    public Crimes(){
+        
+    }
 
     public Crimes(int crime_code, int additional_sentence) {
         this.crime_code = crime_code;
