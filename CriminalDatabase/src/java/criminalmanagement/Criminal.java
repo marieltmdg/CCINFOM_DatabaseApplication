@@ -345,18 +345,41 @@ public class Criminal {
                 return null;
             }
             
+            String criminalCode = null;
+            String firstName = null;
+            String lastName = null;
+            String sentence = null;
+            String jailCode = null;
+            String deleted = null;
+            String dateCommitted = null;
+            
             String[] arr = null;
             if (rst.next()) {
-                String criminalCode = rst.getString("criminal_code");
-                String firstName = rst.getString("first_name");
-                String lastName = rst.getString("last_name");
-                String sentence = rst.getString("total_sentence");
-                String jailCode = rst.getString("jail_code");
-                String deleted = rst.getString("deleted");
-                
-                arr = new String[] { criminalCode, firstName, lastName, sentence,
-                                        jailCode, deleted};
+                criminalCode = rst.getString("criminal_code");
+                firstName = rst.getString("first_name");
+                lastName = rst.getString("last_name");
+                sentence = rst.getString("total_sentence");
+                jailCode = rst.getString("jail_code");
+                deleted = rst.getString("deleted");
             }
+            
+            rst.close();
+            
+            pstmt = conn.prepareStatement("SELECT * FROM crimes WHERE criminal_code = ? ORDER BY date_committed DESC LIMIT 1");
+            pstmt.setInt(1, criminal_code);
+            rst = pstmt.executeQuery();
+            
+            if (!rst.isBeforeFirst()){
+                return null;
+            }
+            
+            if (rst.next()){
+                dateCommitted = rst.getString("date_committed");
+            }
+            
+            arr = new String[] { criminalCode, firstName, lastName, sentence,
+                                        jailCode, deleted, dateCommitted};
+            rst.close();
             System.out.println("Success");
    
             return arr;

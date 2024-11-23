@@ -64,7 +64,7 @@
                             } else {
                                 out.println("<table>");
                                 out.println("<tr><td>Jail Does Not Exist</td></tr>");
-                                out.println("<form action='add_jail.html' method='post'>");
+                                out.println("<form action='../add_jail.html' method='post'>");
                                 out.println("<div class='button-container'>");
                                 out.println("<input type='submit' value='Add Jail' id='roboto' class='button'>");
                                 out.println("</div>");

@@ -72,7 +72,7 @@
                                 out.println("</tbody>");
                                 out.println("</table>");
                                
-                                out.println("<form action='update_jail_details.jsp' method='post'>");
+                                out.println("<form action='../update_jail_details.jsp' method='post'>");
                                 out.println("<input type='hidden' name='jail_code' value='" + jCode + "'>");
                                 out.println("<label for='area_juris' class='form-label'>Area of Jurisdiction: </label>");
                                 out.println("<input type='text' id='area_juris' name='area_juris' class='form-input'<br>");
