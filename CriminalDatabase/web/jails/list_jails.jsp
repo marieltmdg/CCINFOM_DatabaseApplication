@@ -49,7 +49,7 @@
                     
                     <div class="button-container">
                         <button type="button" class="button back-button" id="roboto" onclick="window.location.href='../index.html'" type="button">Back</button>
-                        <input type="submit" value="List Officers" id="roboto" class="button">
+                        <input type="submit" value="List Jails" id="roboto" class="button">
                 </div>
                 </form><br>
                 <%
