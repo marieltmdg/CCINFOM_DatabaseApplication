@@ -75,7 +75,7 @@
             </select><br><br>
 
             <div class="button-container">
-                        <button class="button back-button" id="roboto" onclick="window.location.href='../index.html'" type="button">Back</button>
+                        <button type="button" class="button back-button" id="roboto" onclick="window.location.href='../index.html'" type="button">Back</button>
                         <input type="submit" value="List Officers" id="roboto" class="button">
             </div>
         </form>
