@@ -218,13 +218,6 @@ public class Officer {
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         try {
-            Jails jail = new Jails();
-            jail.jail_code = jail_code;
-
-            int res = jail.checkExistsAndNotDeleted();
-            
-            if (res == 0) return -2;
-            
             pstmt = conn.prepareStatement(
             "UPDATE officers SET active = ?, jail_code = ?, start_date_current = CURDATE() "
             + "WHERE badge_number = ? AND deleted = 0;"
@@ -234,6 +227,12 @@ public class Officer {
             if (jail_code == -1){ 
                 pstmt.setNull(2, java.sql.Types.VARCHAR);
             } else {
+                Jails jail = new Jails();
+                jail.jail_code = jail_code;
+
+                int res = jail.checkExistsAndNotDeleted();
+            
+                if (res == 0) return -2;
                 pstmt.setInt(2, jail_code);
             }
             pstmt.setInt(3, badge_number);

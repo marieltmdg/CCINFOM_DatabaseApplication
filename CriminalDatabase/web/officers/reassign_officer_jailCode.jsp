@@ -67,16 +67,19 @@
                                     String dateStr = result[3];
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                     java.util.Date utilDate = sdf.parse(dateStr); 
-                                    oh.start_date = new java.sql.Date(utilDate.getTime()); 
-
-                                    int ohResult =  oh.recordCurrentAssignment();
+                                    oh.start_date = new java.sql.Date(utilDate.getTime());
 
                                     officer.jail_code = newjailCode;
+                                    
                                     int changeResult = officer.changeOfficerJailCode();
-
-                                    if (changeResult == 1 && ohResult == 1) {
-                                        result = officer.retrieveOfficer();
-                                        out.println("<table>");
+                                    
+                                    // record only when successful
+                                    if (changeResult == 1){
+                                        int ohResult =  oh.recordCurrentAssignment();
+                                        
+                                        if (ohResult == 1) {
+                                            result = officer.retrieveOfficer();
+                                            out.println("<table>");
                                             out.println("<thead>");
                                             out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Jail Code Updated</th></tr>");
                                             out.println("</thead>");
@@ -89,13 +92,21 @@
                                             out.println("<tr><td>Jail Code:</td><td>" + result[5] + "</td></tr>");
                                             out.println("</tbody>");
                                             out.println("</table>");
+                                        } else {
+                                        out.println("<table>");
+                                        out.println("<tr><td colspan='2'>Update Unsuccessful. History Not Recorded</td></tr>");
+                                        out.println("</table>");
+                                    }
+                                    
+                                    
+                                    
                                     } else if (changeResult == -2) {
                                         out.println("<table>");
                                         out.println("<tr><td colspan='2'>Jail Does Not Exist</td></tr>");
                                         out.println("</table>");
                                     } else {
                                         out.println("<table>");
-                                        out.println("<tr><td colspan='2'>Update Unsuccessful</td></tr>");
+                                        out.println("<tr><td colspan='2'>Update Unsuccessful. Change Jail Code Unsuccessful</td></tr>");
                                         out.println("</table>");
                                     }
                                 }

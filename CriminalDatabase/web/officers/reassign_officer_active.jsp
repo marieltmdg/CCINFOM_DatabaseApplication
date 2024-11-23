@@ -62,34 +62,40 @@
                                 String dateStr = result[3];
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                 java.util.Date utilDate = sdf.parse(dateStr); 
-                                oh.start_date = new java.sql.Date(utilDate.getTime()); 
-
-                                int ohResult =  oh.recordCurrentAssignment();
+                                oh.start_date = new java.sql.Date(utilDate.getTime());
 
                                 // change active
                                 officer.jail_code = -1;
                                 officer.active = "F";
+                                
                                 int changeResult = officer.changeOfficerActive();
-
-                                if (changeResult == 1 && ohResult == 1){
-                                    result = officer.retrieveOfficer();    
-                                    out.println("<table>");
-                                    out.println("<thead>");
-                                    out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Active Status Updated</th></tr>");
-                                    out.println("</thead>");
-                                    out.println("<tbody>");
-                                    out.println("<tr><td>Badge Number:</td><td>" + result[0] + "</td></tr>");
-                                    out.println("<tr><td>First Name:</td><td>" + result[1] + "</td></tr>");
-                                    out.println("<tr><td>Last Name:</td><td>" + result[2] + "</td></tr>");
-                                    out.println("<tr><td>Start Date of Assignment:</td><td>" + result[3] + "</td></tr>");
-                                    out.println("<tr><td>Active:</td><td>" + result[4] + "</td></tr>");
-                                    out.println("<tr><td>Jail Code:</td><td>" + result[5] + "</td></tr>");
-                                    out.println("</tbody>");
-                                    out.println("</table>");
-
+                                
+                                // record only when successful
+                                if (changeResult == 1) {
+                                    int ohResult =  oh.recordCurrentAssignment();
+                                    if (ohResult == 1){
+                                        result = officer.retrieveOfficer();    
+                                        out.println("<table>");
+                                        out.println("<thead>");
+                                        out.println("<tr><th colspan='2' style='color: white; font-weight: bold;'>Success! Officer Active Status Updated</th></tr>");
+                                        out.println("</thead>");
+                                        out.println("<tbody>");
+                                        out.println("<tr><td>Badge Number:</td><td>" + result[0] + "</td></tr>");
+                                        out.println("<tr><td>First Name:</td><td>" + result[1] + "</td></tr>");
+                                        out.println("<tr><td>Last Name:</td><td>" + result[2] + "</td></tr>");
+                                        out.println("<tr><td>Start Date of Assignment:</td><td>" + result[3] + "</td></tr>");
+                                        out.println("<tr><td>Active:</td><td>" + result[4] + "</td></tr>");
+                                        out.println("<tr><td>Jail Code:</td><td>" + result[5] + "</td></tr>");
+                                        out.println("</tbody>");
+                                        out.println("</table>");
+                                    } else {
+                                        out.println("<table>");
+                                        out.println("<tr><td colspan='2'>Update Unsuccessful. History Not Recorded</td></tr>");
+                                        out.println("</table>");    
+                                    }
                                 } else {
                                     out.println("<table>");
-                                    out.println("<tr><td colspan='2'>Update Unsuccessful</td></tr>");
+                                    out.println("<tr><td colspan='2'>Update Unsuccessful. Change Active Unsuccessful</td></tr>");
                                     out.println("</table>");
                                 }               
                             } else {
