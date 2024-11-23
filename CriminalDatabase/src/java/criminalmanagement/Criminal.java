@@ -557,7 +557,7 @@ public class Criminal {
         try {
             pstmt = conn.prepareStatement("SELECT MONTHNAME(date_committed) AS crimeMonth, "
                                            + "MONTH(date_committed) AS monthNumber, "
-                                           + "COUNT(criminal_code) AS totalCriminals "
+                                           + "COUNT(DISTINCT criminal_code) AS totalCriminals "
                                            + "FROM crimes WHERE YEAR(date_committed) = ? AND deleted=0 "
                                            + "GROUP BY crimeMonth, monthNumber "
                                            + "ORDER BY monthNumber");
