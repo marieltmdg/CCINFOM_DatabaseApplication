@@ -35,6 +35,40 @@ public class Criminal {
         return ConnectToSQL.connect();
     }
     
+    public int updateCriminalJailCode(){
+        Connection conn = ConnectToSQL.connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return -1;
+        }
+        
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(
+                "UPDATE criminals SET jail_code = ? "
+                + "WHERE criminal_code = ?"
+            );
+            
+            pstmt.setInt(1, jail_code);
+            pstmt.setInt(2, criminal_code);
+            pstmt.executeUpdate();
+            
+            System.out.println("Success");
+            return 1;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
+    
     public int registerCriminal(){
         Connection conn = connect();
         
