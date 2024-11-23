@@ -48,7 +48,7 @@
                         ResultSet rst = crimes.crimeReport(month, year);
 
                         if (rst == null) {
-                            out.println("<script>alert('Error generating crime report. Please try again.'); window.location.href = 'index.html';</script>");
+                            out.println("<script>alert('Error generating crime report. Please try again.'); window.location.href = '../index.html';</script>");
                         } else {
                             try {
                                 out.println("<table>");

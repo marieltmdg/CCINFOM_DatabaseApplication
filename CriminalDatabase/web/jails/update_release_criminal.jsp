@@ -88,11 +88,11 @@
                             out.println("</tbody>");
                             out.println("</table>");
                         } else {
-                            out.println("<script>alert('Update Unsuccessful.'); window.location.href = 'index.html';</script>");
+                            out.println("<script>alert('Update Unsuccessful.'); window.location.href = '../index.html';</script>");
                         }
 
                     } catch (NumberFormatException e) {
-                        out.println("<script>alert('Input format error.'); window.location.href = 'index.html';</script>");
+                        out.println("<script>alert('Input format error.'); window.location.href = '../index.html';</script>");
                     }
                 %>
                 <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
