@@ -27,7 +27,7 @@
         <![endif]-->
 
         <div class="bg-image">
-            <img src="s../rc/vigan.jpg">
+            <img src="../src/vigan.jpg">
         </div>
         <div class="bg-gradient"></div>
         <div class="top-bar">
