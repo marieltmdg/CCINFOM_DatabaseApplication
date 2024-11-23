@@ -55,7 +55,7 @@
                                 officer.badge_number = badgeNum;
                                 String result[] = officer.retrieveOfficer();
 
-                                if (result[5] == sJailCode){
+                                if (Integer.parseInt(result[5]) == newjailCode){
                                     out.println("<table>");
                                     out.println("<tr><td colspan='2'>Officer Already at Given Jail</td></tr>");
                                     out.println("</table>");

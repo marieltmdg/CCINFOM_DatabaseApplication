@@ -17,6 +17,49 @@ public class Officer {
     public java.sql.Date start_date_current;
     public String active;
     public int jail_code;
+    
+    public int checkExists(){
+        Connection conn = ConnectToSQL.connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return -1;
+        }
+        
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        try {
+            pstmt = conn.prepareStatement(
+                    "SELECT * FROM officers "
+                            + "WHERE badge_number = ?;");
+            pstmt.setInt(1, badge_number);
+            rst = pstmt.executeQuery();
+            
+            // dne
+            if (!rst.isBeforeFirst()) {
+                rst.close();
+                pstmt.close();
+                conn.close();
+                return 0;
+            } 
+             
+            rst.close();
+            
+            System.out.println("Success");
+            return 1;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (rst != null) rst.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
 
     public int checkExistsAndNotDeleted(){
         Connection conn = ConnectToSQL.connect();

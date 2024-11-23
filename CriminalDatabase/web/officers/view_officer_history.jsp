@@ -46,7 +46,7 @@
                             int badgeNumber = Integer.parseInt(officerBadgeNumber); 
                             Officer officer = new Officer();
                             officer.badge_number = badgeNumber;
-                            int check = officer.checkExistsAndNotDeleted();
+                            int check = officer.checkExists();
 
                             if (check == 1) {
                                 OfficerHistory oh = new OfficerHistory();
