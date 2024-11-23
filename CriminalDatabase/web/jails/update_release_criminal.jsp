@@ -95,7 +95,7 @@
                         out.println("<script>alert('Input format error.'); window.location.href = '../index.html';</script>");
                     }
                 %>
-                <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
+                <button type="button" class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             </div> 
         </div>
     </body>

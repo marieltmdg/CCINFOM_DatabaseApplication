@@ -68,7 +68,7 @@
                                 if (Integer.parseInt(res[4]) == -1){
                                     out.println("<script>alert('Criminal is freed. Cannot be transferred.'); window.location.href = '../index.html';</script>");
                                 } else {
-                                    out.println("<form action='../update_transfer_criminal.jsp' method='post'>");
+                                    out.println("<form action='update_transfer_criminal.jsp' method='post'>");
                                     out.println("<input type='hidden' name='criminal_code' value='" + criminalCode + "'>");
                                     out.println("<input type='hidden' name='old_jail_code' value='" + res[4] + "'>");
                                     out.println("<input type='hidden' name='date_committed' value='" + res[6] + "'>");
@@ -76,7 +76,7 @@
                                     out.println("<input type='text' id='jail_code' name='jail_code' required class='form-input'><br>");
                                     out.println("<input type='submit' value='Transfer Criminal' class='button'>");
                                     out.println("</form>");
-                                    out.println("<form action='../update_release_criminal.jsp' method='post'>");
+                                    out.println("<form action='update_release_criminal.jsp' method='post'>");
                                     out.println("<input type='hidden' name='criminal_code' value='" + criminalCode + "'>");
                                     out.println("<input type='hidden' name='old_jail_code' value='" + res[4] + "'>");
                                     out.println("<input type='hidden' name='date_committed' value='" + res[6] + "'>");
@@ -89,13 +89,17 @@
                                 out.println("<script>alert('Criminal does not exist.'); window.location.href = '../index.html';</script>");
                             }
                         } catch (Exception e) {
-                            out.println("<script>alert('Invalid input.'); window.location.href = '../index.html';</script>");
+                            out.println("<table>");
+                            out.println("<tr><td colspan='2' style='color: white; text-align: center;'>Invalid input format.</td></tr>");
+                            out.println("</table>");
                         }
                     } else {
-                        out.println("<script>alert('No input.'); window.location.href = '../index.html';</script>");
+                        out.println("<table>");
+                        out.println("<tr><td colspan='2' style='color: red; text-align: center;'>All Fields Are Required</td></tr>");
+                        out.println("</table>");
                     }
                 %>
-                <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
+                <button type="button" class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             </div> 
         </div>
     </body>

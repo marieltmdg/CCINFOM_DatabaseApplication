@@ -59,7 +59,7 @@
                                 out.println("<tr><td>Start Date:</td><td>" + res[2] + "</td></tr>");
                                 out.println("</tbody>");
                                 out.println("</table>");
-                                out.println("<form action='../delete_jail_confirm.jsp' method='POST'>");
+                                out.println("<form action='delete_jail_confirm.jsp' method='POST'>");
                                 out.println("<input type='hidden' name='jail_code' value='" + jailCode + "'/>");
                                 out.println("<button class='button' id='roboto' type='submit' style='margin-top: 2vh;  margin-bottom: 0px; width: 20%;'>Confirm Deletion</button>");
                                 out.println("</form>");
@@ -85,7 +85,7 @@
                         out.println("</table>");
                     }
                 %>
-                <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
+                <button type="button" class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             </div> 
         </div>
     </body>

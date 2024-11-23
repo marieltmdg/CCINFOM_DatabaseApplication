@@ -40,7 +40,7 @@
         <div style="display: flex; justify-content: center; align-items: center;">
             <div class="output-box" id="output">
                 <!-- Start the JS code here: -->
-                <form action="../list_jails.jsp" method="POST">
+                <form action="list_jails.jsp" method="POST">
                     <label class="form-label">(Leave Blank if Filter Will Not Be Used.)</label><br><br>
                     <label for="textInArea" class="form-label">Area of Jurisdiction has character/string:</label>
                     <input type="text" id="textInArea" name="textInArea" class="form-input"><br><br>
@@ -48,7 +48,7 @@
                     <input type="number" id="year" name="year" class="form-input"><br><br>
                     
                     <div class="button-container">
-                        <button class="button back-button" id="roboto" onclick="window.location.href='../index.html'" type="button">Back</button>
+                        <button type="button" class="button back-button" id="roboto" onclick="window.location.href='../index.html'" type="button">Back</button>
                         <input type="submit" value="List Officers" id="roboto" class="button">
                 </div>
                 </form><br>
