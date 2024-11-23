@@ -3,16 +3,38 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/update_officer_jailCode.jsp</file>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/retrieve_officer.jsp</file>
             <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/src/java/criminalmanagement/Officer.java</file>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/index.html</file>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/retrieve_officer.html</file>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/update_officer_active.jsp</file>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/add_officer.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/update_jail_details.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/view_jail.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/incarceration_density_report.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/update_jail.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/incarceration_density_report.html</file>
             <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/src/java/criminalmanagement/OfficerHistory.java</file>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/add_officer.html</file>
-            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/update_officer_active.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/src/java/criminalmanagement/ConnectToSQL.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/officers/list_officers.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/transfer.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/delete_jail.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/officers/view_officer_history.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/src/java/criminalmanagement/Jails.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/list_jails.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/update_transfer_criminal.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/officers/add_officer.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/transfer_criminal.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/update_release_criminal.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/src/java/criminalmanagement/Crimes.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/view_jail.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/add_jail.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/officers/reassign_officer_active.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/delete_jail_confirm.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/view_related_jail.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/view_related_jail.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/officers/reassign_officer_jailCode.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/src/java/criminalmanagement/Criminal.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/delete_jail.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/update_jail.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/officers/reassign_officer.jsp</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/jails/add_jail.html</file>
+            <file>file:/C:/Users/marie/OneDrive/Documents/GitHub/CCINFOM_DatabaseApplication/CriminalDatabase/web/officers/view_officer_history.html</file>
         </group>
     </open-files>
 </project-private>
