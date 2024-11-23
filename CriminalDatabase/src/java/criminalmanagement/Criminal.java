@@ -210,6 +210,37 @@ public class Criminal {
         return false;
     }
     
+    public int deleteCriminalWithCrimCodeOnly(){
+        Connection conn = connect();
+        
+        if(conn == null){
+            System.out.println("Failed to connect to server");
+            return 0;
+        }
+        
+        PreparedStatement pstmt = null;
+        
+        try {
+            pstmt = conn.prepareStatement("UPDATE criminals SET deleted = 1 WHERE criminal_code = ? AND jail_code = ?");
+            pstmt.setInt(1, criminal_code);
+            pstmt.setInt(2, jail_code);
+            pstmt.executeUpdate();
+            pstmt.close();
+            
+            return 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
+    
     public boolean updateCriminal(){
         Connection conn = connect();
         
