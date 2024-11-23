@@ -41,7 +41,7 @@
 
                             // record history, only if currently active
                             int ohResult = 1;
-                            if (officerRes[4] == "T"){
+                            if ("T".equals(officerRes[4])) {
                                 OfficerHistory oh = new OfficerHistory();
                                 oh.badge_number = badgeNum;
                                 oh.jail_code = Integer.parseInt(officerRes[5]);
