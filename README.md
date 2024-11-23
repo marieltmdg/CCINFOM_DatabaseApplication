@@ -19,3 +19,9 @@ Group 4:
      g. style.css
   4. Copy the criminalmanagement package into the new project's "Source Packages" folder
   5. Add the "mysql-connector-j-9.1.0.jar" file from the "lib" folder as a library in the new project
+ 
+  NOTE:
+  These are the following dependencies to be found in the "Library" folder of the new project:
+  - mysql-connector-j-9.1.0.jar
+  - JDK 22 (Default)
+  - Apache Tomcat or Apache TomEE
