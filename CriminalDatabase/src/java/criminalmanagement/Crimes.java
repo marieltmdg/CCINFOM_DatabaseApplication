@@ -14,7 +14,7 @@ import java.sql.Date;
  */
 public class Crimes {
     public int crime_code;
-    public int additional_sentence; // Additional sentence to update
+    public int additional_sentence; 
     public String crime_type;
     public int badge_number;
     public String date;
@@ -43,6 +43,7 @@ public class Crimes {
     }
     
     public boolean isDeleted(int crime_code) {
+        this.conn = ConnectToSQL.connect();
         PreparedStatement pstmt = null;
         ResultSet rst = null;
         
@@ -62,17 +63,17 @@ public class Crimes {
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-        }
+        } 
         
         return false;
     }
 
     public boolean changeSentence() {
+        this.conn = ConnectToSQL.connect();
         PreparedStatement pstmt = null;
         ResultSet rst = null;
 
         try {
-            // Check if the crime exists
             pstmt = conn.prepareStatement("SELECT Sentence, Criminal_Code FROM Crimes WHERE Crime_Code = ?");
             pstmt.setInt(1, crime_code);
             rst = pstmt.executeQuery();
@@ -87,7 +88,6 @@ public class Crimes {
             rst.close();
             pstmt.close();
 
-            // Check if the criminal exists
             pstmt = conn.prepareStatement("SELECT Total_Sentence FROM Criminals WHERE Criminal_Code = ?");
             pstmt.setInt(1, criminalCode);
             rst = pstmt.executeQuery();
@@ -101,35 +101,41 @@ public class Crimes {
             rst.close();
             pstmt.close();
 
-            // Calculate the new sentence for the crime
             int newCrimeSentence = currentCrimeSentence + additional_sentence; // additionalSentence is assumed to be provided
             int updatedTotalSentence = currentTotalSentence - currentCrimeSentence + newCrimeSentence;
 
-            // Update the Crimes table with the new sentence
             pstmt = conn.prepareStatement("UPDATE Crimes SET Sentence = ? WHERE Crime_Code = ?");
             pstmt.setInt(1, newCrimeSentence);
             pstmt.setInt(2, crime_code);
             pstmt.executeUpdate();
             pstmt.close();
         
-            // Update the Criminals table with the updated total sentence
             pstmt = conn.prepareStatement("UPDATE Criminals SET Total_Sentence = ? WHERE Criminal_Code = ?");
             pstmt.setInt(1, updatedTotalSentence);
             pstmt.setInt(2, criminalCode);
             pstmt.executeUpdate();
             pstmt.close();
 
-            // Log success
             System.out.println("Crime and criminal records updated successfully.");
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (rst != null) rst.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         
         return true;
     }
     
     public boolean addCrime() {
+        this.conn = ConnectToSQL.connect();
+        
         if (conn == null) {
             System.out.println("Failed to connect to the database.");
             return false;
@@ -139,22 +145,19 @@ public class Crimes {
         ResultSet rst = null;
 
         try {
-            // Get the highest existing crime code
             pstmt = conn.prepareStatement("SELECT MAX(Crime_Code) AS MaxCrimeCode FROM Crimes");
             rst = pstmt.executeQuery();
 
-            int nextCrimeCode = 1; // Default starting value
+            int nextCrimeCode = 1; 
             if (rst.next()) {
-                nextCrimeCode = rst.getInt("MaxCrimeCode") + 1; // Next available crime code
+                nextCrimeCode = rst.getInt("MaxCrimeCode") + 1; 
             }
 
-            // Close result set and prepared statement
             rst.close();
             pstmt.close();
 
-            // Insert new crime record
             pstmt = conn.prepareStatement("INSERT INTO Crimes (Crime_Code, Crime_Type, Badge_Number, Date_Committed, Sentence, Criminal_Code) VALUES (?, ?, ?, ?, ?, ?)");
-            pstmt.setInt(1, nextCrimeCode); // Use the generated next crime code
+            pstmt.setInt(1, nextCrimeCode); 
             pstmt.setString(2, crime_type);
             pstmt.setInt(3, badge_number);
             pstmt.setString(4, date);
@@ -187,37 +190,77 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error adding crime: " + e.getMessage());
             return false;
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (rst != null) rst.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    // View crime
-    public ResultSet viewCrime() {
+    public String[] viewCrime(int crime_code) {
+        this.conn = ConnectToSQL.connect();
+
         if (conn == null) {
             System.out.println("Failed to connect to the database.");
             return null;
         }
-        
-        boolean deleted = isDeleted(crime_code);
-        if (deleted == true) {
-            return null;
-        }
-        
+
         PreparedStatement pstmt = null;
         ResultSet rst = null;
 
         try {
+            pstmt = conn.prepareStatement("SELECT Deleted FROM Crimes WHERE Crime_Code = ?");
+            pstmt.setInt(1, crime_code);
+            rst = pstmt.executeQuery();
+
+            if (rst.next() && rst.getInt("Deleted") == 1) {
+                System.out.println("Crime has been deleted.");
+                return null;
+            }
+
             pstmt = conn.prepareStatement("SELECT * FROM Crimes WHERE Crime_Code = ?");
             pstmt.setInt(1, crime_code);
             rst = pstmt.executeQuery();
-            return rst;
+
+            if (rst.next()) {
+                String[] crimeDetails = new String[7];
+                crimeDetails[0] = String.valueOf(rst.getInt("Crime_Code"));
+                crimeDetails[1] = rst.getString("Crime_Type");
+                crimeDetails[2] = rst.getString("Badge_Number") != null 
+                                   ? String.valueOf(rst.getInt("Badge_Number")) 
+                                   : "NULL";
+                crimeDetails[3] = rst.getDate("Date_Committed").toString();
+                crimeDetails[4] = String.valueOf(rst.getInt("Sentence"));
+                crimeDetails[5] = rst.getString("Criminal_Code") != null 
+                                   ? String.valueOf(rst.getInt("Criminal_Code")) 
+                                   : "NULL";
+                crimeDetails[6] = String.valueOf(rst.getInt("Deleted"));
+
+                return crimeDetails;
+            } else {
+                System.out.println("No crime found with the given code.");
+                return null;
+            }
         } catch (Exception e) {
             System.out.println("Error viewing crime: " + e.getMessage());
             return null;
+        } finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
         }
     }
 
-    // Delete crime
     public boolean deleteCrime() {
+        this.conn = ConnectToSQL.connect();
         if (conn == null) {
             System.out.println("Failed to connect to the database.");
             return false;
@@ -235,16 +278,25 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error deleting crime: " + e.getMessage());
             return false;
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
     
-    public ResultSet crimeReport(int month, int year) {
+    public List<String[]> crimeReport(int month, int year) {
+        this.conn = ConnectToSQL.connect();
         if (conn == null) {
             System.out.println("Failed to connect to the database.");
             return null;
         }
 
         PreparedStatement pstmt = null;
+        List<String[]> crimeReportList = new ArrayList<>();
 
         try {
             String sql = "SELECT Crime_Type, COUNT(Crime_Code) AS Crime_Count FROM Crimes WHERE MONTH(Date_Committed) = ? AND YEAR(Date_Committed) = ? AND Deleted = 0 GROUP BY Crime_Type ORDER BY COUNT(Crime_Code) DESC;";
@@ -252,14 +304,30 @@ public class Crimes {
             pstmt.setInt(1, month);
             pstmt.setInt(2, year);
 
-            return pstmt.executeQuery(); 
+            ResultSet rst = pstmt.executeQuery();
+
+            while (rst.next()) {
+                String crimeType = rst.getString("Crime_Type");
+                String crimeCount = String.valueOf(rst.getInt("Crime_Count"));
+                crimeReportList.add(new String[] { crimeType, crimeCount });
+            }
+
+            return crimeReportList;
         } catch (Exception e) {
             System.out.println("Error generating crime report: " + e.getMessage());
             return null;
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public boolean updateCrime(int code, String crime, Date dateCommitted) {
+        this.conn = ConnectToSQL.connect();
         if (conn == null) {
             System.out.println("Failed to connect to the database.");
             return false;
@@ -271,9 +339,8 @@ public class Crimes {
             String sql = "UPDATE Crimes SET Crime_Type = ?, Date_Committed = ? WHERE Crime_Code = ?";
             pstmt = conn.prepareStatement(sql);
 
-            // Set the parameters for the query
             pstmt.setString(1, crime);
-            pstmt.setDate(2, dateCommitted); // Use the provided java.sql.Date
+            pstmt.setDate(2, dateCommitted); 
             pstmt.setInt(3, code);
 
             int rowsUpdated = pstmt.executeUpdate();
@@ -288,60 +355,108 @@ public class Crimes {
         } catch (Exception e) {
             System.out.println("Error updating crime: " + e.getMessage());
             return false;
-        } 
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
-    // Method to retrieve the related officer for a given crime code
-    public ResultSet relatedOfficer(int crime) {
+    public List<String[]> relatedOfficer(int crime) {
+        this.conn = ConnectToSQL.connect();
         if (conn == null) {
             System.out.println("Failed to connect to the database.");
             return null;
         }
 
-        PreparedStatement pstmt = null;
-        ResultSet rst = null;
-        
         boolean deleted = isDeleted(crime);
-        if (deleted == true) {
+        if (deleted) {
+            System.out.println("Crime is marked as deleted.");
             return null;
         }
+
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        List<String[]> officers = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM Officers WHERE Badge_Number = (SELECT Badge_Number FROM Crimes WHERE Crime_Code = ?) AND Deleted = 0";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, crime); // Set the crime code
+            pstmt.setInt(1, crime); 
             rst = pstmt.executeQuery();
-            return rst; 
+            while (rst.next()) {
+                officers.add(new String[] {
+                    String.valueOf(rst.getInt("Badge_Number")),
+                    rst.getString("First_Name"),
+                    rst.getString("Last_Name"),
+                    String.valueOf(rst.getInt("Jail_Code")),
+                    String.valueOf(rst.getDate("Start_Date_Current")),
+                    rst.getString("Active")
+                });
+            }
         } catch (Exception e) {
-            System.out.println("Error retrieving related officer: " + e.getMessage());
-            return null;
+            System.out.println("Error retrieving related officers: " + e.getMessage());
+        } finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
         }
+        return officers; 
     }
 
-    public ResultSet relatedCriminal(int crime) {
+
+    public List<String[]> relatedCriminal(int crime) {
+        this.conn = ConnectToSQL.connect();
         if (conn == null) {
             System.out.println("Failed to connect to the database.");
             return null;
         }
 
         boolean deleted = isDeleted(crime);
-        if (deleted == true) {
+        if (deleted) {
+            System.out.println("Crime is marked as deleted.");
             return null;
         }
 
         PreparedStatement pstmt = null;
         ResultSet rst = null;
+        List<String[]> criminals = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM Criminals WHERE Criminal_Code = (SELECT Criminal_Code FROM Crimes WHERE Crime_Code = ?) AND Deleted = 0";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, crime); // Set the crime code
+            pstmt.setInt(1, crime); 
             rst = pstmt.executeQuery();
-            return rst; // Return the result set
+            
+            while (rst.next()) {
+                criminals.add(new String[] {
+                    String.valueOf(rst.getInt("Criminal_Code")),
+                    rst.getString("First_Name"),
+                    rst.getString("Last_Name"),
+                    String.valueOf(rst.getInt("Total_Sentence")),
+                    String.valueOf(rst.getInt("Jail_Code"))
+                });
+            }
+            return criminals; 
         } catch (Exception e) {
-            System.out.println("Error retrieving related criminal: " + e.getMessage());
-            return null;
+            System.out.println("Error retrieving related criminals: " + e.getMessage());
+        } finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
         }
+        return criminals; 
     }
 
     public ResultSet filterByCrimeType(String crimeType) {
@@ -427,32 +542,5 @@ public class Crimes {
             return null;
         }
     }
-    
-    public List<String> getCrimeTypes() {
-        if (conn == null) {
-            System.out.println("Failed to connect to the database.");
-            return null;
-        }
 
-        PreparedStatement pstmt = null;
-        ResultSet rst = null;
-        List<String> crimeTypes = new ArrayList<>();
-
-        try {
-            String sql = "SELECT DISTINCT Crime_Type FROM Crimes";
-            pstmt = conn.prepareStatement(sql);
-            rst = pstmt.executeQuery();
-
-            while (rst.next()) {
-                String crimeType = rst.getString("Crime_Type");
-                crimeTypes.add(crimeType); 
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error retrieving crime types: " + e.getMessage());
-            return null;
-        }
-
-        return crimeTypes; // Return the list of crime types
-    }
 }
