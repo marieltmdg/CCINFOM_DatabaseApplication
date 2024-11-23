@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="criminalmanagement.*" %>
+<%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,9 +36,23 @@
                             int badgeNum = Integer.parseInt(badgeNumber);
                             Officer officer = new Officer();
                             officer.badge_number = badgeNum;
+                            
+                            String officerRes[] = officer.retrieveOfficer();
+
+                            // record history
+                            OfficerHistory oh = new OfficerHistory();
+                            oh.badge_number = badgeNum;
+                            oh.jail_code = Integer.parseInt(officerRes[5]);
+
+                            String dateStr = officerRes[3];
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            java.util.Date utilDate = sdf.parse(dateStr); 
+                            oh.start_date = new java.sql.Date(utilDate.getTime());
+                            
+                            int ohResult =  oh.recordCurrentAssignment();
                             int result = officer.deleteOfficerSoft();
 
-                            if (result == 1) {
+                            if (result == 1 && ohResult == 1) {
                                 out.println("<table>");
                                 out.println("<thead>");
                                 out.println("<tr><th colspan='2' style='color: white;'>Officer Deleted Successfully</th></tr>");
