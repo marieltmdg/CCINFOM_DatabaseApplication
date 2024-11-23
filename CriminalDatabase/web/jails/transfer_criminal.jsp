@@ -66,9 +66,9 @@
                                 out.println("</table>");
 
                                 if (Integer.parseInt(res[4]) == -1){
-                                    out.println("<script>alert('Criminal is freed. Cannot be transferred.'); window.location.href = 'index.html';</script>");
+                                    out.println("<script>alert('Criminal is freed. Cannot be transferred.'); window.location.href = '../index.html';</script>");
                                 } else {
-                                    out.println("<form action='update_transfer_criminal.jsp' method='post'>");
+                                    out.println("<form action='../update_transfer_criminal.jsp' method='post'>");
                                     out.println("<input type='hidden' name='criminal_code' value='" + criminalCode + "'>");
                                     out.println("<input type='hidden' name='old_jail_code' value='" + res[4] + "'>");
                                     out.println("<input type='hidden' name='date_committed' value='" + res[6] + "'>");
@@ -76,7 +76,7 @@
                                     out.println("<input type='text' id='jail_code' name='jail_code' required class='form-input'><br>");
                                     out.println("<input type='submit' value='Transfer Criminal' class='button'>");
                                     out.println("</form>");
-                                    out.println("<form action='update_release_criminal.jsp' method='post'>");
+                                    out.println("<form action='../update_release_criminal.jsp' method='post'>");
                                     out.println("<input type='hidden' name='criminal_code' value='" + criminalCode + "'>");
                                     out.println("<input type='hidden' name='old_jail_code' value='" + res[4] + "'>");
                                     out.println("<input type='hidden' name='date_committed' value='" + res[6] + "'>");
