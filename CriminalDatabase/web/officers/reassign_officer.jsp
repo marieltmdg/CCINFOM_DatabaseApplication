@@ -76,7 +76,7 @@
                                     out.println("<input type='hidden' name='badge_number' value='" + badgeNumber + "'>");
                                     out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
                                     out.println("<tr><td><label for='jail_code' class='form-label'>New Jail Code:</label></td>");
-                                    out.println("<td><input type='text' id='jail_code' name='jail_code' class='form-input' required></td></tr>");
+                                    out.println("<td><input type='number' id='jail_code' name='jail_code' class='form-input' required></td></tr>");
                                     out.println("<div class='button-container'>");
                                     out.println("<input type='submit' value='Update Jail Code' class='button'>");
                                     out.println("</div>");
@@ -93,7 +93,7 @@
                                 out.println("<input type='hidden' name='active_status' value='" + result[4] + "'>");
                                 if (result[4].equals("F")) {
                                     out.println("<tr><td><label for='jail_code' class='form-label'>New Jail Code:</label></td>");
-                                    out.println("<td><input type='text' id='jail_code' name='jail_code' class='form-input' required></td></tr>");
+                                    out.println("<td><input type='number' id='jail_code' name='jail_code' class='form-input' required></td></tr>");
                                 }
                                 out.println("<div class='button-container'>");
                                 out.println("<input type='submit' value='Update Active' class='button'>");
@@ -121,7 +121,7 @@
                         out.println("</table>");
                     }
                 %>
-                <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
+                <button type="button" class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
             
             </div>
         </div>
