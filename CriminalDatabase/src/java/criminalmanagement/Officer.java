@@ -409,7 +409,8 @@ public class Officer {
             String sql = "SELECT badge_number, first_name, last_name, start_date_current, active, jail_code " +
                 "FROM officers WHERE (active = ? OR ? = 'all') " + 
                 "AND (jail_code = ? OR ? = 'all' OR jail_code IS NULL)"
-                    + "AND deleted = 0;";
+                    + "AND deleted = 0 "
+                    + "ORDER BY badge_number;";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, status);
