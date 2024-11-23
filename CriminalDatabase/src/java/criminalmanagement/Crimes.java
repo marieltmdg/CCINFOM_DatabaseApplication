@@ -72,9 +72,7 @@ public class Crimes {
             System.out.println("Error: " + e.getMessage());
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
                 if (conn != null) conn.close();
-                if (rst != null) rst.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -156,8 +154,6 @@ public class Crimes {
             return false;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -230,8 +226,6 @@ public class Crimes {
             return false;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -265,8 +259,6 @@ public class Crimes {
             return null;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -297,7 +289,6 @@ public class Crimes {
             return false;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -327,7 +318,6 @@ public class Crimes {
             return null;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -367,7 +357,6 @@ public class Crimes {
             return false;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -403,8 +392,6 @@ public class Crimes {
             return null;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -439,8 +426,6 @@ public class Crimes {
             return null;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -470,8 +455,6 @@ public class Crimes {
             return null;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -499,8 +482,6 @@ public class Crimes {
             return null;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -530,8 +511,6 @@ public class Crimes {
             return null;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -561,8 +540,6 @@ public class Crimes {
             return null;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -597,8 +574,6 @@ public class Crimes {
             return null;
         } finally {
             try {
-                if (pstmt != null) pstmt.close();
-                if (rst != null) rst.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
