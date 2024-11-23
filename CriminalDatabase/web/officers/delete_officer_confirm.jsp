@@ -39,17 +39,20 @@
                             
                             String officerRes[] = officer.retrieveOfficer();
 
-                            // record history
-                            OfficerHistory oh = new OfficerHistory();
-                            oh.badge_number = badgeNum;
-                            oh.jail_code = Integer.parseInt(officerRes[5]);
+                            // record history, only if currently active
+                            int ohResult = 1;
+                            if (officerRes[4] == "T"){
+                                OfficerHistory oh = new OfficerHistory();
+                                oh.badge_number = badgeNum;
+                                oh.jail_code = Integer.parseInt(officerRes[5]);
 
-                            String dateStr = officerRes[3];
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                            java.util.Date utilDate = sdf.parse(dateStr); 
-                            oh.start_date = new java.sql.Date(utilDate.getTime());
-                            
-                            int ohResult =  oh.recordCurrentAssignment();
+                                String dateStr = officerRes[3];
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                java.util.Date utilDate = sdf.parse(dateStr); 
+                                oh.start_date = new java.sql.Date(utilDate.getTime());
+
+                                ohResult =  oh.recordCurrentAssignment();
+                            }
                             int result = officer.deleteOfficerSoft();
 
                             if (result == 1 && ohResult == 1) {
