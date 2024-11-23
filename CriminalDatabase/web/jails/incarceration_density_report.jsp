@@ -53,7 +53,7 @@
                     List<String[]> jails2 = jail.generateReportCriminalPart(nYear, nMonth);
 
                     if (jails1 == null || jails1.isEmpty() || jails2 == null || jails2.isEmpty()) {
-                        out.println("<script>alert('No jails match the criteria.'); window.location.href = 'index.html';</script>");
+                        out.println("<script>alert('No jails match the criteria.'); window.location.href = '../index.html';</script>");
                     } else {
                         out.println("<table border='1'>");
                         out.println("<thead>");

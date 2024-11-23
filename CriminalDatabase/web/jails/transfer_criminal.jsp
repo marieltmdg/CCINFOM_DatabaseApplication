@@ -86,13 +86,13 @@
 
 
                             } else {
-                                out.println("<script>alert('Criminal does not exist.'); window.location.href = 'index.html';</script>");
+                                out.println("<script>alert('Criminal does not exist.'); window.location.href = '../index.html';</script>");
                             }
                         } catch (Exception e) {
-                            out.println("<script>alert('Invalid input.'); window.location.href = 'index.html';</script>");
+                            out.println("<script>alert('Invalid input.'); window.location.href = '../index.html';</script>");
                         }
                     } else {
-                        out.println("<script>alert('No input.'); window.location.href = 'index.html';</script>");
+                        out.println("<script>alert('No input.'); window.location.href = '../index.html';</script>");
                     }
                 %>
                 <button class="button" id="roboto" onclick="window.location.href='../index.html'" style="margin-top: 2vh; margin-bottom: 0px; width: 20%;">Back</button>
